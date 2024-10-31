@@ -2,6 +2,7 @@ package com.example.jsavery_pokedex.data.datasource
 
 import com.example.jsavery_pokedex.data.model.PokemonResponse
 import com.example.jsavery_pokedex.mock.MockData
+import com.example.jsavery_pokedex.presentation.MainViewModel.Companion.FIRST_PAGE
 import com.example.jsavery_pokedex.services.PokemonService
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -45,20 +46,32 @@ class PokemonDataSourceTest {
     }
 
     @Test
-    fun `WHEN getPokemonList returns success THEN API call is successful`() = runTest {
-        // given
-        val data = listOf(MockData.MOCK_POKEMON_SQUIRTLE)
-        every { mockResponse.data } returns data
-        val mockCall: Response<PokemonResponse> = Response.success(mockResponse)
-        coEvery { mockPokemonService.getPokemonList() } returns mockCall
+    fun `WHEN getPokemonList returns success THEN API call is successful and WHEN loads next page THEN success`() =
+        runTest {
+            // given
+            val data = listOf(MockData.MOCK_POKEMON_SQUIRTLE)
+            every { mockResponse.data } returns data
+            val mockCall: Response<PokemonResponse> = Response.success(mockResponse)
+            coEvery { mockPokemonService.getPokemonList(FIRST_PAGE) } returns mockCall
 
-        // when
-        val result = pokemonDataSource.getPokemonList()
+            // when
+            var result = pokemonDataSource.getPokemonList(FIRST_PAGE)
 
-        // then
-        coVerify { mockPokemonService.getPokemonList() }
-        assertEquals(mockCall.body()?.data, result?.data)
-    }
+            // then
+            coVerify { mockPokemonService.getPokemonList(FIRST_PAGE) }
+            assertEquals(mockCall.body()?.data, result?.data)
+
+            // and given
+            coEvery { mockPokemonService.getPokemonList(2) } returns mockCall
+
+            // and when
+            result = pokemonDataSource.getPokemonList(2)
+
+            // and then
+            coVerify(exactly = 1) { mockPokemonService.getPokemonList(FIRST_PAGE) }
+            coVerify(exactly = 1) { mockPokemonService.getPokemonList(2) }
+            assertEquals(mockCall.body()?.data, result?.data)
+        }
 
     @Test(expected = HttpException::class)
     fun `WHEN getPokemonList returns error THEN API call fails`() = runTest {
@@ -68,13 +81,13 @@ class PokemonDataSourceTest {
         ).errorBody()
         val mockCall: Response<PokemonResponse> =
             Response.error(HTTP_INTERNAL_ERROR, responseBody!!)
-        coEvery { mockPokemonService.getPokemonList() } returns mockCall
+        coEvery { mockPokemonService.getPokemonList(FIRST_PAGE) } returns mockCall
 
         // when
-        val result = pokemonDataSource.getPokemonList()
+        val result = pokemonDataSource.getPokemonList(FIRST_PAGE)
 
         // then
-        coVerify { mockPokemonService.getPokemonList() }
+        coVerify { mockPokemonService.getPokemonList(FIRST_PAGE) }
         assertEquals(result, HttpException(mockCall))
     }
 

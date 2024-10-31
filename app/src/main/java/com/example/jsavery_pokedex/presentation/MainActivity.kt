@@ -40,7 +40,8 @@ fun PokedexApp(viewModel: MainViewModel) {
                 .fillMaxSize()
         ) { innerPadding ->
             PokemonScreen(
-                uiState = uiState, modifier = Modifier.padding(innerPadding)
+                uiState = uiState, modifier = Modifier.padding(innerPadding),
+                onLoadMore = { viewModel.onLoadMore(it) }
             )
         }
     }
@@ -51,6 +52,12 @@ fun PokedexApp(viewModel: MainViewModel) {
 @Composable
 fun PokemonPreview() {
     PokedexTheme {
-        PokemonScreen(uiState = PokemonListUiState.Success(MOCK_POKEMON_RESPONSE))
+        PokemonScreen(
+            uiState = PokemonListUiState.Success(
+                MOCK_POKEMON_RESPONSE,
+                isLoadingMore = false
+            ),
+            onLoadMore = {}
+        )
     }
 }

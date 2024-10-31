@@ -54,7 +54,13 @@ class MockData {
         val MOCK_POKEMON_RESPONSE = listOf(
             MOCK_POKEMON_BULBASAUR,
             MOCK_POKEMON_CHARMANDER,
-            MOCK_POKEMON_SQUIRTLE
+            MOCK_POKEMON_SQUIRTLE,
+            MOCK_POKEMON_BULBASAUR,
+            MOCK_POKEMON_CHARMANDER,
+            MOCK_POKEMON_SQUIRTLE,
+            MOCK_POKEMON_SQUIRTLE,
+            MOCK_POKEMON_BULBASAUR,
+            MOCK_POKEMON_CHARMANDER
         )
     }
 }

@@ -9,8 +9,8 @@ class PokemonDataSourceImpl(
     private val pokeService: PokemonService = CoreNetworkService.getInstance().pokemonApi
 ) : PokemonDataSource {
 
-    override suspend fun getPokemonList(): PokemonResponse? {
-        val response = pokeService.getPokemonList()
+    override suspend fun getPokemonList(nextPage: Int): PokemonResponse? {
+        val response = pokeService.getPokemonList(nextPage)
         if (response.isSuccessful) {
             return response.body()
         } else {
@@ -20,5 +20,5 @@ class PokemonDataSourceImpl(
 }
 
 interface PokemonDataSource {
-    suspend fun getPokemonList(): PokemonResponse?
+    suspend fun getPokemonList(nextPage: Int): PokemonResponse?
 }

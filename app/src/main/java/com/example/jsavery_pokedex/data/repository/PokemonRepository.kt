@@ -13,9 +13,9 @@ class PokemonRepositoryImpl(
     private val remoteDataSource: PokemonDataSource = PokemonDataSourceImpl()
 ) : PokemonRepository {
 
-    override fun getPokemonList(): Flow<Result<PokemonResponse>> = flow {
+    override fun getPokemonList(nextPage: Int): Flow<Result<PokemonResponse>> = flow {
         try {
-            remoteDataSource.getPokemonList()?.let { response ->
+            remoteDataSource.getPokemonList(nextPage)?.let { response ->
                 emit(Result.Success(response))
             } ?: emit(Result.Error(NullPointerException()))
         } catch (e: Exception) {
@@ -26,5 +26,5 @@ class PokemonRepositoryImpl(
 }
 
 interface PokemonRepository {
-    fun getPokemonList(): Flow<Result<PokemonResponse>>
+    fun getPokemonList(nextPage: Int): Flow<Result<PokemonResponse>>
 }
