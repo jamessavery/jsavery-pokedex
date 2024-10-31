@@ -5,8 +5,10 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class PokemonResponse(
-    @Json(name = "data")
-    val data: List<Pokemon>
+    @Json(name = "count") val count: Int,
+    @Json(name = "next") val next: Int?,
+    @Json(name = "previous") val previous: Int?,
+    @Json(name = "results") val data: List<Pokemon>
 )
 
 @JsonClass(generateAdapter = true)
