@@ -4,6 +4,7 @@ import com.example.jsavery_pokedex.data.datasource.PokemonDataSource
 import com.example.jsavery_pokedex.data.model.PokemonResponse
 import com.example.jsavery_pokedex.domain.util.Result
 import com.example.jsavery_pokedex.mock.MockData
+import com.example.jsavery_pokedex.presentation.MainViewModel.Companion.FIRST_PAGE
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
@@ -20,7 +21,7 @@ import org.junit.Before
 import org.junit.Test
 import java.io.IOException
 
-class PokemonRepositoryImplTest {
+class PokemonRepositoryTest {
 
     private lateinit var pokemonRepository: PokemonRepository
     private val mockPokeDataSource = mockk<PokemonDataSource>(relaxed = true)
@@ -40,17 +41,29 @@ class PokemonRepositoryImplTest {
     }
 
     @Test
-    fun `WHEN getPokemonList returns success THEN API call is successful`() = runTest {
+    fun `WHEN getPokemonList returns success THEN API call is successful and WHEN loads next page THEN success`() = runTest {
         // given
         val data = listOf(MockData.MOCK_POKEMON_SQUIRTLE)
         every { mockResponse.data } returns data
-        coEvery { mockPokeDataSource.getPokemonList() } returns mockResponse
+        coEvery { mockPokeDataSource.getPokemonList(FIRST_PAGE) } returns mockResponse
 
         // when
-        val result = pokemonRepository.getPokemonList().first()
+        var result = pokemonRepository.getPokemonList(FIRST_PAGE).first()
 
         // then
-        coVerify { mockPokeDataSource.getPokemonList() }
+        coVerify { mockPokeDataSource.getPokemonList(FIRST_PAGE) }
+        assertTrue(result is Result.Success)
+        assertEquals(Result.Success(mockResponse), (result as Result.Success))
+
+        // and given
+        coEvery { mockPokeDataSource.getPokemonList(2) } returns mockResponse
+
+        // and when
+        result = pokemonRepository.getPokemonList(2).first()
+
+        // and then
+        coVerify(exactly = 1) { mockPokeDataSource.getPokemonList(FIRST_PAGE) }
+        coVerify(exactly = 1) { mockPokeDataSource.getPokemonList(2) }
         assertTrue(result is Result.Success)
         assertEquals(Result.Success(mockResponse), (result as Result.Success))
     }
@@ -58,13 +71,13 @@ class PokemonRepositoryImplTest {
     @Test
     fun `WHEN getPokemonList returns null THEN return error`() = runTest {
         // given
-        coEvery { mockPokeDataSource.getPokemonList() } returns null
+        coEvery { mockPokeDataSource.getPokemonList(FIRST_PAGE) } returns null
 
         // when
-        val result = pokemonRepository.getPokemonList().first()
+        val result = pokemonRepository.getPokemonList(FIRST_PAGE).first()
 
         // then
-        coVerify { mockPokeDataSource.getPokemonList() }
+        coVerify { mockPokeDataSource.getPokemonList(FIRST_PAGE) }
         assertTrue(result is Result.Error)
         val errorResult = result as Result.Error
         assert(errorResult.exception is NullPointerException)
@@ -74,13 +87,13 @@ class PokemonRepositoryImplTest {
     fun `WHEN getPokemonList fails THEN return error`() = runTest {
         // given
         val expectedException = IOException("Network error")
-        coEvery { mockPokeDataSource.getPokemonList() } throws expectedException
+        coEvery { mockPokeDataSource.getPokemonList(FIRST_PAGE) } throws expectedException
 
         // when
-        val result = pokemonRepository.getPokemonList().first()
+        val result = pokemonRepository.getPokemonList(FIRST_PAGE).first()
 
         // then
-        coVerify { mockPokeDataSource.getPokemonList() }
+        coVerify { mockPokeDataSource.getPokemonList(FIRST_PAGE) }
         assertTrue(result is Result.Error)
         val errorResult = result as Result.Error
         assert(errorResult.exception == expectedException)
