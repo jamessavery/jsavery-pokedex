@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">Pokedex</string>
+    <string name="app_name">Pokédex</string>
+
+    <string name="search_bar_title">Pokédex</string>
+    <string name="search_bar_text">Search by name or #</string>
 
     <string name="generic_error_message">Something went wrong, please try again later</string>
 </resources>
