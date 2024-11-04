@@ -15,12 +15,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.example.jsavery_pokedex.data.model.Pokemon
+import com.example.jsavery_pokedex.presentation.ui.dismissKeyboardOnTouch
 
 @Composable
 fun PokemonItem(pokemon: Pokemon, modifier: Modifier = Modifier) {
     Card(
         modifier = modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .dismissKeyboardOnTouch(),
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Row(
