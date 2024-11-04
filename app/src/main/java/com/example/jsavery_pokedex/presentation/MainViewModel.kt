@@ -1,6 +1,5 @@
 package com.example.jsavery_pokedex.presentation
 
-import androidx.annotation.OpenForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
