@@ -36,15 +36,13 @@ fun PokedexSearchBar(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier
-            .padding(horizontal = 15.dp, vertical = 10.dp)
-
+        modifier = modifier.padding(horizontal = 15.dp, vertical = 10.dp)
     ) {
         Text(
             text = stringResource(R.string.search_bar_title),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 25.dp),
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 25.dp)
         )
         Row(
             modifier = Modifier
@@ -55,8 +53,7 @@ fun PokedexSearchBar(
             OutlinedTextField(
                 value = searchQuery,
                 onValueChange = onSearchQueryChange,
-                modifier = Modifier
-                    .weight(0.85f),
+                modifier = Modifier.weight(0.85f),
                 placeholder = {
                     Text(
                         text = stringResource(R.string.search_bar_text),
@@ -84,11 +81,11 @@ fun PokedexSearchBar(
             )
 
             OutlinedIconButton(
+                onClick = {},
                 modifier = Modifier
-                    .background(Color.White)
                     .weight(0.15f)
-                    .fillMaxHeight(),
-                onClick = { },
+                    .fillMaxHeight()
+                    .background(Color.White),
                 shape = RoundedCornerShape(10.dp),
                 border = BorderStroke(1.dp, Color.LightGray)
             ) {
@@ -96,13 +93,10 @@ fun PokedexSearchBar(
                     painter = painterResource(id = R.drawable.filter),
                     contentDescription = null,
                     tint = PokePurple,
-                    modifier = Modifier
-                        .size(45.dp)
-
+                    modifier = Modifier.size(45.dp)
                 )
             }
         }
-
     }
 }
 

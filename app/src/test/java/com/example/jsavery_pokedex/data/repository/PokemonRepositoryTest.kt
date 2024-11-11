@@ -4,7 +4,7 @@ import com.example.jsavery_pokedex.data.datasource.PokemonDataSource
 import com.example.jsavery_pokedex.data.model.PokemonResponse
 import com.example.jsavery_pokedex.domain.util.Result
 import com.example.jsavery_pokedex.mock.MockData
-import com.example.jsavery_pokedex.presentation.MainViewModel.Companion.FIRST_PAGE
+import com.example.jsavery_pokedex.presentation.viewmodel.MainViewModel.Companion.FIRST_PAGE
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
@@ -20,7 +20,7 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import java.io.IOException
-
+// TODO Issue-16 add missing tests
 class PokemonRepositoryTest {
 
     private lateinit var pokemonRepository: PokemonRepository

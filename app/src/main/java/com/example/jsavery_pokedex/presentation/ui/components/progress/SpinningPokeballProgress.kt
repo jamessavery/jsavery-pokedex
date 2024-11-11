@@ -1,4 +1,4 @@
-package com.example.jsavery_pokedex.presentation.ui.progress
+package com.example.jsavery_pokedex.presentation.ui.components.progress
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
