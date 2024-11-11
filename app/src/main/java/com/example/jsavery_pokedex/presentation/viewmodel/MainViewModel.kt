@@ -1,21 +1,24 @@
-package com.example.jsavery_pokedex.presentation
+package com.example.jsavery_pokedex.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.jsavery_pokedex.data.model.Pokemon
 import com.example.jsavery_pokedex.data.model.PokemonResponse
 import com.example.jsavery_pokedex.data.repository.PokemonRepository
-import com.example.jsavery_pokedex.data.repository.PokemonRepositoryImpl
+import com.example.jsavery_pokedex.domain.PokemonListManager
 import com.example.jsavery_pokedex.domain.util.Result
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(
-    private val repository: PokemonRepository
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val repository: PokemonRepository,
+    private val pokemonListManager: PokemonListManager
 ) : ViewModel() {
 
     private val _pokemonListUiState =
@@ -30,22 +33,24 @@ class MainViewModel(
         viewModelScope.launch {
             repository.getPokemonList(FIRST_PAGE).collect {
                 when (it) {
-                    is Result.Success -> onPokemonSuccess(it.data)
-                    is Result.Error -> onPokemonFailure(it.exception)
+                    is Result.Success -> onPokemonListSuccess(it.data)
+                    is Result.Error -> onPokemonListFailure(it.exception)
                 }
             }
         }
     }
 
-    private fun onPokemonSuccess(pokemonResponse: PokemonResponse) {
+    private fun onPokemonListSuccess(pokemonResponse: PokemonResponse) {
+        pokemonListManager.updatePokemonList(pokemonResponse.data)
+
         _pokemonListUiState.value = PokemonListUiState.Success(
-            pokemonList = processPokemonData(pokemonResponse.data),
+            pokemonList = processPokemonList(pokemonResponse.data),
             nextPage = pokemonResponse.next ?: FIRST_PAGE,
             isLoadingMore = false
         )
     }
 
-    private fun processPokemonData(data: List<Pokemon>): List<Pokemon> {
+    private fun processPokemonList(data: List<Pokemon>): List<Pokemon> {
         val currentState = _pokemonListUiState.value
         val pokemonList = (currentState as? PokemonListUiState.Success)?.pokemonList
 
@@ -57,7 +62,7 @@ class MainViewModel(
     }
 
 
-    private fun onPokemonFailure(error: Throwable) {
+    private fun onPokemonListFailure(error: Throwable) {
         _pokemonListUiState.value = PokemonListUiState.Error(
             throwable = error
         )
@@ -74,8 +79,8 @@ class MainViewModel(
 
             repository.getPokemonList(nextPage).collect { result ->
                 when (result) {
-                    is Result.Success -> onPokemonSuccess(result.data)
-                    is Result.Error -> onPokemonFailure(result.exception)
+                    is Result.Success -> onPokemonListSuccess(result.data)
+                    is Result.Error -> onPokemonListFailure(result.exception)
                 }
             }
         }
@@ -85,16 +90,6 @@ class MainViewModel(
         const val FIRST_PAGE = 1
     }
 
-}
-
-class MainViewModelFactory : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return MainViewModel(PokemonRepositoryImpl()) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
 }
 
 sealed interface PokemonListUiState {
