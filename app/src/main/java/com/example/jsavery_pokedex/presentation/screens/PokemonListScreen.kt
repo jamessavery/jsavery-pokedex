@@ -27,19 +27,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jsavery_pokedex.R
 import com.example.jsavery_pokedex.mock.MockData.Companion.MOCK_POKEMON_RESPONSE
-import com.example.jsavery_pokedex.presentation.PokemonListUiState
+import com.example.jsavery_pokedex.presentation.viewmodel.PokemonListUiState
 import com.example.jsavery_pokedex.presentation.ui.components.PokedexSearchBar
 import com.example.jsavery_pokedex.presentation.ui.components.PokemonItem
 import com.example.jsavery_pokedex.presentation.ui.dismissKeyboardOnTouch
-import com.example.jsavery_pokedex.presentation.ui.progress.SpinningPokeballProgress
+import com.example.jsavery_pokedex.presentation.ui.components.progress.SpinningPokeballProgress
 import com.example.jsavery_pokedex.presentation.ui.theme.PokedexTheme
 import kotlinx.coroutines.flow.distinctUntilChanged
 
 const val PAGINATE_SCROLL_RATIO = 0.6 // User scrolls 60% of page before triggering next load
 
 @Composable
-fun PokemonScreen(
-    uiState: PokemonListUiState, modifier: Modifier = Modifier, onLoadMore: (Int) -> Unit
+fun PokemonListScreen(
+    uiState: PokemonListUiState,
+    modifier: Modifier = Modifier,
+    onLoadMore: (Int) -> Unit,
+    onPokemonClick: (Int) -> Unit
 ) {
     when (uiState) {
         is PokemonListUiState.Loading -> {
@@ -66,16 +69,22 @@ fun PokemonScreen(
         }
 
         is PokemonListUiState.Success -> {
-            PokemonSuccessScreen(uiState, modifier, onLoadMore)
+            PokemonListSuccessContent(
+                uiState,
+                modifier,
+                onLoadMore,
+                onPokemonClick
+            )
         }
     }
 }
 
 @Composable
-fun PokemonSuccessScreen(
+fun PokemonListSuccessContent(
     uiState: PokemonListUiState.Success,
     modifier: Modifier,
-    onLoadMore: (Int) -> Unit
+    onLoadMore: (Int) -> Unit,
+    onPokemonClick: (Int) -> Unit
 ) {
     var searchQuery by remember { mutableStateOf("") }
     val listState = rememberLazyListState()
@@ -111,7 +120,10 @@ fun PokemonSuccessScreen(
                     .dismissKeyboardOnTouch()
             ) {
                 items(filteredList) { pokemon ->
-                    PokemonItem(pokemon)
+                    PokemonItem(
+                        pokemon = pokemon,
+                        onPokemonClick = onPokemonClick
+                    )
                 }
             }
 
@@ -140,8 +152,12 @@ fun PokemonSuccessScreen(
 @Composable
 fun PokemonPreview() {
     PokedexTheme {
-        PokemonScreen(uiState = PokemonListUiState.Success(
-            MOCK_POKEMON_RESPONSE, isLoadingMore = false
-        ), onLoadMore = {})
+        PokemonListScreen(
+            uiState = PokemonListUiState.Success(
+                MOCK_POKEMON_RESPONSE, isLoadingMore = false
+            ),
+            onLoadMore = {},
+            onPokemonClick = {}
+        )
     }
 }

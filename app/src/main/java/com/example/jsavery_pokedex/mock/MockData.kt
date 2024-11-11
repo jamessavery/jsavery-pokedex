@@ -5,7 +5,7 @@ import com.example.jsavery_pokedex.data.model.PokemonImages
 
 class MockData {
     companion object {
-        private val MOCK_POKEMON_BULBASAUR = Pokemon(
+        val MOCK_POKEMON_BULBASAUR = Pokemon(
             id = 1,
             name = "Bulbasaur",
             abilities = listOf("Overgrow", "Chlorophyll"),
