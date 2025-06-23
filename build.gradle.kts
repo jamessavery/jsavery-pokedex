@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.kapt) apply false
     alias(libs.plugins.compose.compiler) apply false
-    id("com.diffplug.spotless") version "7.0.4" apply false
+    alias(libs.plugins.spotless) apply false
 }
 
 subprojects {
