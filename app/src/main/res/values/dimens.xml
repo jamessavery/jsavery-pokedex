@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="details_horizontal_padding">16</dimen>
-    <dimen name="details_stat_start_padding">25</dimen>
+    <dimen name="details_horizontal_padding">16dp</dimen>
+    <dimen name="details_stat_start_padding">25dp</dimen>
 </resources>

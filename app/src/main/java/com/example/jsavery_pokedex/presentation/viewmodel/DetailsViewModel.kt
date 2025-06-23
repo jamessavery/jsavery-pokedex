@@ -1,6 +1,7 @@
 package com.example.jsavery_pokedex.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.jsavery_pokedex.data.mapper.mapToEvolutionItem
 import com.example.jsavery_pokedex.data.model.Pokemon
 import com.example.jsavery_pokedex.data.repository.PokemonRepository
@@ -10,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,10 +23,12 @@ class DetailsViewModel @Inject constructor(
     private val _detailsUiState = MutableStateFlow(PokemonDetailsUiState())
     val detailsUiState = _detailsUiState.asStateFlow()
 
-    suspend fun getPokemonDetail(id: Int) {
-        pokemonListManager.getPokemonById(id)?.let { localPokemon ->
-            onPokemonDetailSuccess(localPokemon)
-        } ?: fetchPokemonDetails(id)
+    fun getPokemonDetail(id: Int) {
+        viewModelScope.launch {
+            pokemonListManager.getPokemonById(id)?.let { localPokemon ->
+                onPokemonDetailSuccess(localPokemon)
+            } ?: fetchPokemonDetails(id)
+        }
     }
 
     fun getPokemonEvolutionDetail(id: Int) = pokemonListManager.getPokemonById(id)?.mapToEvolutionItem()
