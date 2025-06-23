@@ -20,36 +20,37 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.jsavery_pokedex.R
 
 @Composable
-fun SpinningPokeballProgress(
-    modifier: Modifier = Modifier
-) {
+fun SpinningPokeballProgress(modifier: Modifier = Modifier) {
     val infiniteTransition = rememberInfiniteTransition(label = "pokeball_spin")
 
     // Rotation animation
     val rotation by infiniteTransition.animateFloat(
         initialValue = 0f,
         targetValue = 360f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(
-                durationMillis = 1500,
-                easing = LinearEasing
+        animationSpec =
+            infiniteRepeatable(
+                animation =
+                    tween(
+                        durationMillis = 1500,
+                        easing = LinearEasing,
+                    ),
+                repeatMode = RepeatMode.Restart,
             ),
-            repeatMode = RepeatMode.Restart
-        ),
-        label = "pokeball_rotation"
+        label = "pokeball_rotation",
     )
 
     Image(
         painter = painterResource(id = R.drawable.pokeball_progress),
         contentDescription = "Loading",
-        modifier = modifier
-            .fillMaxSize()
-            .graphicsLayer {
-                scaleX = 1f
-                scaleY = 1f
-                rotationZ = rotation
-            },
-        contentScale = ContentScale.Fit
+        modifier =
+            modifier
+                .fillMaxSize()
+                .graphicsLayer {
+                    scaleX = 1f
+                    scaleY = 1f
+                    rotationZ = rotation
+                },
+        contentScale = ContentScale.Fit,
     )
 }
 
@@ -57,7 +58,8 @@ fun SpinningPokeballProgress(
 @Preview(showBackground = true)
 fun SpinningPokeballPreview() {
     Box(
-        modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center,
     ) {
         SpinningPokeballProgress()
     }

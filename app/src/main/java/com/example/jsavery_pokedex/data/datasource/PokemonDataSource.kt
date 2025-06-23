@@ -6,30 +6,32 @@ import com.example.jsavery_pokedex.services.PokemonService
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class PokemonDataSourceImpl @Inject constructor(
-    private val pokeService: PokemonService
-) : PokemonDataSource {
+class PokemonDataSourceImpl
+    @Inject
+    constructor(
+        private val pokeService: PokemonService,
+    ) : PokemonDataSource {
+        override suspend fun getPokemonList(nextPage: Int): PokemonResponse? {
+            val response = pokeService.getPokemonList(nextPage)
+            if (response.isSuccessful) {
+                return response.body()
+            } else {
+                throw HttpException(response)
+            }
+        }
 
-    override suspend fun getPokemonList(nextPage: Int): PokemonResponse? {
-        val response = pokeService.getPokemonList(nextPage)
-        if (response.isSuccessful) {
-            return response.body()
-        } else {
-            throw HttpException(response)
+        override suspend fun getPokemonDetail(id: Int): Pokemon? {
+            val response = pokeService.getPokemonDetail(id)
+            if (response.isSuccessful) {
+                return response.body()
+            } else {
+                throw HttpException(response)
+            }
         }
     }
-
-    override suspend fun getPokemonDetail(id: Int): Pokemon? {
-        val response = pokeService.getPokemonDetail(id)
-        if (response.isSuccessful) {
-            return response.body()
-        } else {
-            throw HttpException(response)
-        }
-    }
-}
 
 interface PokemonDataSource {
     suspend fun getPokemonList(nextPage: Int): PokemonResponse?
+
     suspend fun getPokemonDetail(id: Int): Pokemon?
 }

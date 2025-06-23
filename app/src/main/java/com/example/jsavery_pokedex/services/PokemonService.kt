@@ -9,11 +9,11 @@ import retrofit2.http.Query
 interface PokemonService {
     @GET("pokemon")
     suspend fun getPokemonList(
-        @Query("page") page: Int
+        @Query("page") page: Int,
     ): Response<PokemonResponse>
 
     @GET("id")
     suspend fun getPokemonDetail(
-        @Query("id") id: Int
+        @Query("id") id: Int,
     ): Response<Pokemon>
 }

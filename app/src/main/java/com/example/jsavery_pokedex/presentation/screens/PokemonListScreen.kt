@@ -27,12 +27,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jsavery_pokedex.R
 import com.example.jsavery_pokedex.mock.MockData.Companion.MOCK_POKEMON_RESPONSE
-import com.example.jsavery_pokedex.presentation.viewmodel.PokemonListUiState
 import com.example.jsavery_pokedex.presentation.ui.components.PokedexSearchBar
 import com.example.jsavery_pokedex.presentation.ui.components.PokemonItem
-import com.example.jsavery_pokedex.presentation.ui.dismissKeyboardOnTouch
 import com.example.jsavery_pokedex.presentation.ui.components.progress.SpinningPokeballProgress
+import com.example.jsavery_pokedex.presentation.ui.dismissKeyboardOnTouch
 import com.example.jsavery_pokedex.presentation.ui.theme.PokedexTheme
+import com.example.jsavery_pokedex.presentation.viewmodel.PokemonListUiState
 import kotlinx.coroutines.flow.distinctUntilChanged
 
 const val PAGINATE_SCROLL_RATIO = 0.6 // User scrolls 60% of page before triggering next load
@@ -42,12 +42,13 @@ fun PokemonListScreen(
     uiState: PokemonListUiState,
     modifier: Modifier = Modifier,
     onLoadMore: (Int) -> Unit,
-    onPokemonClick: (Int) -> Unit
+    onPokemonClick: (Int) -> Unit,
 ) {
     when (uiState) {
         is PokemonListUiState.Loading -> {
             Box(
-                modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
             ) {
                 SpinningPokeballProgress()
             }
@@ -55,15 +56,16 @@ fun PokemonListScreen(
 
         is PokemonListUiState.Error -> {
             Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .dismissKeyboardOnTouch(),
-                contentAlignment = Alignment.Center
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .dismissKeyboardOnTouch(),
+                contentAlignment = Alignment.Center,
             ) {
                 Text(
                     text = stringResource(R.string.generic_error_message),
                     color = MaterialTheme.colorScheme.error,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
             }
         }
@@ -73,7 +75,7 @@ fun PokemonListScreen(
                 uiState,
                 modifier,
                 onLoadMore,
-                onPokemonClick
+                onPokemonClick,
             )
         }
     }
@@ -84,65 +86,73 @@ fun PokemonListSuccessContent(
     uiState: PokemonListUiState.Success,
     modifier: Modifier,
     onLoadMore: (Int) -> Unit,
-    onPokemonClick: (Int) -> Unit
+    onPokemonClick: (Int) -> Unit,
 ) {
     var searchQuery by remember { mutableStateOf("") }
     val listState = rememberLazyListState()
 
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(Color.White)
+        modifier =
+            modifier
+                .fillMaxSize()
+                .background(Color.White),
     ) {
         PokedexSearchBar(
             searchQuery = searchQuery,
             onSearchQueryChange = { searchQuery = it },
-            modifier = modifier
+            modifier = modifier,
         )
 
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp),
         ) {
-            val filteredList = uiState.pokemonList.filter { pokemon ->
-                (pokemon.name.contains(
-                    searchQuery,
-                    ignoreCase = true
-                )) || (pokemon.id.toString() == searchQuery)
-            }
+            val filteredList =
+                uiState.pokemonList.filter { pokemon ->
+                    (
+                        pokemon.name.contains(
+                            searchQuery,
+                            ignoreCase = true,
+                        )
+                    ) ||
+                        (pokemon.id.toString() == searchQuery)
+                }
 
             LazyColumn(
                 state = listState,
                 verticalArrangement = Arrangement.spacedBy(25.dp),
-                modifier = Modifier
-                    .fillMaxSize()
-                    .dismissKeyboardOnTouch()
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .dismissKeyboardOnTouch(),
             ) {
                 items(filteredList) { pokemon ->
                     PokemonItem(
                         pokemon = pokemon,
-                        onPokemonClick = onPokemonClick
+                        onPokemonClick = onPokemonClick,
                     )
                 }
             }
 
             // Pagination LaunchedEffect
             LaunchedEffect(listState, uiState.nextPage) {
-                snapshotFlow { listState.layoutInfo }.distinctUntilChanged { old, new ->
-                    old.visibleItemsInfo.lastOrNull()?.index == new.visibleItemsInfo.lastOrNull()?.index
-                }.collect { layoutInfo ->
-                    val lastVisibleIndex =
-                        layoutInfo.visibleItemsInfo.lastOrNull()?.index
-                    val totalItems = layoutInfo.totalItemsCount
+                snapshotFlow { listState.layoutInfo }
+                    .distinctUntilChanged { old, new ->
+                        old.visibleItemsInfo.lastOrNull()?.index == new.visibleItemsInfo.lastOrNull()?.index
+                    }.collect { layoutInfo ->
+                        val lastVisibleIndex =
+                            layoutInfo.visibleItemsInfo.lastOrNull()?.index
+                        val totalItems = layoutInfo.totalItemsCount
 
-                    if (lastVisibleIndex != null && totalItems > 0) {
-                        val threshold = (totalItems * PAGINATE_SCROLL_RATIO).toInt()
-                        if (lastVisibleIndex >= threshold) {
-                            onLoadMore(uiState.nextPage)
+                        if (lastVisibleIndex != null && totalItems > 0) {
+                            val threshold = (totalItems * PAGINATE_SCROLL_RATIO).toInt()
+                            if (lastVisibleIndex >= threshold) {
+                                onLoadMore(uiState.nextPage)
+                            }
                         }
                     }
-                }
             }
         }
     }
@@ -153,11 +163,13 @@ fun PokemonListSuccessContent(
 fun PokemonPreview() {
     PokedexTheme {
         PokemonListScreen(
-            uiState = PokemonListUiState.Success(
-                MOCK_POKEMON_RESPONSE, isLoadingMore = false
-            ),
+            uiState =
+                PokemonListUiState.Success(
+                    MOCK_POKEMON_RESPONSE,
+                    isLoadingMore = false,
+                ),
             onLoadMore = {},
-            onPokemonClick = {}
+            onPokemonClick = {},
         )
     }
 }

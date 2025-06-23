@@ -3,29 +3,17 @@ package com.example.jsavery_pokedex.presentation
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.jsavery_pokedex.data.model.PokemonResponse
 import com.example.jsavery_pokedex.data.repository.PokemonRepository
-import com.example.jsavery_pokedex.domain.util.Result
 import com.example.jsavery_pokedex.mock.MockData
 import com.example.jsavery_pokedex.presentation.viewmodel.MainViewModel
-import com.example.jsavery_pokedex.presentation.viewmodel.MainViewModel.Companion.FIRST_PAGE
-import com.example.jsavery_pokedex.presentation.viewmodel.PokemonListUiState
-import io.mockk.coEvery
-import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
-import java.io.IOException
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class MainViewModelTest {

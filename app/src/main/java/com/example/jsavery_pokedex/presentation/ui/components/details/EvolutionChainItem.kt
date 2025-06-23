@@ -36,17 +36,18 @@ import com.example.jsavery_pokedex.presentation.ui.theme.LightGray
 fun EvolutionChainItem(
     pokemon: Pokemon,
     modifier: Modifier = Modifier,
-    getEvolutionDetail: (Int) -> EvolutionDetail?
+    getEvolutionDetail: (Int) -> EvolutionDetail?,
 ) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(16.dp)
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(16.dp),
     ) {
         Text(
             text = stringResource(R.string.pokemon_details_evolutions_title),
             style = MaterialTheme.typography.labelLarge,
-            modifier = Modifier.padding(vertical = 8.dp)
+            modifier = Modifier.padding(vertical = 8.dp),
         )
 
         Column(
@@ -64,22 +65,23 @@ fun EvolutionChainItem(
                     evolutionPokemon = getEvolutionDetail(evolvedPokemonId) ?: EvolutionDetail(
                         1,
                         "Error2",
-                        "fullImage2"
+                        "fullImage2",
                     )
                 }
 
                 EvolutionItem(
                     number = index + 1,
                     modifier = Modifier.fillMaxWidth(),
-                    evolutionDetail = evolutionPokemon
+                    evolutionDetail = evolutionPokemon,
                 )
 
                 if (index < pokemon.evolutions.size - 1) {
                     VerticalDivider(
-                        modifier = Modifier
-                            .height(40.dp)
-                            .width(2.dp),
-                        color = Color.LightGray
+                        modifier =
+                            Modifier
+                                .height(40.dp)
+                                .width(2.dp),
+                        color = Color.LightGray,
                     )
                 }
             }
@@ -91,48 +93,50 @@ fun EvolutionChainItem(
 private fun EvolutionItem(
     number: Int,
     modifier: Modifier = Modifier,
-    evolutionDetail: EvolutionDetail
+    evolutionDetail: EvolutionDetail,
 ) {
     Column(
         modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(
-            modifier = Modifier
-                .size(24.dp)
-                .background(
-                    color = LightGray,
-                    shape = CircleShape
-                ),
-            contentAlignment = Alignment.Center
+            modifier =
+                Modifier
+                    .size(24.dp)
+                    .background(
+                        color = LightGray,
+                        shape = CircleShape,
+                    ),
+            contentAlignment = Alignment.Center,
         ) {
             Text(
                 text = number.toString(),
                 color = Color.White,
-                style = MaterialTheme.typography.labelMedium
+                style = MaterialTheme.typography.labelMedium,
             )
         }
 
         AsyncImage(
             model = evolutionDetail,
             contentDescription = evolutionDetail.name,
-            modifier = Modifier
-                .size(80.dp)
-                .padding(vertical = 8.dp),
-            error = painterResource(id = R.drawable.ic_launcher_background)
+            modifier =
+                Modifier
+                    .size(80.dp)
+                    .padding(vertical = 8.dp),
+            error = painterResource(id = R.drawable.ic_launcher_background),
         )
 
         evolutionDetail.let {
             Text(
                 text = it.name.replaceFirstChar { char -> char.uppercase() },
                 style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Medium
+                fontWeight = FontWeight.Medium,
             )
 
             Text(
                 text = it.id.processPokedexId(),
                 style = MaterialTheme.typography.bodySmall,
-                color = Color.Gray
+                color = Color.Gray,
             )
         }
     }

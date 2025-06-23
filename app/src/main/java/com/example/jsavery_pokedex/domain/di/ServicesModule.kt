@@ -17,23 +17,28 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class ServicesModule {
-
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit {
-        val moshi = Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
+        val moshi =
+            Moshi
+                .Builder()
+                .add(KotlinJsonAdapterFactory())
+                .build()
 
-        val loggingInterceptor = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
+        val loggingInterceptor =
+            HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            }
 
-        val client = OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
-            .build()
+        val client =
+            OkHttpClient
+                .Builder()
+                .addInterceptor(loggingInterceptor)
+                .build()
 
-        return Retrofit.Builder()
+        return Retrofit
+            .Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(client)
@@ -42,7 +47,5 @@ class ServicesModule {
 
     @Provides
     @Singleton
-    fun providePokemonService(retrofit: Retrofit): PokemonService =
-        retrofit.create(PokemonService::class.java)
-
+    fun providePokemonService(retrofit: Retrofit): PokemonService = retrofit.create(PokemonService::class.java)
 }

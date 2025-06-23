@@ -15,58 +15,59 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailsViewModel @Inject constructor(
-    private val pokemonListManager: PokemonListManager,
-    private val pokemonRepository: PokemonRepository
-) : ViewModel() {
+class DetailsViewModel
+    @Inject
+    constructor(
+        private val pokemonListManager: PokemonListManager,
+        private val pokemonRepository: PokemonRepository,
+    ) : ViewModel() {
+        private val _detailsUiState = MutableStateFlow(PokemonDetailsUiState())
+        val detailsUiState = _detailsUiState.asStateFlow()
 
-    private val _detailsUiState = MutableStateFlow(PokemonDetailsUiState())
-    val detailsUiState = _detailsUiState.asStateFlow()
-
-    fun getPokemonDetail(id: Int) {
-        viewModelScope.launch {
-            pokemonListManager.getPokemonById(id)?.let { localPokemon ->
-                onPokemonDetailSuccess(localPokemon)
-            } ?: fetchPokemonDetails(id)
+        fun getPokemonDetail(id: Int) {
+            viewModelScope.launch {
+                pokemonListManager.getPokemonById(id)?.let { localPokemon ->
+                    onPokemonDetailSuccess(localPokemon)
+                } ?: fetchPokemonDetails(id)
+            }
         }
-    }
 
-    fun getPokemonEvolutionDetail(id: Int) = pokemonListManager.getPokemonById(id)?.mapToEvolutionItem()
+        fun getPokemonEvolutionDetail(id: Int) = pokemonListManager.getPokemonById(id)?.mapToEvolutionItem()
 
-    private suspend fun fetchPokemonDetails(id: Int) {
-        pokemonRepository.getPokemonDetail(id).collect {
-            when (it) {
-                is Result.Success -> onPokemonDetailSuccess(it.data)
-                is Result.Error -> onPokemonDetailFailure(it.exception)
+        private suspend fun fetchPokemonDetails(id: Int) {
+            pokemonRepository.getPokemonDetail(id).collect {
+                when (it) {
+                    is Result.Success -> onPokemonDetailSuccess(it.data)
+                    is Result.Error -> onPokemonDetailFailure(it.exception)
+                }
+            }
+        }
+
+        private fun onPokemonDetailSuccess(pokemon: Pokemon) {
+            pokemonListManager.updatePokemonList(listOf(pokemon))
+
+            _detailsUiState.update { currentState ->
+                currentState.copy(
+                    isLoading = false,
+                    pokemon = pokemon,
+                    error = null,
+                )
+            }
+        }
+
+        private fun onPokemonDetailFailure(error: Throwable) {
+            _detailsUiState.update { currentState ->
+                currentState.copy(
+                    isLoading = false,
+                    pokemon = null,
+                    error = error.toString(),
+                )
             }
         }
     }
 
-    private fun onPokemonDetailSuccess(pokemon: Pokemon) {
-        pokemonListManager.updatePokemonList(listOf(pokemon))
-
-        _detailsUiState.update { currentState ->
-            currentState.copy(
-                isLoading = false,
-                pokemon = pokemon,
-                error = null
-            )
-        }
-    }
-
-    private fun onPokemonDetailFailure(error: Throwable) {
-        _detailsUiState.update { currentState ->
-            currentState.copy(
-                isLoading = false,
-                pokemon = null,
-                error = error.toString()
-            )
-        }
-    }
-}
-
 data class PokemonDetailsUiState(
     val isLoading: Boolean = true,
     val pokemon: Pokemon? = null,
-    val error: String? = null
+    val error: String? = null,
 )

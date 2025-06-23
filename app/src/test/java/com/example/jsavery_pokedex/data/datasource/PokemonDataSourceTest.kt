@@ -1,27 +1,14 @@
 package com.example.jsavery_pokedex.data.datasource
 
 import com.example.jsavery_pokedex.data.model.PokemonResponse
-import com.example.jsavery_pokedex.mock.MockData
-import com.example.jsavery_pokedex.presentation.viewmodel.MainViewModel.Companion.FIRST_PAGE
-import com.example.jsavery_pokedex.services.PokemonService
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
-import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Before
-import org.junit.Test
-import retrofit2.HttpException
-import retrofit2.Response
-import java.net.HttpURLConnection.HTTP_INTERNAL_ERROR
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class PokemonDataSourceTest {
@@ -89,5 +76,4 @@ class PokemonDataSourceTest {
 //        coVerify { mockPokemonService.getPokemonList(FIRST_PAGE) }
 //        assertEquals(result, HttpException(mockCall))
 //    }
-
 }

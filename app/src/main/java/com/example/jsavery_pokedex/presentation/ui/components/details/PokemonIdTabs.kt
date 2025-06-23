@@ -13,19 +13,21 @@ import com.example.jsavery_pokedex.domain.util.processPokedexId
 @Composable
 fun PokemonIdTabs(
     currentPokemonId: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
     ) {
-        val numbers = when (currentPokemonId) {
-            1 -> listOf(1, 2, 3)
-            1025 -> listOf(1023, 1024, 1025)
-            2 -> listOf(1, 2, 3)
-            else -> listOf(currentPokemonId - 1, currentPokemonId, currentPokemonId + 1)
-        }.filter { it in 1..1025 }
+        val numbers =
+            when (currentPokemonId) {
+                1 -> listOf(1, 2, 3)
+                1025 -> listOf(1023, 1024, 1025)
+                2 -> listOf(1, 2, 3)
+                else -> listOf(currentPokemonId - 1, currentPokemonId, currentPokemonId + 1)
+            }.filter { it in 1..1025 }
 
         numbers.forEach { number ->
             Tab( // TODO complete impl issue-10
@@ -33,10 +35,10 @@ fun PokemonIdTabs(
                 onClick = {},
                 text = {
                     Text(
-                        text = number.processPokedexId()
+                        text = number.processPokedexId(),
                     )
                 },
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
             )
         }
     }

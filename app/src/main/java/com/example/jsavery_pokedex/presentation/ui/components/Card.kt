@@ -22,31 +22,31 @@ import com.example.jsavery_pokedex.presentation.ui.dismissKeyboardOnTouch
 fun PokemonItem(
     pokemon: Pokemon,
     modifier: Modifier = Modifier,
-    onPokemonClick: (Int) -> Unit
+    onPokemonClick: (Int) -> Unit,
 ) {
     Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable {
-                onPokemonClick(pokemon.id)
-            }
-            .dismissKeyboardOnTouch(),
-        elevation = CardDefaults.cardElevation(4.dp)
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clickable {
+                    onPokemonClick(pokemon.id)
+                }.dismissKeyboardOnTouch(),
+        elevation = CardDefaults.cardElevation(4.dp),
     ) {
         Row(
             modifier = Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
                 text = pokemon.name,
                 style = MaterialTheme.typography.headlineSmall,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
             )
             AsyncImage(
                 model = pokemon.images.spriteFront,
                 contentDescription = null,
                 modifier = Modifier.size(64.dp),
-                contentScale = ContentScale.Fit
+                contentScale = ContentScale.Fit,
             )
         }
     }
