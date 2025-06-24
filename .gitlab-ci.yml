@@ -4,28 +4,16 @@ stages:
   - build
   - test
 
-debug-environment:
-  stage: debug
-  script:
-    - echo "=== Operating System Info ==="
-    - uname -a
-    - cat /etc/os-release
-    - echo "=== Java Installation Check ==="
-    - java -version || echo "Java not found in PATH"
-    - javac -version || echo "Javac not found in PATH"
-    - echo "=== Available Java Installations ==="
-    - ls -la /usr/lib/jvm/ || echo "No JVM directory found"
-    - echo "=== Environment Variables ==="
-    - echo $JAVA_HOME
-    - echo $PATH
-    - echo "=== Which Java ==="
-    - which java || echo "Java executable not found"
-    - which javac || echo "Javac executable not found"
-
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
 
 spotless-check:
+  image: openjdk:11-jdk
   stage: format-check
   script:
+    - echo "Java version:"
+    - java -version
+    - echo "Running Spotless check..."
     - ./gradlew spotlessCheck
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
