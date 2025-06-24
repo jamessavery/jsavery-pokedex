@@ -1,27 +1,15 @@
 stages:
-  - debug
   - format-check
   - build
   - test
 
+variables:
+      JAVA_HOME: "/usr/lib/jvm/java-11-openjdk"
 
 spotless-check:
   stage: format-check
   script:
-    # Debug information
-    - echo "=== System Info ==="
-    - uname -a
-    - java -version || echo "Java not available"
-    - ls -la /usr/lib/jvm/ || echo "No JVM directory"
-
-    # Set Java environment
-    - export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
-    - export PATH="$JAVA_HOME/bin:$PATH"
-
-    # Verify Java setup
-    - echo "JAVA_HOME set to: $JAVA_HOME"
-    - java -version
-
-    # Run Spotless check
     - ./gradlew spotlessCheck
-
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
