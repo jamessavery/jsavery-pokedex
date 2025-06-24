@@ -14,7 +14,7 @@ spotless-check:
     - echo "Java version:"
     - java -version
     - echo "Running Spotless check..."
-    - ./gradlew spotlessCheck
+    - ./gradlew clean spotlessCheck
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
