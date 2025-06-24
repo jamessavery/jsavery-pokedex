@@ -20,22 +20,12 @@ class ServicesModule {
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit {
-        val moshi =
-            Moshi
-                .Builder()
-                .add(KotlinJsonAdapterFactory())
-                .build()
+        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
         val loggingInterceptor =
-            HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            }
+            HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
 
-        val client =
-            OkHttpClient
-                .Builder()
-                .addInterceptor(loggingInterceptor)
-                .build()
+        val client = OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
 
         return Retrofit
             .Builder()

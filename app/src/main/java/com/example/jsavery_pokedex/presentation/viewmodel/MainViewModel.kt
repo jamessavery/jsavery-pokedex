@@ -22,8 +22,7 @@ class MainViewModel
         private val repository: PokemonRepository,
         private val pokemonListManager: PokemonListManager,
     ) : ViewModel() {
-        private val _pokemonListUiState =
-            MutableStateFlow<PokemonListUiState>(PokemonListUiState.Loading)
+        private val _pokemonListUiState = MutableStateFlow<PokemonListUiState>(PokemonListUiState.Loading)
         val pokemonListUiState: StateFlow<PokemonListUiState> = _pokemonListUiState.asStateFlow()
 
         init {
@@ -64,10 +63,7 @@ class MainViewModel
         }
 
         private fun onPokemonListFailure(error: Throwable) {
-            _pokemonListUiState.value =
-                PokemonListUiState.Error(
-                    throwable = error,
-                )
+            _pokemonListUiState.value = PokemonListUiState.Error(throwable = error)
         }
 
         fun onLoadMore(nextPage: Int) {

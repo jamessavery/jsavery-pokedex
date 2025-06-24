@@ -47,21 +47,13 @@ class DetailsViewModel
             pokemonListManager.updatePokemonList(listOf(pokemon))
 
             _detailsUiState.update { currentState ->
-                currentState.copy(
-                    isLoading = false,
-                    pokemon = pokemon,
-                    error = null,
-                )
+                currentState.copy(isLoading = false, pokemon = pokemon, error = null)
             }
         }
 
         private fun onPokemonDetailFailure(error: Throwable) {
             _detailsUiState.update { currentState ->
-                currentState.copy(
-                    isLoading = false,
-                    pokemon = null,
-                    error = error.toString(),
-                )
+                currentState.copy(isLoading = false, pokemon = null, error = error.toString())
             }
         }
     }

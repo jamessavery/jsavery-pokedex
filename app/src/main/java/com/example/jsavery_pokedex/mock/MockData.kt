@@ -14,7 +14,8 @@ class MockData {
                 heightInM = 0.7,
                 types = listOf("Grass", "Poison"),
                 evolutions = listOf(2, 3),
-                description = "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.",
+                description =
+                    "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.",
                 images =
                     PokemonImages(
                         full = "https://example.com/bulbasaur_full.png",
@@ -31,7 +32,8 @@ class MockData {
                 heightInM = 0.6,
                 types = listOf("Fire"),
                 evolutions = listOf(5, 6),
-                description = "Obviously prefers hot places. When it rains, steam is said to spout from the tip of its tail.",
+                description =
+                    "Obviously prefers hot places. When it rains, steam is said to spout from the tip of its tail.",
                 images =
                     PokemonImages(
                         full = "https://example.com/charmander_full.png",
@@ -48,7 +50,8 @@ class MockData {
                 heightInM = 0.5,
                 types = listOf("Water"),
                 evolutions = listOf(8, 9),
-                description = "After birth, its back swells and hardens into a shell. It powerfully sprays foam from its mouth.",
+                description =
+                    "After birth, its back swells and hardens into a shell. It powerfully sprays foam from its mouth.",
                 images =
                     PokemonImages(
                         full = "https://example.com/squirtle_full.png",

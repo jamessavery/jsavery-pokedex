@@ -24,32 +24,27 @@ fun SpinningPokeballProgress(modifier: Modifier = Modifier) {
     val infiniteTransition = rememberInfiniteTransition(label = "pokeball_spin")
 
     // Rotation animation
-    val rotation by infiniteTransition.animateFloat(
-        initialValue = 0f,
-        targetValue = 360f,
-        animationSpec =
-            infiniteRepeatable(
-                animation =
-                    tween(
-                        durationMillis = 1500,
-                        easing = LinearEasing,
-                    ),
-                repeatMode = RepeatMode.Restart,
-            ),
-        label = "pokeball_rotation",
-    )
+    val rotation by
+        infiniteTransition.animateFloat(
+            initialValue = 0f,
+            targetValue = 360f,
+            animationSpec =
+                infiniteRepeatable(
+                    animation = tween(durationMillis = 1500, easing = LinearEasing),
+                    repeatMode = RepeatMode.Restart,
+                ),
+            label = "pokeball_rotation",
+        )
 
     Image(
         painter = painterResource(id = R.drawable.pokeball_progress),
         contentDescription = "Loading",
         modifier =
-            modifier
-                .fillMaxSize()
-                .graphicsLayer {
-                    scaleX = 1f
-                    scaleY = 1f
-                    rotationZ = rotation
-                },
+            modifier.fillMaxSize().graphicsLayer {
+                scaleX = 1f
+                scaleY = 1f
+                rotationZ = rotation
+            },
         contentScale = ContentScale.Fit,
     )
 }
@@ -57,10 +52,7 @@ fun SpinningPokeballProgress(modifier: Modifier = Modifier) {
 @Composable
 @Preview(showBackground = true)
 fun SpinningPokeballPreview() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
-    ) {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         SpinningPokeballProgress()
     }
 }

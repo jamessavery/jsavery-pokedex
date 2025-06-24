@@ -1,3 +1,5 @@
 [*.{kt,kts}]
 ktlint_standard_package-name=disabled
 ktlint_function_naming_ignore_when_annotated_with=Composable
+ktlint_standard_parameter-list-wrapping = disabled
+ktlint_standard_multiline-if-else = disabled

@@ -20,10 +20,7 @@ fun TypesItem(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start,
-        ) {
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Start) {
             TypeIcon(type = type)
             Spacer(modifier = Modifier.width(5.dp))
             Text(

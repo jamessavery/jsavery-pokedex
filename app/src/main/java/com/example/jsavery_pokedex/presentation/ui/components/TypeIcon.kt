@@ -41,17 +41,12 @@ fun TypeIcon(
     Image(
         painter = painterResource(id = iconRes),
         contentDescription = "$type type",
-        modifier =
-            modifier
-                .size(24.dp)
-                .padding(4.dp),
+        modifier = modifier.size(24.dp).padding(4.dp),
     )
 }
 
 @Preview
 @Composable
 fun TypeIconPreview() {
-    TypeIcon(
-        type = "Grass",
-    )
+    TypeIcon(type = "Grass")
 }

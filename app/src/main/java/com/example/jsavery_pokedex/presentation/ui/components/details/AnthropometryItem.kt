@@ -17,11 +17,7 @@ fun AnthropometryItem( // I.e. height & weight
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.labelMedium,
-            color = Color.Gray,
-        )
+        Text(text = title, style = MaterialTheme.typography.labelMedium, color = Color.Gray)
         Text(
             text = value,
             style = MaterialTheme.typography.bodyLarge,

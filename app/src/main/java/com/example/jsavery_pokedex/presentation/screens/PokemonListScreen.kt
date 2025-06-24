@@ -46,20 +46,13 @@ fun PokemonListScreen(
 ) {
     when (uiState) {
         is PokemonListUiState.Loading -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center,
-            ) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 SpinningPokeballProgress()
             }
         }
-
         is PokemonListUiState.Error -> {
             Box(
-                modifier =
-                    Modifier
-                        .fillMaxSize()
-                        .dismissKeyboardOnTouch(),
+                modifier = Modifier.fillMaxSize().dismissKeyboardOnTouch(),
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
@@ -69,14 +62,8 @@ fun PokemonListScreen(
                 )
             }
         }
-
         is PokemonListUiState.Success -> {
-            PokemonListSuccessContent(
-                uiState,
-                modifier,
-                onLoadMore,
-                onPokemonClick,
-            )
+            PokemonListSuccessContent(uiState, modifier, onLoadMore, onPokemonClick)
         }
     }
 }
@@ -91,48 +78,27 @@ fun PokemonListSuccessContent(
     var searchQuery by remember { mutableStateOf("") }
     val listState = rememberLazyListState()
 
-    Column(
-        modifier =
-            modifier
-                .fillMaxSize()
-                .background(Color.White),
-    ) {
+    Column(modifier = modifier.fillMaxSize().background(Color.White)) {
         PokedexSearchBar(
             searchQuery = searchQuery,
             onSearchQueryChange = { searchQuery = it },
             modifier = modifier,
         )
 
-        Box(
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 16.dp),
-        ) {
+        Box(modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp)) {
             val filteredList =
                 uiState.pokemonList.filter { pokemon ->
-                    (
-                        pokemon.name.contains(
-                            searchQuery,
-                            ignoreCase = true,
-                        )
-                    ) ||
+                    (pokemon.name.contains(searchQuery, ignoreCase = true)) ||
                         (pokemon.id.toString() == searchQuery)
                 }
 
             LazyColumn(
                 state = listState,
                 verticalArrangement = Arrangement.spacedBy(25.dp),
-                modifier =
-                    Modifier
-                        .fillMaxSize()
-                        .dismissKeyboardOnTouch(),
+                modifier = Modifier.fillMaxSize().dismissKeyboardOnTouch(),
             ) {
                 items(filteredList) { pokemon ->
-                    PokemonItem(
-                        pokemon = pokemon,
-                        onPokemonClick = onPokemonClick,
-                    )
+                    PokemonItem(pokemon = pokemon, onPokemonClick = onPokemonClick)
                 }
             }
 
@@ -142,8 +108,7 @@ fun PokemonListSuccessContent(
                     .distinctUntilChanged { old, new ->
                         old.visibleItemsInfo.lastOrNull()?.index == new.visibleItemsInfo.lastOrNull()?.index
                     }.collect { layoutInfo ->
-                        val lastVisibleIndex =
-                            layoutInfo.visibleItemsInfo.lastOrNull()?.index
+                        val lastVisibleIndex = layoutInfo.visibleItemsInfo.lastOrNull()?.index
                         val totalItems = layoutInfo.totalItemsCount
 
                         if (lastVisibleIndex != null && totalItems > 0) {
@@ -163,11 +128,7 @@ fun PokemonListSuccessContent(
 fun PokemonPreview() {
     PokedexTheme {
         PokemonListScreen(
-            uiState =
-                PokemonListUiState.Success(
-                    MOCK_POKEMON_RESPONSE,
-                    isLoadingMore = false,
-                ),
+            uiState = PokemonListUiState.Success(MOCK_POKEMON_RESPONSE, isLoadingMore = false),
             onLoadMore = {},
             onPokemonClick = {},
         )

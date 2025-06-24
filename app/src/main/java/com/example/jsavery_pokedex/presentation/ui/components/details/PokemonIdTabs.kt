@@ -15,12 +15,7 @@ fun PokemonIdTabs(
     currentPokemonId: Int,
     modifier: Modifier = Modifier,
 ) {
-    Row(
-        modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-    ) {
+    Row(modifier = modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
         val numbers =
             when (currentPokemonId) {
                 1 -> listOf(1, 2, 3)
@@ -33,11 +28,7 @@ fun PokemonIdTabs(
             Tab( // TODO complete impl issue-10
                 selected = number == currentPokemonId,
                 onClick = {},
-                text = {
-                    Text(
-                        text = number.processPokedexId(),
-                    )
-                },
+                text = { Text(text = number.processPokedexId()) },
                 modifier = Modifier.weight(1f),
             )
         }

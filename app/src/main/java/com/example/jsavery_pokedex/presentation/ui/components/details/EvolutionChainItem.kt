@@ -38,22 +38,14 @@ fun EvolutionChainItem(
     modifier: Modifier = Modifier,
     getEvolutionDetail: (Int) -> EvolutionDetail?,
 ) {
-    Column(
-        modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-    ) {
+    Column(modifier = modifier.fillMaxWidth().padding(16.dp)) {
         Text(
             text = stringResource(R.string.pokemon_details_evolutions_title),
             style = MaterialTheme.typography.labelLarge,
             modifier = Modifier.padding(vertical = 8.dp),
         )
 
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
+        Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             // TODO Issue-35: Is in a bugged state
             // TODO Rather than returning an Object, perhaps make reactive..?
             pokemon.evolutions.forEachIndexed { index, evolvedPokemonId ->
@@ -62,11 +54,8 @@ fun EvolutionChainItem(
                 }
 
                 LaunchedEffect(evolvedPokemonId) {
-                    evolutionPokemon = getEvolutionDetail(evolvedPokemonId) ?: EvolutionDetail(
-                        1,
-                        "Error2",
-                        "fullImage2",
-                    )
+                    evolutionPokemon =
+                        getEvolutionDetail(evolvedPokemonId) ?: EvolutionDetail(1, "Error2", "fullImage2")
                 }
 
                 EvolutionItem(
@@ -76,13 +65,7 @@ fun EvolutionChainItem(
                 )
 
                 if (index < pokemon.evolutions.size - 1) {
-                    VerticalDivider(
-                        modifier =
-                            Modifier
-                                .height(40.dp)
-                                .width(2.dp),
-                        color = Color.LightGray,
-                    )
+                    VerticalDivider(modifier = Modifier.height(40.dp).width(2.dp), color = Color.LightGray)
                 }
             }
         }
@@ -95,18 +78,9 @@ private fun EvolutionItem(
     modifier: Modifier = Modifier,
     evolutionDetail: EvolutionDetail,
 ) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
+    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Box(
-            modifier =
-                Modifier
-                    .size(24.dp)
-                    .background(
-                        color = LightGray,
-                        shape = CircleShape,
-                    ),
+            modifier = Modifier.size(24.dp).background(color = LightGray, shape = CircleShape),
             contentAlignment = Alignment.Center,
         ) {
             Text(
@@ -119,10 +93,7 @@ private fun EvolutionItem(
         AsyncImage(
             model = evolutionDetail,
             contentDescription = evolutionDetail.name,
-            modifier =
-                Modifier
-                    .size(80.dp)
-                    .padding(vertical = 8.dp),
+            modifier = Modifier.size(80.dp).padding(vertical = 8.dp),
             error = painterResource(id = R.drawable.ic_launcher_background),
         )
 

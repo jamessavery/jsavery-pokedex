@@ -8,24 +8,22 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class PokemonListManagerImpl
-    @Inject
-    constructor() : PokemonListManager {
-        private val _pokemonList = MutableStateFlow<List<Pokemon>>(emptyList())
-        override val pokemonList = _pokemonList.asStateFlow()
+class PokemonListManagerImpl @Inject constructor() : PokemonListManager {
+    private val _pokemonList = MutableStateFlow<List<Pokemon>>(emptyList())
+    override val pokemonList = _pokemonList.asStateFlow()
 
-        override fun updatePokemonList(newList: List<Pokemon>) {
-            val currentList = _pokemonList.value.toMutableList()
-            newList.forEach { pokemon ->
-                if (!currentList.any { it.id == pokemon.id }) {
-                    currentList.add(pokemon)
-                }
+    override fun updatePokemonList(newList: List<Pokemon>) {
+        val currentList = _pokemonList.value.toMutableList()
+        newList.forEach { pokemon ->
+            if (!currentList.any { it.id == pokemon.id }) {
+                currentList.add(pokemon)
             }
-            _pokemonList.value = currentList
         }
-
-        override fun getPokemonById(id: Int): Pokemon? = _pokemonList.value.find { it.id == id }
+        _pokemonList.value = currentList
     }
+
+    override fun getPokemonById(id: Int): Pokemon? = _pokemonList.value.find { it.id == id }
+}
 
 interface PokemonListManager {
     val pokemonList: StateFlow<List<Pokemon>>
