@@ -8,7 +8,7 @@ variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
 
 spotless-check:
-  image: openjdk:11-jdk
+  image: openjdk:17-jdk
   stage: format-check
   script:
     - echo "Java version:"
