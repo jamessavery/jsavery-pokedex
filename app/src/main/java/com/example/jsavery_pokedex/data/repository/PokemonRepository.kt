@@ -10,8 +10,8 @@ import javax.inject.Inject
 class PokemonRepositoryImpl @Inject constructor(
     private val remoteDataSource: PokemonDataSource,
 ) : PokemonRepository {
-    override suspend fun getPokemonList(nextPage: Int): Result<PokemonResponse> {
-        return try {
+    override suspend fun getPokemonList(nextPage: Int): Result<PokemonResponse> =
+        try {
             val response = remoteDataSource.getPokemonList(nextPage)
             if (response != null) {
                 Result.Success(response)
@@ -22,10 +22,9 @@ class PokemonRepositoryImpl @Inject constructor(
             if (e is CancellationException) throw e
             Result.Error(e)
         }
-    }
 
-    override suspend fun getPokemonDetail(id: Int): Result<Pokemon> {
-        return try {
+    override suspend fun getPokemonDetail(id: Int): Result<Pokemon> =
+        try {
             val response = remoteDataSource.getPokemonDetail(id)
             if (response != null) {
                 Result.Success(response)
@@ -36,7 +35,6 @@ class PokemonRepositoryImpl @Inject constructor(
             if (e is CancellationException) throw e
             Result.Error(e)
         }
-    }
 }
 
 interface PokemonRepository {
