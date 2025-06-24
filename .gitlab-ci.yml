@@ -5,16 +5,19 @@ stages:
   - test
 
 variables:
-  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.configuration-cache=false"
 
 spotless-check:
   image: openjdk:17-jdk
   stage: format-check
   script:
-    - echo "Java version:"
-    - java -version
-    - echo "Running Spotless check..."
-    - ./gradlew clean spotlessCheck
+    - echo "=== Debugging .editorconfig ==="
+    - ls -la .editorconfig || echo ".editorconfig not found in root"
+    - cat .editorconfig || echo "Cannot read .editorconfig"
+    - echo "=== Spotless version info ==="
+    - ./gradlew --version
+    - echo "=== Running Spotless check with verbose output ==="
+    - ./gradlew spotlessCheck --no-daemon --no-configuration-cache --no-watch-fs --stacktrace
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
