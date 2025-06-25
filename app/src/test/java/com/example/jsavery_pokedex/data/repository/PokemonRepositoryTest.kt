@@ -10,7 +10,7 @@ import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
 
-// TODO Issue-16 fix unit tests + add missing
+// TODO Issue-16 fix unit tests + add missing tests
 @OptIn(ExperimentalCoroutinesApi::class)
 class PokemonRepositoryTest {
     private lateinit var pokemonRepository: PokemonRepository

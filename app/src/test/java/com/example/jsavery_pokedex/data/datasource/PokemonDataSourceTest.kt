@@ -12,7 +12,7 @@ import org.junit.Before
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class PokemonDataSourceTest {
-    // TODO Issue-16
+    // TODO Issue-16 test dependencies are a mess, address that too
     private lateinit var pokemonDataSource: PokemonDataSource
     private val mockResponse = mockk<PokemonResponse>(relaxed = true)
 
