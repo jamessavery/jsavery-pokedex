@@ -17,7 +17,7 @@ spotless-check:
     - echo "=== Spotless version info ==="
     - ./gradlew --version
     - echo "=== Running Spotless check with verbose output ==="
-    - ./gradlew spotlessCheck --no-daemon --no-configuration-cache --no-watch-fs --stacktrace
+    - ./gradlew clean spotlessCheck --no-daemon --no-configuration-cache --no-watch-fs --stacktrace
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
