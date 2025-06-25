@@ -15,13 +15,13 @@ class MockData {
                 types = listOf("Grass", "Poison"),
                 evolutions = listOf(2, 3),
                 description =
-                    "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.",
+                "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.",
                 images =
-                    PokemonImages(
-                        full = "https://example.com/bulbasaur_full.png",
-                        spriteFront = "https://example.com/bulbasaur_front.png",
-                        spriteBack = "https://example.com/bulbasaur_back.png",
-                    ),
+                PokemonImages(
+                    full = "https://example.com/bulbasaur_full.png",
+                    spriteFront = "https://example.com/bulbasaur_front.png",
+                    spriteBack = "https://example.com/bulbasaur_back.png",
+                ),
             )
         private val MOCK_POKEMON_CHARMANDER =
             Pokemon(
@@ -33,13 +33,13 @@ class MockData {
                 types = listOf("Fire"),
                 evolutions = listOf(5, 6),
                 description =
-                    "Obviously prefers hot places. When it rains, steam is said to spout from the tip of its tail.",
+                "Obviously prefers hot places. When it rains, steam is said to spout from the tip of its tail.",
                 images =
-                    PokemonImages(
-                        full = "https://example.com/charmander_full.png",
-                        spriteFront = "https://example.com/charmander_front.png",
-                        spriteBack = "https://example.com/charmander_back.png",
-                    ),
+                PokemonImages(
+                    full = "https://example.com/charmander_full.png",
+                    spriteFront = "https://example.com/charmander_front.png",
+                    spriteBack = "https://example.com/charmander_back.png",
+                ),
             )
         val MOCK_POKEMON_SQUIRTLE =
             Pokemon(
@@ -51,13 +51,13 @@ class MockData {
                 types = listOf("Water"),
                 evolutions = listOf(8, 9),
                 description =
-                    "After birth, its back swells and hardens into a shell. It powerfully sprays foam from its mouth.",
+                "After birth, its back swells and hardens into a shell. It powerfully sprays foam from its mouth.",
                 images =
-                    PokemonImages(
-                        full = "https://example.com/squirtle_full.png",
-                        spriteFront = "https://example.com/squirtle_front.png",
-                        spriteBack = "https://example.com/squirtle_back.png",
-                    ),
+                PokemonImages(
+                    full = "https://example.com/squirtle_full.png",
+                    spriteFront = "https://example.com/squirtle_front.png",
+                    spriteBack = "https://example.com/squirtle_back.png",
+                ),
             )
 
         val MOCK_POKEMON_RESPONSE =

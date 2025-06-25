@@ -43,7 +43,9 @@ fun PokedexSearchBar(
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 25.dp),
         )
         Row(
-            modifier = Modifier.fillMaxWidth().height(50.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             OutlinedTextField(
@@ -66,20 +68,23 @@ fun PokedexSearchBar(
                     )
                 },
                 colors =
-                    OutlinedTextFieldDefaults.colors(
-                        unfocusedBorderColor = Color.LightGray,
-                        focusedBorderColor = PokePurple,
-                        cursorColor = Color.Black,
-                        unfocusedContainerColor = Color.White,
-                        focusedContainerColor = Color.White,
-                    ),
+                OutlinedTextFieldDefaults.colors(
+                    unfocusedBorderColor = Color.LightGray,
+                    focusedBorderColor = PokePurple,
+                    cursorColor = Color.Black,
+                    unfocusedContainerColor = Color.White,
+                    focusedContainerColor = Color.White,
+                ),
                 shape = RoundedCornerShape(10.dp),
                 singleLine = true,
             )
 
             OutlinedIconButton(
                 onClick = {},
-                modifier = Modifier.weight(0.15f).fillMaxHeight().background(Color.White),
+                modifier = Modifier
+                    .weight(0.15f)
+                    .fillMaxHeight()
+                    .background(Color.White),
                 shape = RoundedCornerShape(10.dp),
                 border = BorderStroke(1.dp, Color.LightGray),
             ) {

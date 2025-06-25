@@ -29,10 +29,10 @@ fun SpinningPokeballProgress(modifier: Modifier = Modifier) {
             initialValue = 0f,
             targetValue = 360f,
             animationSpec =
-                infiniteRepeatable(
-                    animation = tween(durationMillis = 1500, easing = LinearEasing),
-                    repeatMode = RepeatMode.Restart,
-                ),
+            infiniteRepeatable(
+                animation = tween(durationMillis = 1500, easing = LinearEasing),
+                repeatMode = RepeatMode.Restart,
+            ),
             label = "pokeball_rotation",
         )
 
@@ -40,11 +40,11 @@ fun SpinningPokeballProgress(modifier: Modifier = Modifier) {
         painter = painterResource(id = R.drawable.pokeball_progress),
         contentDescription = "Loading",
         modifier =
-            modifier.fillMaxSize().graphicsLayer {
-                scaleX = 1f
-                scaleY = 1f
-                rotationZ = rotation
-            },
+        modifier.fillMaxSize().graphicsLayer {
+            scaleX = 1f
+            scaleY = 1f
+            rotationZ = rotation
+        },
         contentScale = ContentScale.Fit,
     )
 }

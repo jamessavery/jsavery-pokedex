@@ -22,7 +22,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providePokemonRepository(remoteDataSource: PokemonDataSource): PokemonRepository = PokemonRepositoryImpl(remoteDataSource)
+    fun providePokemonRepository(remoteDataSource: PokemonDataSource): PokemonRepository =
+        PokemonRepositoryImpl(remoteDataSource)
 
     @Provides
     @Singleton

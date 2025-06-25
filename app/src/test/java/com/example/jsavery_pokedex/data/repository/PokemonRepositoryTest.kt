@@ -1,47 +1,35 @@
-//package com.example.jsavery_pokedex.data.repository
-//
-//import com.example.jsavery_pokedex.data.datasource.PokemonDataSource
-//import com.example.jsavery_pokedex.data.model.PokemonResponse
-//import com.example.jsavery_pokedex.mock.MockData
-//import com.example.jsavery_pokedex.presentation.viewmodel.MainViewModel.Companion.FIRST_PAGE
-//import io.mockk.coEvery
-//import io.mockk.coVerify
-//import io.mockk.every
-//import io.mockk.mockk
-//import junit.framework.TestCase.assertEquals
-//import kotlinx.coroutines.Dispatchers
-//import kotlinx.coroutines.ExperimentalCoroutinesApi
-//import kotlinx.coroutines.flow.first
-//import kotlinx.coroutines.test.StandardTestDispatcher
-//import kotlinx.coroutines.test.resetMain
-//import kotlinx.coroutines.test.runTest
-//import kotlinx.coroutines.test.setMain
-//import org.junit.After
-//import org.junit.Assert.assertTrue
-//import org.junit.Before
-//import org.junit.Test
-//import java.io.IOException
-//
-//// TODO Issue-16 fix unit tests + add missing
-//@OptIn(ExperimentalCoroutinesApi::class)
-//class PokemonRepositoryTest {
-//    private lateinit var pokemonRepository: PokemonRepository
-//    private val mockPokeDataSource = mockk<PokemonDataSource>(relaxed = true)
+package com.example.jsavery_pokedex.data.repository
+
+import com.example.jsavery_pokedex.data.datasource.PokemonDataSource
+import io.mockk.mockk
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
+import org.junit.After
+import org.junit.Before
+
+// TODO Issue-16 fix unit tests + add missing
+@OptIn(ExperimentalCoroutinesApi::class)
+class PokemonRepositoryTest {
+    private lateinit var pokemonRepository: PokemonRepository
+    private val mockPokeDataSource = mockk<PokemonDataSource>(relaxed = true)
 //    private val mockResponse = mockk<PokemonResponse>(relaxed = true)
-//
-//    private val testDispatcher = StandardTestDispatcher()
-//
-//    @Before
-//    fun setup() {
-//        Dispatchers.setMain(testDispatcher)
-//        pokemonRepository = PokemonRepositoryImpl(mockPokeDataSource)
-//    }
-//
-//    @After
-//    fun tearDown() {
-//        Dispatchers.resetMain()
-//    }
-//
+
+    private val testDispatcher = StandardTestDispatcher()
+
+    @Before
+    fun setup() {
+        Dispatchers.setMain(testDispatcher)
+        pokemonRepository = PokemonRepositoryImpl(mockPokeDataSource)
+    }
+
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
+    }
+
 //    @Test
 //    fun `WHEN getPokemonList returns success THEN API call is successful and WHEN loads next page THEN success`() =
 //        runTest {
@@ -103,4 +91,4 @@
 //            val errorResult = result as Result.Error
 //            assert(errorResult.exception == expectedException)
 //        }
-//}
+}

@@ -88,11 +88,11 @@ fun PokemonDetailContent(
             model = pokemon.images.full,
             contentDescription = pokemon.name,
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
-                    .padding(horizontalPadding)
-                    .background(Color.LightGray),
+            Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+                .padding(horizontalPadding)
+                .background(Color.LightGray),
             contentScale = ContentScale.Fit,
         )
 
