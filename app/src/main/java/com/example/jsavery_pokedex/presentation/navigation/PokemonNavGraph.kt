@@ -1,5 +1,7 @@
 package com.example.jsavery_pokedex.presentation.navigation
 
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.navigation3.ListDetailSceneStrategy
 import androidx.compose.material3.adaptive.navigation3.rememberListDetailSceneStrategy
@@ -32,6 +34,15 @@ fun PokemonNavGraph() {
             repeat(keysToRemove) {
                 backStack.removeLastOrNull()
             }
+        },
+        transitionSpec = {
+            NavigationTransitions.slideInHorizontally
+        },
+        popTransitionSpec = {
+            NavigationTransitions.slideOutHorizontally
+        },
+        predictivePopTransitionSpec = {
+            NavigationTransitions.slideOutHorizontally
         },
         sceneStrategy = listDetailStrategy,
         entryProvider = entryProvider {
