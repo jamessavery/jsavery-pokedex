@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -35,7 +36,11 @@ fun PokedexSearchBar(
     onSearchQueryChange: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = modifier.padding(horizontal = 15.dp, vertical = 10.dp)) {
+    Column(
+        modifier = modifier
+            .padding(horizontal = 15.dp, vertical = 10.dp)
+            .statusBarsPadding(),
+    ) {
         Text(
             text = stringResource(R.string.search_bar_title),
             style = MaterialTheme.typography.headlineMedium,
@@ -67,8 +72,7 @@ fun PokedexSearchBar(
                         modifier = Modifier.size(25.dp),
                     )
                 },
-                colors =
-                OutlinedTextFieldDefaults.colors(
+                colors = OutlinedTextFieldDefaults.colors(
                     unfocusedBorderColor = Color.LightGray,
                     focusedBorderColor = PokePurple,
                     cursorColor = Color.Black,

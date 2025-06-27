@@ -44,7 +44,7 @@ import com.example.jsavery_pokedex.presentation.viewmodel.PokemonDetailsUiState
 @Composable
 fun PokemonDetailsScreen(
     uiState: PokemonDetailsUiState,
-    onBackClick: () -> Boolean,
+    onBackClick: () -> Unit,
     getEvolutionDetail: (Int) -> EvolutionDetail?,
 ) {
     if (uiState.isLoading) {
@@ -52,7 +52,7 @@ fun PokemonDetailsScreen(
             SpinningPokeballProgress()
         }
     } else if (uiState.pokemon != null) {
-        PokemonDetailContent(
+        PokemonDetailsContent(
             uiState.pokemon,
             onBackClick = onBackClick,
             getEvolutionDetail = getEvolutionDetail,
@@ -64,9 +64,9 @@ fun PokemonDetailsScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PokemonDetailContent(
+fun PokemonDetailsContent(
     pokemon: Pokemon,
-    onBackClick: () -> Boolean,
+    onBackClick: () -> Unit,
     getEvolutionDetail: (Int) -> EvolutionDetail?,
 ) {
     val horizontalPadding = dimensionResource(R.dimen.details_horizontal_padding)
@@ -153,7 +153,7 @@ fun PokemonDetailContent(
 fun PokemonDetailsScreenPreview() {
     PokemonDetailsScreen(
         uiState = PokemonDetailsUiState(isLoading = false, pokemon = MockData.MOCK_POKEMON_BULBASAUR),
-        { false },
+        {},
         { EvolutionDetail(1, "", "") },
     )
 }
