@@ -1,7 +1,6 @@
 package com.example.jsavery_pokedex.presentation.ui.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.OutlinedTextField
@@ -20,7 +20,6 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.jsavery_pokedex.R
 import com.example.jsavery_pokedex.presentation.ui.theme.PokePurple
+import com.example.jsavery_pokedex.presentation.ui.theme.PokedexTheme
 
 @Composable
 fun PokedexSearchBar(
@@ -45,8 +45,10 @@ fun PokedexSearchBar(
             text = stringResource(R.string.search_bar_title),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 25.dp),
         )
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -60,7 +62,7 @@ fun PokedexSearchBar(
                 placeholder = {
                     Text(
                         text = stringResource(R.string.search_bar_text),
-                        color = Color.Gray,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 15.sp,
                     )
                 },
@@ -73,11 +75,13 @@ fun PokedexSearchBar(
                     )
                 },
                 colors = OutlinedTextFieldDefaults.colors(
-                    unfocusedBorderColor = Color.LightGray,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.outline,
                     focusedBorderColor = PokePurple,
-                    cursorColor = Color.Black,
-                    unfocusedContainerColor = Color.White,
-                    focusedContainerColor = Color.White,
+                    cursorColor = MaterialTheme.colorScheme.onSurface,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                    focusedContainerColor = MaterialTheme.colorScheme.surface,
+                    unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
+                    focusedTextColor = MaterialTheme.colorScheme.onSurface,
                 ),
                 shape = RoundedCornerShape(10.dp),
                 singleLine = true,
@@ -87,10 +91,16 @@ fun PokedexSearchBar(
                 onClick = {},
                 modifier = Modifier
                     .weight(0.15f)
-                    .fillMaxHeight()
-                    .background(Color.White),
+                    .fillMaxHeight(),
                 shape = RoundedCornerShape(10.dp),
-                border = BorderStroke(1.dp, Color.LightGray),
+                border = BorderStroke(
+                    1.dp,
+                    MaterialTheme.colorScheme.outline,
+                ),
+                colors = IconButtonDefaults.outlinedIconButtonColors(
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    contentColor = PokePurple,
+                ),
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.filter),
@@ -106,5 +116,7 @@ fun PokedexSearchBar(
 @Preview(showBackground = true)
 @Composable
 fun SearchBarPreview() {
-    PokedexSearchBar("", {})
+    PokedexTheme(darkTheme = false) {
+        PokedexSearchBar("", {})
+    }
 }
