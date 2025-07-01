@@ -7,6 +7,7 @@ import com.example.jsavery_pokedex.presentation.viewmodel.MainViewModel.Companio
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
+import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import io.mockk.mockk
@@ -30,12 +31,9 @@ class PokemonRepositoryTest {
     private lateinit var remoteDataSource: PokemonDataSource
 
     private val mockResponse = mockk<PokemonResponse>(relaxed = true)
-    private lateinit var sut: PokemonRepository // TODO try fucking @InjectMockKs
 
-    @BeforeEach
-    fun setup() {
-        sut = PokemonRepositoryImpl(remoteDataSource)
-    }
+    @InjectMockKs
+    private lateinit var sut: PokemonRepositoryImpl
 
     @AfterEach
     fun tearDown() {
