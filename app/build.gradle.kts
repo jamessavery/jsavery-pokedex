@@ -80,7 +80,7 @@ dependencies {
     testImplementation(libs.junit.vintage.engine)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockk)
-    androidTestImplementation(libs.turbine)
+    testImplementation(libs.turbine)
     androidTestImplementation(libs.androidx.espresso.core)
 
     // Coil
