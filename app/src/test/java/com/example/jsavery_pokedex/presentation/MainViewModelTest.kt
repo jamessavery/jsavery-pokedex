@@ -46,7 +46,7 @@ class MainViewModelTest {
         Dispatchers.setMain(testDispatcher)
 
         coEvery { mockRepository.getPokemonList(FIRST_PAGE) } returns Result.success(
-            PokemonResponse(10, next = FIRST_PAGE, previous = null, data = listOf())
+            PokemonResponse(10, next = FIRST_PAGE, previous = null, data = listOf()),
         )
         coEvery { mockPokemonListManager.updatePokemonList(listOf()) } returns Unit
     }
@@ -95,9 +95,9 @@ class MainViewModelTest {
             assertEquals(
                 concatenatedPokemonList,
                 (
-                        currentState as
-                                PokemonListUiState.Success
-                        ).pokemonList,
+                    currentState as
+                        PokemonListUiState.Success
+                    ).pokemonList,
             )
         }
 
@@ -109,7 +109,7 @@ class MainViewModelTest {
             coEvery { mockResponse.data } returns mockPokemonList
             coEvery { mockResponse.next } returns nextPageTwo
             coEvery { mockRepository.getPokemonList(FIRST_PAGE) } returns Result.success(
-                mockResponse
+                mockResponse,
             )
 
             // when
@@ -124,7 +124,7 @@ class MainViewModelTest {
 
             // and given
             coEvery { mockRepository.getPokemonList(nextPageTwo) } returns Result.failure(
-                Throwable(errorMessage)
+                Throwable(errorMessage),
             )
 
             // and when
@@ -171,7 +171,6 @@ class MainViewModelTest {
 //        }
 //    }
 
-
     @Test // jimmy
     fun `WHEN fetchPokemon succeeds but nextPage is null THEN avoid error by defaulting to 1`() =
         runTest {
@@ -179,7 +178,7 @@ class MainViewModelTest {
             coEvery { mockResponse.data } returns mockPokemonList
             coEvery { mockResponse.next } returns null
             coEvery { mockRepository.getPokemonList(FIRST_PAGE) } returns Result.success(
-                mockResponse
+                mockResponse,
             )
 
             // when
@@ -201,7 +200,7 @@ class MainViewModelTest {
     fun `GIVEN isLoading is true THEN onLoadMore is blocked from loading more`() = runTest {
         // given
         coEvery { mockRepository.getPokemonList(any()) } returns Result.success(
-            PokemonResponse(10, next = FIRST_PAGE, previous = null, data = listOf())
+            PokemonResponse(10, next = FIRST_PAGE, previous = null, data = listOf()),
         )
         coEvery { mockPokemonListManager.updatePokemonList(listOf()) } returns Unit
 
@@ -209,7 +208,7 @@ class MainViewModelTest {
         coEvery { mockResponse.data } returns mockPokemonList
         coEvery { mockResponse.next } returns nextPageTwo
         coEvery { mockRepository.getPokemonList(FIRST_PAGE) } returns Result.success(
-            mockResponse
+            mockResponse,
         )
 
         // when
@@ -239,7 +238,7 @@ class MainViewModelTest {
     fun `WHEN fetchPokemon fails, THEN uiState should be Error`() = runTest {
         // given
         coEvery { mockRepository.getPokemonList(FIRST_PAGE) } returns Result.failure(
-            Throwable(errorMessage)
+            Throwable(errorMessage),
         )
 
         // when
@@ -257,7 +256,7 @@ class MainViewModelTest {
         runTest {
             // given
             coEvery { mockRepository.getPokemonList(FIRST_PAGE) } returns Result.success(
-                PokemonResponse(10, next = FIRST_PAGE, previous = null, data = listOf())
+                PokemonResponse(10, next = FIRST_PAGE, previous = null, data = listOf()),
             )
 
             // when
@@ -276,7 +275,7 @@ class MainViewModelTest {
             // given
             val expectedException = IOException("Network error")
             coEvery { mockRepository.getPokemonList(FIRST_PAGE) } returns Result.failure(
-                expectedException
+                expectedException,
             )
 
             // when

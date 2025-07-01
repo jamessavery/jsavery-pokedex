@@ -30,7 +30,7 @@ class PokemonRepositoryTest {
     private lateinit var remoteDataSource: PokemonDataSource
 
     private val mockResponse = mockk<PokemonResponse>(relaxed = true)
-    private lateinit var sut: PokemonRepository
+    private lateinit var sut: PokemonRepository // TODO try fucking @InjectMockKs
 
     @BeforeEach
     fun setup() {

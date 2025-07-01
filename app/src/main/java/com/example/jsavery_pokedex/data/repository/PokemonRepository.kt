@@ -3,7 +3,6 @@ package com.example.jsavery_pokedex.data.repository
 import com.example.jsavery_pokedex.data.datasource.PokemonDataSource
 import com.example.jsavery_pokedex.data.model.Pokemon
 import com.example.jsavery_pokedex.data.model.PokemonResponse
-import kotlinx.coroutines.CancellationException
 import javax.inject.Inject
 
 class PokemonRepositoryImpl @Inject constructor(
