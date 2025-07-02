@@ -14,12 +14,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailsViewModel
-@Inject
-constructor(
+class DetailsViewModel @Inject constructor(
     private val pokemonListManager: PokemonListManager,
     private val pokemonRepository: PokemonRepository,
 ) : ViewModel() {
+
     private val _detailsUiState = MutableStateFlow(PokemonDetailsUiState())
     val detailsUiState = _detailsUiState.asStateFlow()
 
