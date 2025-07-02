@@ -18,4 +18,4 @@ test:
   image: openjdk:17-jdk
   stage: test
   script:
-    - ./gradlew clean testDevDebugUnitTest --no-daemon
+    - ./gradlew clean testDebugUnitTest --no-daemon
