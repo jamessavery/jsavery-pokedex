@@ -1,5 +1,6 @@
 package com.example.jsavery_pokedex.data.datasource
 
+import com.example.jsavery_pokedex.BaseTest
 import com.example.jsavery_pokedex.data.model.Pokemon
 import com.example.jsavery_pokedex.data.model.PokemonResponse
 import com.example.jsavery_pokedex.mock.MockData
@@ -8,7 +9,6 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
-import io.mockk.junit5.MockKExtension
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -18,7 +18,6 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
@@ -26,8 +25,7 @@ import retrofit2.HttpException
 import retrofit2.Response
 
 @OptIn(ExperimentalCoroutinesApi::class)
-@ExtendWith(MockKExtension::class)
-class PokemonDataSourceTest {
+class PokemonDataSourceTest : BaseTest() {
 
     private val mockPokeService = mockk<PokemonService>()
 

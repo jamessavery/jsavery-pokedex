@@ -1,5 +1,6 @@
 package com.example.jsavery_pokedex.data.repository
 
+import com.example.jsavery_pokedex.BaseTest
 import com.example.jsavery_pokedex.data.datasource.PokemonDataSource
 import com.example.jsavery_pokedex.data.model.PokemonResponse
 import com.example.jsavery_pokedex.mock.MockData
@@ -9,7 +10,6 @@ import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
-import io.mockk.junit5.MockKExtension
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -19,12 +19,10 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.junit.jupiter.api.extension.ExtendWith
 import java.io.IOException
 
 @OptIn(ExperimentalCoroutinesApi::class)
-@ExtendWith(MockKExtension::class)
-class PokemonRepositoryTest {
+class PokemonRepositoryTest : BaseTest() {
 
     @MockK
     private lateinit var remoteDataSource: PokemonDataSource
