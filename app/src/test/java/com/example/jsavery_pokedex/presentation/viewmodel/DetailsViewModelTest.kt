@@ -2,7 +2,6 @@ package com.example.jsavery_pokedex.presentation.viewmodel
 
 import app.cash.turbine.test
 import com.example.jsavery_pokedex.BaseTest
-import com.example.jsavery_pokedex.MainDispatcherExtension
 import com.example.jsavery_pokedex.data.model.EvolutionDetail
 import com.example.jsavery_pokedex.data.repository.PokemonRepository
 import com.example.jsavery_pokedex.domain.PokemonListManager
@@ -15,7 +14,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class DetailsViewModelTest : BaseTest() {
@@ -42,9 +40,9 @@ class DetailsViewModelTest : BaseTest() {
                 PokemonDetailsUiState(
                     isLoading = false,
                     pokemon = MockData.MOCK_POKEMON_BULBASAUR,
-                    error = null
+                    error = null,
                 ),
-                awaitItem()
+                awaitItem(),
             )
         }
     }
@@ -62,9 +60,9 @@ class DetailsViewModelTest : BaseTest() {
                     PokemonDetailsUiState(
                         isLoading = false,
                         pokemon = MockData.MOCK_POKEMON_BULBASAUR,
-                        error = null
+                        error = null,
                     ),
-                    awaitItem()
+                    awaitItem(),
                 )
             }
         }
@@ -73,7 +71,7 @@ class DetailsViewModelTest : BaseTest() {
     fun `getPokemonDetail() pokemon doesnt exist in PokemonListManager so fetchPokemonDetails failure`() =
         runTest {
             coEvery { mockRepository.getPokemonDetail(any()) } returns Result.failure(
-                NullPointerException()
+                NullPointerException(),
             )
             coEvery { mockPokemonListManager.getPokemonById(any()) } returns null
 
@@ -84,9 +82,9 @@ class DetailsViewModelTest : BaseTest() {
                     PokemonDetailsUiState(
                         isLoading = false,
                         pokemon = null,
-                        error = NullPointerException().toString()
+                        error = NullPointerException().toString(),
                     ),
-                    awaitItem()
+                    awaitItem(),
                 )
             }
         }
@@ -101,9 +99,9 @@ class DetailsViewModelTest : BaseTest() {
             EvolutionDetail(
                 id = 1,
                 name = "Bulbasaur",
-                fullImage = "https://example.com/bulbasaur_full.png"
-            ), result
+                fullImage = "https://example.com/bulbasaur_full.png",
+            ),
+            result,
         )
     }
-
 }

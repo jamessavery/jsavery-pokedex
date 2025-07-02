@@ -2,7 +2,6 @@ package com.example.jsavery_pokedex.presentation.viewmodel
 
 import app.cash.turbine.test
 import com.example.jsavery_pokedex.BaseTest
-import com.example.jsavery_pokedex.MainDispatcherExtension
 import com.example.jsavery_pokedex.data.model.PokemonResponse
 import com.example.jsavery_pokedex.data.repository.PokemonRepository
 import com.example.jsavery_pokedex.domain.PokemonListManager
@@ -21,7 +20,6 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 import java.io.IOException
 
 @OptIn(ExperimentalCoroutinesApi::class)
