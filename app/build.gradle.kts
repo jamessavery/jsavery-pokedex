@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.jetbrains.kotlin.serialization)
 }
@@ -40,19 +40,21 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    kapt {
-        correctErrorTypes = true
-    }
     buildFeatures {
         compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+    }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
+    tasks.withType<Test> {
+        useJUnitPlatform()
     }
 }
 
@@ -72,14 +74,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // Test suites
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.vintage.engine)
+    testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockk)
+    testImplementation(libs.turbine)
+    androidTestImplementation(libs.androidx.espresso.core)
 
     // Coil
     implementation(libs.coil.compose)
@@ -99,6 +101,6 @@ dependencies {
 
     // Dependency Injection
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+    ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 }

@@ -15,13 +15,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel
-@Inject
-constructor(
+class MainViewModel @Inject constructor(
     private val repository: PokemonRepository,
     private val pokemonListManager: PokemonListManager,
 ) : ViewModel() {
-    private val _pokemonListUiState = MutableStateFlow<PokemonListUiState>(PokemonListUiState.Loading)
+
+    private val _pokemonListUiState =
+        MutableStateFlow<PokemonListUiState>(PokemonListUiState.Loading)
     val pokemonListUiState: StateFlow<PokemonListUiState> = _pokemonListUiState.asStateFlow()
 
     init {

@@ -14,12 +14,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailsViewModel
-@Inject
-constructor(
+class DetailsViewModel @Inject constructor(
     private val pokemonListManager: PokemonListManager,
     private val pokemonRepository: PokemonRepository,
 ) : ViewModel() {
+
     private val _detailsUiState = MutableStateFlow(PokemonDetailsUiState())
     val detailsUiState = _detailsUiState.asStateFlow()
 
@@ -30,8 +29,6 @@ constructor(
             } ?: fetchPokemonDetails(id)
         }
     }
-
-    fun getPokemonEvolutionDetail(id: Int) = pokemonListManager.getPokemonById(id)?.mapToEvolutionItem()
 
     private fun fetchPokemonDetails(id: Int) {
         viewModelScope.launch {
@@ -57,6 +54,8 @@ constructor(
             currentState.copy(isLoading = false, pokemon = null, error = error.toString())
         }
     }
+
+    fun getPokemonEvolutionDetail(id: Int) = pokemonListManager.getPokemonById(id)?.mapToEvolutionItem()
 }
 
 data class PokemonDetailsUiState(
