@@ -51,10 +51,7 @@ import com.example.jsavery_pokedex.presentation.viewmodel.DetailsViewModel
 import com.example.jsavery_pokedex.presentation.viewmodel.PokemonDetailsUiState
 
 @Composable
-fun PokemonDetailsScreen(
-    pokemonId: PokemonDetails,
-    backStack: NavBackStack,
-) {
+fun PokemonDetailsScreen(pokemonId: PokemonDetails, backStack: NavBackStack) {
     val detailsViewModel: DetailsViewModel = hiltViewModel()
     val uiState by detailsViewModel.detailsUiState.collectAsStateWithLifecycle()
 
@@ -111,7 +108,9 @@ fun PokemonDetailsContent(
         TopAppBar(
             title = { Text(text = stringResource(R.string.pokemon_details)) },
             navigationIcon = {
-                IconButton(onClick = { onBackClick() }) { Icon(Icons.AutoMirrored.Filled.ArrowBack, null) }
+                IconButton(onClick = {
+                    onBackClick()
+                }) { Icon(Icons.AutoMirrored.Filled.ArrowBack, null) }
             },
         )
 
@@ -152,7 +151,10 @@ fun PokemonDetailsContent(
             color = Color.Gray,
             modifier = Modifier.padding(16.dp),
         )
-        Text(text = pokemon.description, modifier = Modifier.padding(horizontal = horizontalPadding))
+        Text(
+            text = pokemon.description,
+            modifier = Modifier.padding(horizontal = horizontalPadding),
+        )
 
         // Weight, height, typing
         Row(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
@@ -187,7 +189,10 @@ fun PokemonDetailsContent(
 @Composable
 fun PokemonDetailsScreenPreview() {
     PokemonDetailsScreenState(
-        uiState = PokemonDetailsUiState(isLoading = false, pokemon = MockData.MOCK_POKEMON_BULBASAUR),
+        uiState = PokemonDetailsUiState(
+            isLoading = false,
+            pokemon = MockData.MOCK_POKEMON_BULBASAUR,
+        ),
         {},
         { EvolutionDetail(1, "", "") },
     )

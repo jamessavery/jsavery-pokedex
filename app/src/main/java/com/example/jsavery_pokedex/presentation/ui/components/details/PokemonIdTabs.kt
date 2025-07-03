@@ -11,10 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.example.jsavery_pokedex.domain.util.processPokedexId
 
 @Composable
-fun PokemonIdTabs(
-    currentPokemonId: Int,
-    modifier: Modifier = Modifier,
-) {
+fun PokemonIdTabs(currentPokemonId: Int, modifier: Modifier = Modifier) {
     Row(modifier = modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
         val numbers =
             when (currentPokemonId) {

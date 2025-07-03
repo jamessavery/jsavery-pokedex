@@ -7,12 +7,12 @@ import com.example.jsavery_pokedex.data.model.PokemonResponse
 import com.example.jsavery_pokedex.data.repository.PokemonRepository
 import com.example.jsavery_pokedex.domain.PokemonListManager
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel
@@ -21,7 +21,8 @@ constructor(
     private val repository: PokemonRepository,
     private val pokemonListManager: PokemonListManager,
 ) : ViewModel() {
-    private val _pokemonListUiState = MutableStateFlow<PokemonListUiState>(PokemonListUiState.Loading)
+    private val _pokemonListUiState =
+        MutableStateFlow<PokemonListUiState>(PokemonListUiState.Loading)
     val pokemonListUiState: StateFlow<PokemonListUiState> = _pokemonListUiState.asStateFlow()
 
     init {
@@ -72,7 +73,9 @@ constructor(
         }
 
         viewModelScope.launch {
-            _pokemonListUiState.update { (it as PokemonListUiState.Success).copy(isLoadingMore = true) }
+            _pokemonListUiState.update {
+                (it as PokemonListUiState.Success).copy(isLoadingMore = true)
+            }
 
             repository.getPokemonList(nextPage)
                 .onSuccess {
