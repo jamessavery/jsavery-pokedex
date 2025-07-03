@@ -6,21 +6,19 @@ import com.example.jsavery_pokedex.data.model.Pokemon
 import com.example.jsavery_pokedex.data.model.PokemonResponse
 import com.example.jsavery_pokedex.data.repository.PokemonRepository
 import com.example.jsavery_pokedex.domain.PokemonListManager
-import com.example.jsavery_pokedex.domain.util.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val repository: PokemonRepository,
-    private val pokemonListManager: PokemonListManager
+    private val pokemonListManager: PokemonListManager,
 ) : ViewModel() {
-
     private val _pokemonListUiState =
         MutableStateFlow<PokemonListUiState>(PokemonListUiState.Loading)
     val pokemonListUiState: StateFlow<PokemonListUiState> = _pokemonListUiState.asStateFlow()
@@ -31,23 +29,24 @@ class MainViewModel @Inject constructor(
 
     private fun fetchPokemon() {
         viewModelScope.launch {
-            repository.getPokemonList(FIRST_PAGE).collect {
-                when (it) {
-                    is Result.Success -> onPokemonListSuccess(it.data)
-                    is Result.Error -> onPokemonListFailure(it.exception)
+            repository.getPokemonList(FIRST_PAGE)
+                .onSuccess {
+                    onPokemonListSuccess(it)
+                }.onFailure {
+                    onPokemonListFailure(it)
                 }
-            }
         }
     }
 
     private fun onPokemonListSuccess(pokemonResponse: PokemonResponse) {
         pokemonListManager.updatePokemonList(pokemonResponse.data)
 
-        _pokemonListUiState.value = PokemonListUiState.Success(
-            pokemonList = processPokemonList(pokemonResponse.data),
-            nextPage = pokemonResponse.next ?: FIRST_PAGE,
-            isLoadingMore = false
-        )
+        _pokemonListUiState.value =
+            PokemonListUiState.Success(
+                pokemonList = processPokemonList(pokemonResponse.data),
+                nextPage = pokemonResponse.next ?: FIRST_PAGE,
+                isLoadingMore = false,
+            )
     }
 
     private fun processPokemonList(data: List<Pokemon>): List<Pokemon> {
@@ -61,11 +60,8 @@ class MainViewModel @Inject constructor(
         }
     }
 
-
     private fun onPokemonListFailure(error: Throwable) {
-        _pokemonListUiState.value = PokemonListUiState.Error(
-            throwable = error
-        )
+        _pokemonListUiState.value = PokemonListUiState.Error(throwable = error)
     }
 
     fun onLoadMore(nextPage: Int) {
@@ -75,21 +71,23 @@ class MainViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            _pokemonListUiState.update { (it as PokemonListUiState.Success).copy(isLoadingMore = true) }
-
-            repository.getPokemonList(nextPage).collect { result ->
-                when (result) {
-                    is Result.Success -> onPokemonListSuccess(result.data)
-                    is Result.Error -> onPokemonListFailure(result.exception)
-                }
+            _pokemonListUiState.update {
+                (it as PokemonListUiState.Success).copy(isLoadingMore = true)
             }
+
+            repository.getPokemonList(nextPage)
+                .onSuccess {
+                    onPokemonListSuccess(it)
+                }
+                .onFailure {
+                    onPokemonListFailure(it)
+                }
         }
     }
 
     companion object {
         const val FIRST_PAGE = 1
     }
-
 }
 
 sealed interface PokemonListUiState {
@@ -98,8 +96,10 @@ sealed interface PokemonListUiState {
     data class Success(
         val pokemonList: List<Pokemon> = emptyList(),
         val nextPage: Int = 1,
-        val isLoadingMore: Boolean = false
+        val isLoadingMore: Boolean = false,
     ) : PokemonListUiState
 
-    data class Error(val throwable: Throwable) : PokemonListUiState
+    data class Error(
+        val throwable: Throwable,
+    ) : PokemonListUiState
 }

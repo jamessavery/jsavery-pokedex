@@ -24,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.integerResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,20 +45,17 @@ import com.example.jsavery_pokedex.presentation.viewmodel.PokemonDetailsUiState
 fun PokemonDetailsScreen(
     uiState: PokemonDetailsUiState,
     onBackClick: () -> Boolean,
-    getEvolutionDetail: (Int) -> EvolutionDetail?
+    getEvolutionDetail: (Int) -> EvolutionDetail?,
 ) {
-
     if (uiState.isLoading) {
-        Box(
-            modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
-        ) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             SpinningPokeballProgress()
         }
     } else if (uiState.pokemon != null) {
         PokemonDetailContent(
             uiState.pokemon,
             onBackClick = onBackClick,
-            getEvolutionDetail = getEvolutionDetail
+            getEvolutionDetail = getEvolutionDetail,
         )
     } else {
         // TODO errors Issue-14
@@ -71,25 +67,19 @@ fun PokemonDetailsScreen(
 fun PokemonDetailContent(
     pokemon: Pokemon,
     onBackClick: () -> Boolean,
-    getEvolutionDetail: (Int) -> EvolutionDetail?
+    getEvolutionDetail: (Int) -> EvolutionDetail?,
 ) {
     val horizontalPadding = dimensionResource(R.dimen.details_horizontal_padding)
     val statStartPadding = dimensionResource(R.dimen.details_stat_start_padding)
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-    ) {
+    Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
         TopAppBar(
             title = { Text(text = stringResource(R.string.pokemon_details)) },
             navigationIcon = {
                 IconButton(onClick = {
                     onBackClick()
-                }) {
-                    Icon(Icons.AutoMirrored.Filled.ArrowBack, null)
-                }
-            }
+                }) { Icon(Icons.AutoMirrored.Filled.ArrowBack, null) }
+            },
         )
 
         // PokemonId tabs
@@ -99,29 +89,26 @@ fun PokemonDetailContent(
         AsyncImage(
             model = pokemon.images.full,
             contentDescription = pokemon.name,
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxWidth()
                 .height(200.dp)
                 .padding(horizontalPadding)
                 .background(Color.LightGray),
-            contentScale = ContentScale.Fit
+            contentScale = ContentScale.Fit,
         )
 
         // Pokemon name & id
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = horizontalPadding),
-        ) {
+        Column(modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding)) {
             Text(
                 text = pokemon.name,
                 style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
             )
             Text(
                 text = pokemon.id.processPokedexId(),
                 style = MaterialTheme.typography.bodyMedium,
-                color = Color.Gray
+                color = Color.Gray,
             )
         }
 
@@ -130,58 +117,34 @@ fun PokemonDetailContent(
             text = stringResource(R.string.pokemon_details_overview_title),
             style = MaterialTheme.typography.labelLarge,
             color = Color.Gray,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(16.dp),
         )
         Text(
             text = pokemon.description,
-            modifier = Modifier.padding(horizontal = horizontalPadding)
+            modifier = Modifier.padding(horizontal = horizontalPadding),
         )
 
         // Weight, height, typing
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        ) {
+        Row(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
             AnthropometryItem(
                 title = stringResource(R.string.pokemon_details_height_title),
                 value = "${pokemon.heightInM}${stringResource(R.string.pokemon_details_m_label)}",
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(start = 12.dp)
+                modifier = Modifier.weight(1f).padding(start = 12.dp),
             )
-            VerticalDivider(
-                modifier = Modifier
-                    .height(80.dp)
-                    .width(2.dp),
-                color = Color.LightGray
-            )
+            VerticalDivider(modifier = Modifier.height(80.dp).width(2.dp), color = Color.LightGray)
             AnthropometryItem(
                 title = stringResource(R.string.pokemon_details_weight_title),
                 value = "${pokemon.weightInKg}${stringResource(R.string.pokemon_details_kg_label)}",
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(start = statStartPadding)
+                modifier = Modifier.weight(1f).padding(start = statStartPadding),
             )
-            VerticalDivider(
-                modifier = Modifier
-                    .height(80.dp)
-                    .width(2.dp),
-                color = Color.LightGray
-            )
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(start = statStartPadding)
-            ) {
+            VerticalDivider(modifier = Modifier.height(80.dp).width(2.dp), color = Color.LightGray)
+            Column(modifier = Modifier.weight(1f).padding(start = statStartPadding)) {
                 Text(
                     text = stringResource(R.string.pokemon_details_type_title),
                     style = MaterialTheme.typography.labelMedium,
-                    color = Color.Gray
+                    color = Color.Gray,
                 )
-                pokemon.types.forEach { type ->
-                    TypesItem(type)
-                }
+                pokemon.types.forEach { type -> TypesItem(type) }
             }
         }
 
@@ -196,7 +159,9 @@ fun PokemonDetailsScreenPreview() {
     PokemonDetailsScreen(
         uiState = PokemonDetailsUiState(
             isLoading = false,
-            pokemon = MockData.MOCK_POKEMON_BULBASAUR
-        ), { false }, { EvolutionDetail(1, "", "") }
+            pokemon = MockData.MOCK_POKEMON_BULBASAUR,
+        ),
+        { false },
+        { EvolutionDetail(1, "", "") },
     )
 }
