@@ -24,7 +24,8 @@ class PokemonDataSourceTest {
         //        pokemonDataSource = PokemonDataSourceImpl()
     }
 
-    private fun testDispatcher() = testDispatcher
+    private fun testDispatcher() =
+        testDispatcher
 
     @After
     fun tearDown() {

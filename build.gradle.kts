@@ -14,14 +14,7 @@ subprojects {
     configure<com.diffplug.gradle.spotless.SpotlessExtension> {
         kotlin {
             target("**/*.kt")
-            ktlint("1.0.1").editorConfigOverride(
-                mapOf(
-                    "ktlint_standard_package-name" to "disabled",
-                    "ktlint_standard_parameter-list-wrapping" to "disabled",
-                    "ktlint_standard_multiline-if-else" to "disabled",
-                    "ktlint_standard_discouraged-comment-location" to "disabled",
-                )
-            )
+            ktlint("1.6.0")
         }
     }
 }
