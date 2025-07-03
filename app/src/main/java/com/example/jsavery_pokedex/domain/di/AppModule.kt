@@ -16,23 +16,18 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+    @Provides
+    @Singleton
+    fun providePokemonDataSource(pokeService: PokemonService): PokemonDataSource =
+        PokemonDataSourceImpl(pokeService)
 
     @Provides
     @Singleton
-    fun providePokemonDataSource(pokeService: PokemonService): PokemonDataSource {
-        return PokemonDataSourceImpl(pokeService)
-    }
+    fun providePokemonRepository(remoteDataSource: PokemonDataSource): PokemonRepository =
+        PokemonRepositoryImpl(remoteDataSource)
 
     @Provides
     @Singleton
-    fun providePokemonRepository(remoteDataSource: PokemonDataSource): PokemonRepository {
-        return PokemonRepositoryImpl(remoteDataSource)
-    }
-
-    @Provides
-    @Singleton
-    fun providePokemonListManager(): PokemonListManager {
-        return PokemonListManagerImpl()
-    }
-
+    fun providePokemonListManager(): PokemonListManager =
+        PokemonListManagerImpl()
 }

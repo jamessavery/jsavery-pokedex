@@ -14,20 +14,16 @@ import androidx.compose.ui.unit.sp
 fun AnthropometryItem( // I.e. height & weight
     title: String,
     value: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.labelMedium,
-            color = Color.Gray
-        )
+        Text(text = title, style = MaterialTheme.typography.labelMedium, color = Color.Gray)
         Text(
             text = value,
             style = MaterialTheme.typography.bodyLarge,
             lineHeight = 35.sp,
             fontSize = 22.sp,
-            modifier = Modifier.padding(top = 10.dp)
+            modifier = Modifier.padding(top = 10.dp),
         )
     }
 }

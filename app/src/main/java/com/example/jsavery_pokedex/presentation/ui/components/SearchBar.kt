@@ -33,22 +33,20 @@ import com.example.jsavery_pokedex.presentation.ui.theme.PokePurple
 fun PokedexSearchBar(
     searchQuery: String,
     onSearchQueryChange: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier.padding(horizontal = 15.dp, vertical = 10.dp)
-    ) {
+    Column(modifier = modifier.padding(horizontal = 15.dp, vertical = 10.dp)) {
         Text(
             text = stringResource(R.string.search_bar_title),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 25.dp)
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 25.dp),
         )
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             OutlinedTextField(
                 value = searchQuery,
@@ -58,7 +56,7 @@ fun PokedexSearchBar(
                     Text(
                         text = stringResource(R.string.search_bar_text),
                         color = Color.Gray,
-                        fontSize = 15.sp
+                        fontSize = 15.sp,
                     )
                 },
                 leadingIcon = {
@@ -66,18 +64,19 @@ fun PokedexSearchBar(
                         painter = painterResource(id = R.drawable.search),
                         contentDescription = null,
                         tint = PokePurple,
-                        modifier = Modifier.size(25.dp)
+                        modifier = Modifier.size(25.dp),
                     )
                 },
-                colors = OutlinedTextFieldDefaults.colors(
+                colors =
+                OutlinedTextFieldDefaults.colors(
                     unfocusedBorderColor = Color.LightGray,
                     focusedBorderColor = PokePurple,
                     cursorColor = Color.Black,
                     unfocusedContainerColor = Color.White,
-                    focusedContainerColor = Color.White
+                    focusedContainerColor = Color.White,
                 ),
                 shape = RoundedCornerShape(10.dp),
-                singleLine = true
+                singleLine = true,
             )
 
             OutlinedIconButton(
@@ -87,13 +86,13 @@ fun PokedexSearchBar(
                     .fillMaxHeight()
                     .background(Color.White),
                 shape = RoundedCornerShape(10.dp),
-                border = BorderStroke(1.dp, Color.LightGray)
+                border = BorderStroke(1.dp, Color.LightGray),
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.filter),
                     contentDescription = null,
                     tint = PokePurple,
-                    modifier = Modifier.size(45.dp)
+                    modifier = Modifier.size(45.dp),
                 )
             }
         }
