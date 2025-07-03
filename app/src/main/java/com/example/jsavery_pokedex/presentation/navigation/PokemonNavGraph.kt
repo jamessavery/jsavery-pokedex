@@ -20,7 +20,9 @@ import kotlinx.serialization.Serializable
 private object PokemonList : NavKey
 
 @Serializable
-data class PokemonDetails(val id: Int) : NavKey
+data class PokemonDetails(
+    val id: Int,
+) : NavKey
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @Composable

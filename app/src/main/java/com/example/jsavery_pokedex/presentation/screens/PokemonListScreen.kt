@@ -144,7 +144,8 @@ fun PokemonListSuccessContent(
             LaunchedEffect(listState, uiState.nextPage) {
                 snapshotFlow { listState.layoutInfo }
                     .distinctUntilChanged { old, new ->
-                        old.visibleItemsInfo.lastOrNull()?.index == new.visibleItemsInfo.lastOrNull()?.index
+                        old.visibleItemsInfo.lastOrNull()?.index ==
+                            new.visibleItemsInfo.lastOrNull()?.index
                     }.collect { layoutInfo ->
                         val lastVisibleIndex = layoutInfo.visibleItemsInfo.lastOrNull()?.index
                         val totalItems = layoutInfo.totalItemsCount

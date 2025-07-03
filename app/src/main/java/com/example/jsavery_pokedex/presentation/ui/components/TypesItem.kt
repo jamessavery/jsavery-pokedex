@@ -15,12 +15,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun TypesItem(
-    type: String,
-    modifier: Modifier = Modifier,
-) {
+fun TypesItem(type: String, modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Start) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start,
+        ) {
             TypeIcon(type = type)
             Spacer(modifier = Modifier.width(5.dp))
             Text(

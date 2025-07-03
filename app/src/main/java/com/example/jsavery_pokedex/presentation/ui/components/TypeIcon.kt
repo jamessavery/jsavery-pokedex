@@ -11,10 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.example.jsavery_pokedex.R
 
 @Composable
-fun TypeIcon(
-    type: String,
-    modifier: Modifier = Modifier,
-) {
+fun TypeIcon(type: String, modifier: Modifier = Modifier) {
     val iconRes =
         when (type.lowercase()) {
             "normal" -> R.drawable.type_normal
