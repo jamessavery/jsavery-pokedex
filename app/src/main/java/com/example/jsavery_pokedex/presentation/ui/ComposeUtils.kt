@@ -10,9 +10,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 @Composable
 fun Modifier.dismissKeyboardOnTouch(): Modifier {
     val keyboardController = LocalSoftwareKeyboardController.current
-    return pointerInput(Unit) {
-        detectTouch { keyboardController?.hide() }
-    }
+    return pointerInput(Unit) { detectTouch { keyboardController?.hide() } }
 }
 
 suspend fun PointerInputScope.detectTouch(invokedAction: () -> Unit?) {

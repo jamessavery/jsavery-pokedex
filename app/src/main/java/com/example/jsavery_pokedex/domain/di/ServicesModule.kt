@@ -8,32 +8,27 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 class ServicesModule {
-
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit {
-        val moshi = Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
+        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
-        val loggingInterceptor = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
+        val loggingInterceptor =
+            HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
 
-        val client = OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
-            .build()
+        val client = OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
 
-        return Retrofit.Builder()
+        return Retrofit
+            .Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(client)
@@ -44,5 +39,4 @@ class ServicesModule {
     @Singleton
     fun providePokemonService(retrofit: Retrofit): PokemonService =
         retrofit.create(PokemonService::class.java)
-
 }

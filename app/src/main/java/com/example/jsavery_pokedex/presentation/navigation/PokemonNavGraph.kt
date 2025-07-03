@@ -18,10 +18,10 @@ import androidx.navigation.navArgument
 import com.example.jsavery_pokedex.presentation.navigation.NavRoutes.POKEMON_DETAILS
 import com.example.jsavery_pokedex.presentation.navigation.NavRoutes.POKEMON_DETAILS_ARG
 import com.example.jsavery_pokedex.presentation.navigation.NavRoutes.POKEMON_LIST
-import com.example.jsavery_pokedex.presentation.viewmodel.MainViewModel
 import com.example.jsavery_pokedex.presentation.screens.PokemonDetailsScreen
 import com.example.jsavery_pokedex.presentation.screens.PokemonListScreen
 import com.example.jsavery_pokedex.presentation.viewmodel.DetailsViewModel
+import com.example.jsavery_pokedex.presentation.viewmodel.MainViewModel
 
 object NavRoutes {
     const val POKEMON_LIST = "pokemon_list"
@@ -31,47 +31,38 @@ object NavRoutes {
 
 @Composable
 fun PokemonNavGraph(navController: NavHostController) {
-    NavHost(
-        navController = navController,
-        startDestination = POKEMON_LIST
-    ) {
+    NavHost(navController = navController, startDestination = POKEMON_LIST) {
         composable(POKEMON_LIST) {
             val viewModel: MainViewModel = hiltViewModel()
             val uiState by viewModel.pokemonListUiState.collectAsState()
 
-            Scaffold(
-                modifier = Modifier.fillMaxSize()
-            ) { innerPadding ->
+            Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                 PokemonListScreen(
                     uiState = uiState,
                     modifier = Modifier.padding(innerPadding),
                     onLoadMore = { viewModel.onLoadMore(it) },
                     onPokemonClick = { pokemonId ->
                         navController.navigate("$POKEMON_DETAILS$pokemonId")
-                    }
+                    },
                 )
             }
         }
 
         composable(
             route = "$POKEMON_DETAILS{$POKEMON_DETAILS_ARG}",
-            arguments = listOf(
-                navArgument(POKEMON_DETAILS_ARG) { type = NavType.IntType }
-            )
+            arguments = listOf(navArgument(POKEMON_DETAILS_ARG) { type = NavType.IntType }),
         ) { backStackEntry ->
-
-            val pokemonId = backStackEntry.arguments?.getInt(POKEMON_DETAILS_ARG) ?: return@composable
+            val pokemonId =
+                backStackEntry.arguments?.getInt(POKEMON_DETAILS_ARG) ?: return@composable
             val detailsViewModel: DetailsViewModel = hiltViewModel()
             val uiState by detailsViewModel.detailsUiState.collectAsStateWithLifecycle()
 
-            LaunchedEffect(pokemonId) {
-                detailsViewModel.getPokemonDetail(pokemonId)
-            }
+            LaunchedEffect(pokemonId) { detailsViewModel.getPokemonDetail(pokemonId) }
 
             PokemonDetailsScreen(
                 uiState,
                 onBackClick = { navController.popBackStack() },
-                getEvolutionDetail = { detailsViewModel.getPokemonEvolutionDetail(it) }
+                getEvolutionDetail = { detailsViewModel.getPokemonEvolutionDetail(it) },
             )
         }
     }
