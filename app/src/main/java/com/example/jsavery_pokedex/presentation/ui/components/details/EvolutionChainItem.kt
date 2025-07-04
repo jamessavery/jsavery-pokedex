@@ -45,7 +45,10 @@ fun EvolutionChainItem(
             modifier = Modifier.padding(vertical = 8.dp),
         )
 
-        Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
             // TODO Issue-35: Is in a bugged state
             // TODO Rather than returning an Object, perhaps make reactive..?
             pokemon.evolutions.forEachIndexed { index, evolvedPokemonId ->
@@ -55,7 +58,8 @@ fun EvolutionChainItem(
 
                 LaunchedEffect(evolvedPokemonId) {
                     evolutionPokemon =
-                        getEvolutionDetail(evolvedPokemonId) ?: EvolutionDetail(1, "Error2", "fullImage2")
+                        getEvolutionDetail(evolvedPokemonId)
+                            ?: EvolutionDetail(1, "Error2", "fullImage2")
                 }
 
                 EvolutionItem(
@@ -65,7 +69,10 @@ fun EvolutionChainItem(
                 )
 
                 if (index < pokemon.evolutions.size - 1) {
-                    VerticalDivider(modifier = Modifier.height(40.dp).width(2.dp), color = Color.LightGray)
+                    VerticalDivider(
+                        modifier = Modifier.height(40.dp).width(2.dp),
+                        color = Color.LightGray,
+                    )
                 }
             }
         }

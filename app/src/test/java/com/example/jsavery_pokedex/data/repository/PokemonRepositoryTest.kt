@@ -11,6 +11,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
+import java.io.IOException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.resetMain
@@ -19,7 +20,6 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import java.io.IOException
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class PokemonRepositoryTest : BaseTest() {
@@ -98,7 +98,8 @@ class PokemonRepositoryTest : BaseTest() {
     fun `WHEN getPokemonDetail() returns success THEN API call is successful and WHEN loads next page THEN success`() =
         runTest {
             // given
-            coEvery { remoteDataSource.getPokemonDetail(any()) } returns MockData.MOCK_POKEMON_SQUIRTLE
+            coEvery { remoteDataSource.getPokemonDetail(any()) } returns
+                MockData.MOCK_POKEMON_SQUIRTLE
 
             // when
             var result = sut.getPokemonDetail(1)

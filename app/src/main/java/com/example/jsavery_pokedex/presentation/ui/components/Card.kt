@@ -25,8 +25,10 @@ fun PokemonItem(
     onPokemonClick: (Int) -> Unit,
 ) {
     Card(
-        modifier =
-        modifier.fillMaxWidth().clickable { onPokemonClick(pokemon.id) }.dismissKeyboardOnTouch(),
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable { onPokemonClick(pokemon.id) }
+            .dismissKeyboardOnTouch(),
         elevation = CardDefaults.cardElevation(4.dp),
     ) {
         Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {

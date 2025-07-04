@@ -32,35 +32,38 @@ class DetailsViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `getPokemonDetail() pokemon already exists in PokemonListManager success`() = runTest {
-        // given
-        coEvery { mockPokemonListManager.getPokemonById(any()) } returns MockData.MOCK_POKEMON_BULBASAUR
+    fun `getPokemonDetail() pokemon already exists in PokemonListManager success`() =
+        runTest {
+            // given
+            coEvery { mockPokemonListManager.getPokemonById(any()) } returns
+                MockData.MOCK_POKEMON_BULBASAUR
 
-        // when
-        sut.getPokemonDetail(1)
+            // when
+            sut.getPokemonDetail(1)
 
-        // then
-        sut.detailsUiState.test {
-            assertEquals(
-                PokemonDetailsUiState(
-                    isLoading = false,
-                    pokemon = MockData.MOCK_POKEMON_BULBASAUR,
-                    error = null,
-                ),
-                awaitItem(),
-            )
+            // then
+            sut.detailsUiState.test {
+                assertEquals(
+                    PokemonDetailsUiState(
+                        isLoading = false,
+                        pokemon = MockData.MOCK_POKEMON_BULBASAUR,
+                        error = null,
+                    ),
+                    awaitItem(),
+                )
 
-            coVerify(exactly = 0) { mockRepository.getPokemonDetail(any()) }
-            coVerify(exactly = 1) { mockPokemonListManager.getPokemonById(1) }
+                coVerify(exactly = 0) { mockRepository.getPokemonDetail(any()) }
+                coVerify(exactly = 1) { mockPokemonListManager.getPokemonById(1) }
+            }
         }
-    }
 
     @Test
     fun `getPokemonDetail() pokemon doesnt exist in PokemonListManager so fetchPokemonDetails success`() =
         runTest {
             // given
             coEvery { mockPokemonListManager.getPokemonById(any()) } returns null
-            coEvery { mockRepository.getPokemonDetail(any()) } returns Result.success(MockData.MOCK_POKEMON_BULBASAUR)
+            coEvery { mockRepository.getPokemonDetail(any()) } returns
+                Result.success(MockData.MOCK_POKEMON_BULBASAUR)
 
             // when
             sut.getPokemonDetail(1)

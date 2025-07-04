@@ -9,6 +9,7 @@ import com.example.jsavery_pokedex.mock.MockData
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import java.io.IOException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -20,7 +21,6 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.io.IOException
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class MainViewModelTest : BaseTest() {
@@ -38,7 +38,9 @@ class MainViewModelTest : BaseTest() {
     fun setup() {
         Dispatchers.setMain(testDispatcher)
 
-        coEvery { mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE) } returns Result.success(
+        coEvery {
+            mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE)
+        } returns Result.success(
             PokemonResponse(
                 10,
                 next = MainViewModel.Companion.FIRST_PAGE,
@@ -72,7 +74,8 @@ class MainViewModelTest : BaseTest() {
 
             // then
             viewModel.pokemonListUiState.test {
-                Assertions.assertEquals( // Loads first page
+                Assertions.assertEquals(
+                    // Loads first page
                     PokemonListUiState.Success(
                         pokemonList = mockPokemonList,
                         nextPage = nextPageTwo,
@@ -80,7 +83,9 @@ class MainViewModelTest : BaseTest() {
                     ),
                     awaitItem(),
                 )
-                coVerify(exactly = 1) { mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE) }
+                coVerify(exactly = 1) {
+                    mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE)
+                }
 
                 // and when
                 viewModel.onLoadMore(nextPageTwo)
@@ -94,7 +99,8 @@ class MainViewModelTest : BaseTest() {
                     ),
                     awaitItem(),
                 )
-                Assertions.assertEquals( // Loads second page & concatenates
+                Assertions.assertEquals(
+                    // Loads second page & concatenates
                     PokemonListUiState.Success(
                         pokemonList = mockPokemonList + mockPokemonList,
                         nextPage = nextPageTwo,
@@ -103,7 +109,9 @@ class MainViewModelTest : BaseTest() {
                     awaitItem(),
                 )
 
-                coVerify(exactly = 1) { mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE) }
+                coVerify(exactly = 1) {
+                    mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE)
+                }
                 coVerify(exactly = 1) { mockRepository.getPokemonList(nextPageTwo) }
             }
         }
@@ -116,7 +124,9 @@ class MainViewModelTest : BaseTest() {
             val exception = Throwable(errorMessage)
             coEvery { mockResponse.data } returns mockPokemonList
             coEvery { mockResponse.next } returns nextPageTwo
-            coEvery { mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE) } returns Result.success(
+            coEvery {
+                mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE)
+            } returns Result.success(
                 mockResponse,
             )
 
@@ -126,7 +136,9 @@ class MainViewModelTest : BaseTest() {
 
             viewModel.pokemonListUiState.test {
                 // then
-                coVerify(exactly = 1) { mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE) }
+                coVerify(exactly = 1) {
+                    mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE)
+                }
                 Assertions.assertEquals(
                     PokemonListUiState.Success(
                         pokemonList = mockPokemonList,
@@ -156,7 +168,9 @@ class MainViewModelTest : BaseTest() {
 
                 Assertions.assertEquals(PokemonListUiState.Error(exception), awaitItem())
 
-                coVerify(exactly = 1) { mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE) }
+                coVerify(exactly = 1) {
+                    mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE)
+                }
                 coVerify(exactly = 1) { mockRepository.getPokemonList(nextPageTwo) }
             }
         }
@@ -167,7 +181,9 @@ class MainViewModelTest : BaseTest() {
             // given
             coEvery { mockResponse.data } returns mockPokemonList
             coEvery { mockResponse.next } returns null
-            coEvery { mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE) } returns Result.success(
+            coEvery {
+                mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE)
+            } returns Result.success(
                 mockResponse,
             )
 
@@ -185,78 +201,92 @@ class MainViewModelTest : BaseTest() {
                     ),
                     awaitItem(),
                 )
-                coVerify(exactly = 1) { mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE) }
+                coVerify(exactly = 1) {
+                    mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE)
+                }
             }
         }
 
     @Test
-    fun `GIVEN isLoading is true THEN onLoadMore is blocked from loading more`() = runTest {
-        // given
-        coEvery { mockRepository.getPokemonList(any()) } returns Result.success(
-            PokemonResponse(
-                10,
-                next = MainViewModel.Companion.FIRST_PAGE,
-                previous = null,
-                data = listOf(),
-            ),
-        )
-        coEvery { mockPokemonListManager.updatePokemonList(listOf()) } returns Unit
+    fun `GIVEN isLoading is true THEN onLoadMore is blocked from loading more`() =
+        runTest {
+            // given
+            coEvery { mockRepository.getPokemonList(any()) } returns Result.success(
+                PokemonResponse(
+                    10,
+                    next = MainViewModel.Companion.FIRST_PAGE,
+                    previous = null,
+                    data = listOf(),
+                ),
+            )
+            coEvery { mockPokemonListManager.updatePokemonList(listOf()) } returns Unit
 
-        val nextPageTwo = 2
-        coEvery { mockResponse.data } returns mockPokemonList
-        coEvery { mockResponse.next } returns nextPageTwo
-        coEvery { mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE) } returns Result.success(
-            mockResponse,
-        )
+            val nextPageTwo = 2
+            coEvery { mockResponse.data } returns mockPokemonList
+            coEvery { mockResponse.next } returns nextPageTwo
+            coEvery {
+                mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE)
+            } returns Result.success(
+                mockResponse,
+            )
 
-        // when
-        viewModel = MainViewModel(mockRepository, mockPokemonListManager)
-        advanceUntilIdle()
+            // when
+            viewModel = MainViewModel(mockRepository, mockPokemonListManager)
+            advanceUntilIdle()
 
-        // then
-        coVerify(exactly = 1) { mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE) }
+            // then
+            coVerify(exactly = 1) {
+                mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE)
+            }
 
-        // and when
-        viewModel.onLoadMore(nextPageTwo)
-        advanceUntilIdle()
+            // and when
+            viewModel.onLoadMore(nextPageTwo)
+            advanceUntilIdle()
 
-        // onLoadMore() is locked, these calls will not register
-        viewModel.onLoadMore(nextPageTwo)
-        viewModel.onLoadMore(nextPageTwo)
-        viewModel.onLoadMore(nextPageTwo)
-        viewModel.onLoadMore(nextPageTwo)
-        viewModel.onLoadMore(nextPageTwo)
+            // onLoadMore() is locked, these calls will not register
+            viewModel.onLoadMore(nextPageTwo)
+            viewModel.onLoadMore(nextPageTwo)
+            viewModel.onLoadMore(nextPageTwo)
+            viewModel.onLoadMore(nextPageTwo)
+            viewModel.onLoadMore(nextPageTwo)
 
-        // and then
-        coVerify(exactly = 1) { mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE) }
-        coVerify(exactly = 1) { mockRepository.getPokemonList(nextPageTwo) }
-    }
+            // and then
+            coVerify(exactly = 1) {
+                mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE)
+            }
+            coVerify(exactly = 1) { mockRepository.getPokemonList(nextPageTwo) }
+        }
 
     @Test
-    fun `WHEN fetchPokemon fails, THEN uiState should be Error`() = runTest {
-        // given
-        val exception = Throwable(errorMessage)
-        coEvery { mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE) } returns Result.failure(
-            exception,
-        )
+    fun `WHEN fetchPokemon fails, THEN uiState should be Error`() =
+        runTest {
+            // given
+            val exception = Throwable(errorMessage)
+            coEvery {
+                mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE)
+            } returns Result.failure(
+                exception,
+            )
 
-        // when
-        viewModel = MainViewModel(mockRepository, mockPokemonListManager)
-        advanceUntilIdle()
+            // when
+            viewModel = MainViewModel(mockRepository, mockPokemonListManager)
+            advanceUntilIdle()
 
-        // then
-        coVerify { mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE) }
+            // then
+            coVerify { mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE) }
 
-        viewModel.pokemonListUiState.test {
-            Assertions.assertEquals(PokemonListUiState.Error(exception), awaitItem())
+            viewModel.pokemonListUiState.test {
+                Assertions.assertEquals(PokemonListUiState.Error(exception), awaitItem())
+            }
         }
-    }
 
     @Test
     fun `WHEN repository returns empty list, THEN uiState should be Success with empty list`() =
         runTest {
             // given
-            coEvery { mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE) } returns Result.success(
+            coEvery {
+                mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE)
+            } returns Result.success(
                 PokemonResponse(
                     10,
                     next = MainViewModel.Companion.FIRST_PAGE,
@@ -287,7 +317,9 @@ class MainViewModelTest : BaseTest() {
         runTest {
             // given
             val expectedException = IOException("Network error")
-            coEvery { mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE) } returns Result.failure(
+            coEvery {
+                mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE)
+            } returns Result.failure(
                 expectedException,
             )
 

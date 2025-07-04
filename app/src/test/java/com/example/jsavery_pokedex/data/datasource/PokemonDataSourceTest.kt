@@ -38,110 +38,115 @@ class PokemonDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `getPokemonList() success`() = runTest {
-        // given
-        val response = Response.success(
-            PokemonResponse(
-                count = 2,
-                next = 1,
-                previous = 0,
-                data = MockData.MOCK_POKEMON_RESPONSE,
-            ),
-        )
-        coEvery { mockPokeService.getPokemonList(any()) } returns response
+    fun `getPokemonList() success`() =
+        runTest {
+            // given
+            val response = Response.success(
+                PokemonResponse(
+                    count = 2,
+                    next = 1,
+                    previous = 0,
+                    data = MockData.MOCK_POKEMON_RESPONSE,
+                ),
+            )
+            coEvery { mockPokeService.getPokemonList(any()) } returns response
 
-        // when
-        var result = sut.getPokemonList(1)
+            // when
+            var result = sut.getPokemonList(1)
 
-        // then
-        assertEquals(response.body(), result)
-        coVerify { mockPokeService.getPokemonList(1) }
+            // then
+            assertEquals(response.body(), result)
+            coVerify { mockPokeService.getPokemonList(1) }
 
-        // and given
-        coEvery { mockPokeService.getPokemonList(any()) } returns Response.success(null)
+            // and given
+            coEvery { mockPokeService.getPokemonList(any()) } returns Response.success(null)
 
-        // and when & then
-        result = sut.getPokemonList(2)
-        assertEquals(null, result)
-        coVerify { mockPokeService.getPokemonList(2) }
-    }
+            // and when & then
+            result = sut.getPokemonList(2)
+            assertEquals(null, result)
+            coVerify { mockPokeService.getPokemonList(2) }
+        }
 
     @ParameterizedTest
     @MethodSource("httpErrorCodes")
     fun `getPokemonList() throws HttpException for various error codes`(
         errorCode: Int,
         errorMessage: String,
-    ) = runTest {
-        // given
-        val mockResponse = mockk<Response<PokemonResponse>> {
-            every { isSuccessful } returns false
-            every { code() } returns errorCode
-            every { message() } returns errorMessage
-        }
-        coEvery { mockPokeService.getPokemonList(any()) } returns mockResponse
+    ) =
+        runTest {
+            // given
+            val mockResponse = mockk<Response<PokemonResponse>> {
+                every { isSuccessful } returns false
+                every { code() } returns errorCode
+                every { message() } returns errorMessage
+            }
+            coEvery { mockPokeService.getPokemonList(any()) } returns mockResponse
 
-        // when & then
-        val exception = assertThrows<HttpException> {
-            sut.getPokemonList(1)
+            // when & then
+            val exception = assertThrows<HttpException> {
+                sut.getPokemonList(1)
+            }
+            assertEquals(mockResponse, exception.response())
+            assertEquals(errorCode, exception.code())
         }
-        assertEquals(mockResponse, exception.response())
-        assertEquals(errorCode, exception.code())
-    }
 
     @Test
-    fun `getPokemonDetail() success`() = runTest {
-        // given
-        val response = Response.success(
-            MockData.MOCK_POKEMON_BULBASAUR,
-        )
-        coEvery { mockPokeService.getPokemonDetail(any()) } returns response
+    fun `getPokemonDetail() success`() =
+        runTest {
+            // given
+            val response = Response.success(
+                MockData.MOCK_POKEMON_BULBASAUR,
+            )
+            coEvery { mockPokeService.getPokemonDetail(any()) } returns response
 
-        // when
-        var result = sut.getPokemonDetail(1)
+            // when
+            var result = sut.getPokemonDetail(1)
 
-        // then
-        assertEquals(response.body(), result)
-        coVerify { mockPokeService.getPokemonDetail(1) }
+            // then
+            assertEquals(response.body(), result)
+            coVerify { mockPokeService.getPokemonDetail(1) }
 
-        // and given
-        coEvery { mockPokeService.getPokemonDetail(any()) } returns Response.success(null)
+            // and given
+            coEvery { mockPokeService.getPokemonDetail(any()) } returns Response.success(null)
 
-        // and when & then
-        result = sut.getPokemonDetail(2)
-        assertEquals(null, result)
-        coVerify { mockPokeService.getPokemonDetail(2) }
-    }
+            // and when & then
+            result = sut.getPokemonDetail(2)
+            assertEquals(null, result)
+            coVerify { mockPokeService.getPokemonDetail(2) }
+        }
 
     @ParameterizedTest
     @MethodSource("httpErrorCodes")
     fun `getPokemonDetail() throws HttpException for various error codes`(
         errorCode: Int,
         errorMessage: String,
-    ) = runTest {
-        // given
-        val mockResponse = mockk<Response<Pokemon>> {
-            every { isSuccessful } returns false
-            every { code() } returns errorCode
-            every { message() } returns errorMessage
-        }
-        coEvery { mockPokeService.getPokemonDetail(any()) } returns mockResponse
+    ) =
+        runTest {
+            // given
+            val mockResponse = mockk<Response<Pokemon>> {
+                every { isSuccessful } returns false
+                every { code() } returns errorCode
+                every { message() } returns errorMessage
+            }
+            coEvery { mockPokeService.getPokemonDetail(any()) } returns mockResponse
 
-        // when & then
-        val exception = assertThrows<HttpException> {
-            sut.getPokemonDetail(1)
+            // when & then
+            val exception = assertThrows<HttpException> {
+                sut.getPokemonDetail(1)
+            }
+            assertEquals(mockResponse, exception.response())
+            assertEquals(errorCode, exception.code())
         }
-        assertEquals(mockResponse, exception.response())
-        assertEquals(errorCode, exception.code())
-    }
 
     companion object {
         @JvmStatic
-        fun httpErrorCodes() = listOf(
-            Arguments.of(400, "Bad Request"),
-            Arguments.of(401, "Unauthorized"),
-            Arguments.of(404, "Not Found"),
-            Arguments.of(500, "Internal Server Error"),
-            Arguments.of(503, "Service Unavailable"),
-        )
+        fun httpErrorCodes() =
+            listOf(
+                Arguments.of(400, "Bad Request"),
+                Arguments.of(401, "Unauthorized"),
+                Arguments.of(404, "Not Found"),
+                Arguments.of(500, "Internal Server Error"),
+                Arguments.of(503, "Service Unavailable"),
+            )
     }
 }

@@ -39,12 +39,13 @@ fun SpinningPokeballProgress(modifier: Modifier = Modifier) {
     Image(
         painter = painterResource(id = R.drawable.pokeball_progress),
         contentDescription = "Loading",
-        modifier =
-        modifier.fillMaxSize().graphicsLayer {
-            scaleX = 1f
-            scaleY = 1f
-            rotationZ = rotation
-        },
+        modifier = modifier
+            .fillMaxSize()
+            .graphicsLayer {
+                scaleX = 1f
+                scaleY = 1f
+                rotationZ = rotation
+            },
         contentScale = ContentScale.Fit,
     )
 }

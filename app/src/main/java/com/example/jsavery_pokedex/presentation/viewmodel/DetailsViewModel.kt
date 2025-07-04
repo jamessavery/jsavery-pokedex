@@ -7,11 +7,11 @@ import com.example.jsavery_pokedex.data.model.Pokemon
 import com.example.jsavery_pokedex.data.repository.PokemonRepository
 import com.example.jsavery_pokedex.domain.PokemonListManager
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
@@ -55,7 +55,8 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    fun getPokemonEvolutionDetail(id: Int) = pokemonListManager.getPokemonById(id)?.mapToEvolutionItem()
+    fun getPokemonEvolutionDetail(id: Int) =
+        pokemonListManager.getPokemonById(id)?.mapToEvolutionItem()
 }
 
 data class PokemonDetailsUiState(
