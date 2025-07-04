@@ -19,6 +19,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,23 +31,52 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation3.runtime.NavBackStack
 import coil3.compose.AsyncImage
 import com.example.jsavery_pokedex.R
 import com.example.jsavery_pokedex.data.model.EvolutionDetail
 import com.example.jsavery_pokedex.data.model.Pokemon
 import com.example.jsavery_pokedex.domain.util.processPokedexId
 import com.example.jsavery_pokedex.mock.MockData
+import com.example.jsavery_pokedex.presentation.navigation.PokemonDetails
 import com.example.jsavery_pokedex.presentation.ui.components.TypesItem
 import com.example.jsavery_pokedex.presentation.ui.components.details.AnthropometryItem
 import com.example.jsavery_pokedex.presentation.ui.components.details.EvolutionChainItem
 import com.example.jsavery_pokedex.presentation.ui.components.details.PokemonIdTabs
 import com.example.jsavery_pokedex.presentation.ui.components.progress.SpinningPokeballProgress
+import com.example.jsavery_pokedex.presentation.viewmodel.DetailsViewModel
 import com.example.jsavery_pokedex.presentation.viewmodel.PokemonDetailsUiState
 
 @Composable
-fun PokemonDetailsScreen(
+fun PokemonDetailsScreen(pokemonId: PokemonDetails, backStack: NavBackStack) {
+    val detailsViewModel: DetailsViewModel = hiltViewModel()
+    val uiState by detailsViewModel.detailsUiState.collectAsStateWithLifecycle()
+
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val currentPokemonId by rememberUpdatedState(pokemonId)
+
+    LaunchedEffect(currentPokemonId, lifecycleOwner) {
+        detailsViewModel.getPokemonDetail(pokemonId.id)
+    }
+
+    PokemonDetailsScreenContent(
+        uiState = uiState,
+        onBackClick = {
+            if (backStack.size > 1) {
+                backStack.removeLastOrNull()
+            }
+        },
+        getEvolutionDetail = { detailsViewModel.getPokemonEvolutionDetail(it) },
+    )
+}
+
+@Composable
+fun PokemonDetailsScreenContent(
     uiState: PokemonDetailsUiState,
-    onBackClick: () -> Boolean,
+    onBackClick: () -> Unit,
     getEvolutionDetail: (Int) -> EvolutionDetail?,
 ) {
     if (uiState.isLoading) {
@@ -52,7 +84,7 @@ fun PokemonDetailsScreen(
             SpinningPokeballProgress()
         }
     } else if (uiState.pokemon != null) {
-        PokemonDetailContent(
+        PokemonDetailsSuccess(
             uiState.pokemon,
             onBackClick = onBackClick,
             getEvolutionDetail = getEvolutionDetail,
@@ -64,9 +96,9 @@ fun PokemonDetailsScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PokemonDetailContent(
+fun PokemonDetailsSuccess(
     pokemon: Pokemon,
-    onBackClick: () -> Boolean,
+    onBackClick: () -> Unit,
     getEvolutionDetail: (Int) -> EvolutionDetail?,
 ) {
     val horizontalPadding = dimensionResource(R.dimen.details_horizontal_padding)
@@ -156,12 +188,12 @@ fun PokemonDetailContent(
 @Preview(showBackground = true)
 @Composable
 fun PokemonDetailsScreenPreview() {
-    PokemonDetailsScreen(
+    PokemonDetailsScreenContent(
         uiState = PokemonDetailsUiState(
             isLoading = false,
             pokemon = MockData.MOCK_POKEMON_BULBASAUR,
         ),
-        { false },
+        {},
         { EvolutionDetail(1, "", "") },
     )
 }
