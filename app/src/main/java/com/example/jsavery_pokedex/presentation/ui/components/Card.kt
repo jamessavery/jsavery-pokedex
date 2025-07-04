@@ -25,8 +25,7 @@ fun PokemonItem(
     onPokemonClick: (Int) -> Unit,
 ) {
     Card(
-        modifier =
-        modifier
+        modifier = modifier
             .fillMaxWidth()
             .clickable { onPokemonClick(pokemon.id) }
             .dismissKeyboardOnTouch(),
