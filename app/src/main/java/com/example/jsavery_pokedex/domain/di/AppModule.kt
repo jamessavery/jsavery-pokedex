@@ -18,7 +18,8 @@ import javax.inject.Singleton
 object AppModule {
     @Provides
     @Singleton
-    fun providePokemonDataSource(pokeService: PokemonService): PokemonDataSource = PokemonDataSourceImpl(pokeService)
+    fun providePokemonDataSource(pokeService: PokemonService): PokemonDataSource =
+        PokemonDataSourceImpl(pokeService)
 
     @Provides
     @Singleton
@@ -27,5 +28,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providePokemonListManager(): PokemonListManager = PokemonListManagerImpl()
+    fun providePokemonListManager(): PokemonListManager =
+        PokemonListManagerImpl()
 }

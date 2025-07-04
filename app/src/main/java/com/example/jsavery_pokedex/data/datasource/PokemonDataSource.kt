@@ -3,8 +3,8 @@ package com.example.jsavery_pokedex.data.datasource
 import com.example.jsavery_pokedex.data.model.Pokemon
 import com.example.jsavery_pokedex.data.model.PokemonResponse
 import com.example.jsavery_pokedex.services.PokemonService
-import retrofit2.HttpException
 import javax.inject.Inject
+import retrofit2.HttpException
 
 class PokemonDataSourceImpl @Inject constructor(
     private val pokeService: PokemonService,
