@@ -52,7 +52,7 @@ fun PokemonListScreen(backStack: NavBackStack) {
         modifier = Modifier.fillMaxSize(),
         contentWindowInsets = WindowInsets(0.dp),
     ) { innerPadding ->
-        PokemonListScreenState(
+        PokemonListScreenContent(
             uiState = uiState,
             modifier = Modifier.padding(innerPadding),
             onLoadMore = { viewModel.onLoadMore(it) },
@@ -62,7 +62,7 @@ fun PokemonListScreen(backStack: NavBackStack) {
 }
 
 @Composable
-fun PokemonListScreenState(
+fun PokemonListScreenContent(
     uiState: PokemonListUiState,
     modifier: Modifier = Modifier,
     onLoadMore: (Int) -> Unit,
@@ -91,13 +91,13 @@ fun PokemonListScreenState(
         }
 
         is PokemonListUiState.Success -> {
-            PokemonListSuccessContent(uiState, modifier, onLoadMore, onPokemonClick)
+            PokemonListSuccess(uiState, modifier, onLoadMore, onPokemonClick)
         }
     }
 }
 
 @Composable
-fun PokemonListSuccessContent(
+fun PokemonListSuccess(
     uiState: PokemonListUiState.Success,
     modifier: Modifier,
     onLoadMore: (Int) -> Unit,
@@ -166,7 +166,7 @@ fun PokemonListSuccessContent(
 @Composable
 fun PokemonPreview() {
     PokedexTheme {
-        PokemonListScreenState(
+        PokemonListScreenContent(
             uiState = PokemonListUiState.Success(MOCK_POKEMON_RESPONSE, isLoadingMore = false),
             onLoadMore = {},
             onPokemonClick = {},
