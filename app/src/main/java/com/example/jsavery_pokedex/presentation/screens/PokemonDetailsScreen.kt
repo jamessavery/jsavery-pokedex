@@ -62,7 +62,7 @@ fun PokemonDetailsScreen(pokemonId: PokemonDetails, backStack: NavBackStack) {
         detailsViewModel.getPokemonDetail(pokemonId.id)
     }
 
-    PokemonDetailsScreenState(
+    PokemonDetailsScreenContent(
         uiState = uiState,
         onBackClick = {
             if (backStack.size > 1) {
@@ -74,7 +74,7 @@ fun PokemonDetailsScreen(pokemonId: PokemonDetails, backStack: NavBackStack) {
 }
 
 @Composable
-fun PokemonDetailsScreenState(
+fun PokemonDetailsScreenContent(
     uiState: PokemonDetailsUiState,
     onBackClick: () -> Unit,
     getEvolutionDetail: (Int) -> EvolutionDetail?,
@@ -84,7 +84,7 @@ fun PokemonDetailsScreenState(
             SpinningPokeballProgress()
         }
     } else if (uiState.pokemon != null) {
-        PokemonDetailsContent(
+        PokemonDetailsSuccess(
             uiState.pokemon,
             onBackClick = onBackClick,
             getEvolutionDetail = getEvolutionDetail,
@@ -96,7 +96,7 @@ fun PokemonDetailsScreenState(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PokemonDetailsContent(
+fun PokemonDetailsSuccess(
     pokemon: Pokemon,
     onBackClick: () -> Unit,
     getEvolutionDetail: (Int) -> EvolutionDetail?,
@@ -188,7 +188,7 @@ fun PokemonDetailsContent(
 @Preview(showBackground = true)
 @Composable
 fun PokemonDetailsScreenPreview() {
-    PokemonDetailsScreenState(
+    PokemonDetailsScreenContent(
         uiState = PokemonDetailsUiState(
             isLoading = false,
             pokemon = MockData.MOCK_POKEMON_BULBASAUR,
