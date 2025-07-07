@@ -4,35 +4,20 @@ import com.example.jsavery_pokedex.data.datasource.PokemonDataSource
 import com.example.jsavery_pokedex.data.model.Pokemon
 import com.example.jsavery_pokedex.data.model.PokemonResponse
 import javax.inject.Inject
-import kotlinx.coroutines.CancellationException
 
 class PokemonRepositoryImpl @Inject constructor(
     private val remoteDataSource: PokemonDataSource,
 ) : PokemonRepository {
     override suspend fun getPokemonList(nextPage: Int): Result<PokemonResponse> =
-        try {
+        runCatching {
             val response = remoteDataSource.getPokemonList(nextPage)
-            if (response != null) {
-                Result.success(response)
-            } else {
-                Result.failure(NullPointerException())
-            }
-        } catch (e: Exception) {
-            if (e is CancellationException) throw e
-            Result.failure(e)
+            response ?: throw NullPointerException("Response is null")
         }
 
     override suspend fun getPokemonDetail(id: Int): Result<Pokemon> =
-        try {
+        runCatching {
             val response = remoteDataSource.getPokemonDetail(id)
-            if (response != null) {
-                Result.success(response)
-            } else {
-                Result.failure(NullPointerException())
-            }
-        } catch (e: Exception) {
-            if (e is CancellationException) throw e
-            Result.failure(e)
+            response ?: throw NullPointerException("Response is null")
         }
 }
 
