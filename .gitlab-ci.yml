@@ -1,6 +1,5 @@
 stages:
-  - format-check
-  - test
+  - quality-check
 
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.configuration-cache=false"
@@ -12,7 +11,7 @@ before_script:
 
 spotless-check:
   image: inovex/gitlab-ci-android
-  stage: format-check
+  stage: quality-check
   script:
     - ./gradlew clean spotlessCheck
   rules:
@@ -21,6 +20,17 @@ spotless-check:
 
 test:
   image: inovex/gitlab-ci-android
-  stage: test
+  stage: quality-check
   script:
     - ./gradlew clean testDebugUnitTest --no-daemon
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - "**/build/test-results/testDebugUnitTest/TEST-*.xml"
+    paths:
+      - "**/build/reports/tests/testDebugUnitTest/"
+    expire_in: 7 days
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
