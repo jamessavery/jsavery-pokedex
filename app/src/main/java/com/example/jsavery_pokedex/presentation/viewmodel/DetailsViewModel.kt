@@ -18,6 +18,7 @@ class DetailsViewModel @Inject constructor(
     private val pokemonListManager: PokemonListManager,
     private val pokemonRepository: PokemonRepository,
 ) : ViewModel() {
+
     private val _detailsUiState = MutableStateFlow(PokemonDetailsUiState())
     val detailsUiState = _detailsUiState.asStateFlow()
 
@@ -28,9 +29,6 @@ class DetailsViewModel @Inject constructor(
             } ?: fetchPokemonDetails(id)
         }
     }
-
-    fun getPokemonEvolutionDetail(id: Int) =
-        pokemonListManager.getPokemonById(id)?.mapToEvolutionItem()
 
     private fun fetchPokemonDetails(id: Int) {
         viewModelScope.launch {
@@ -56,6 +54,9 @@ class DetailsViewModel @Inject constructor(
             currentState.copy(isLoading = false, pokemon = null, error = error.toString())
         }
     }
+
+    fun getPokemonEvolutionDetail(id: Int) =
+        pokemonListManager.getPokemonById(id)?.mapToEvolutionItem()
 }
 
 data class PokemonDetailsUiState(
