@@ -41,9 +41,9 @@ class PokemonRepositoryTest : BaseTest() {
     fun `WHEN getPokemonList() returns success THEN API call is successful and WHEN loads next page THEN success`() =
         runTest {
             // given
-            val data = listOf(MockData.MOCK_POKEMON_SQUIRTLE)
+            var data = listOf(MockData.MOCK_POKEMON_SQUIRTLE)
             every { mockResponse.data } returns data
-            coEvery { remoteDataSource.getPokemonList(any()) } returns mockResponse
+            coEvery { remoteDataSource.getPokemonList(1) } returns mockResponse
 
             // when
             var result = sut.getPokemonList(FIRST_PAGE)
@@ -51,6 +51,11 @@ class PokemonRepositoryTest : BaseTest() {
             // then
             coVerify { remoteDataSource.getPokemonList(FIRST_PAGE) }
             assertEquals(mockResponse, (result.getOrNull()))
+
+            // and given
+            data = listOf(MockData.MOCK_POKEMON_BULBASAUR)
+            every { mockResponse.data } returns data
+            coEvery { remoteDataSource.getPokemonList(2) } returns mockResponse
 
             // and when
             result = sut.getPokemonList(2)
@@ -98,8 +103,10 @@ class PokemonRepositoryTest : BaseTest() {
     fun `WHEN getPokemonDetail() returns success THEN API call is successful and WHEN loads next page THEN success`() =
         runTest {
             // given
-            coEvery { remoteDataSource.getPokemonDetail(any()) } returns
+            coEvery { remoteDataSource.getPokemonDetail(1) } returns
                 MockData.MOCK_POKEMON_SQUIRTLE
+            coEvery { remoteDataSource.getPokemonDetail(2) } returns
+                MockData.MOCK_POKEMON_BULBASAUR
 
             // when
             var result = sut.getPokemonDetail(1)
@@ -113,7 +120,7 @@ class PokemonRepositoryTest : BaseTest() {
             // and then
             coVerify(exactly = 1) { remoteDataSource.getPokemonDetail(1) }
             coVerify(exactly = 1) { remoteDataSource.getPokemonDetail(2) }
-            assertEquals(MockData.MOCK_POKEMON_SQUIRTLE, result.getOrNull())
+            assertEquals(MockData.MOCK_POKEMON_BULBASAUR, result.getOrNull())
         }
 
     @Test
