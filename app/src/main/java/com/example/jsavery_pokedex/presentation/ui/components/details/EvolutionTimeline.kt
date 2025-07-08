@@ -177,6 +177,7 @@ private fun TimelineIndicator(
                     )
                 },
         ) {
+            // Number within drawn circle
             Box(
                 modifier = Modifier
                     .offset(x = 3.dp, y = centerY - 12.dp)
