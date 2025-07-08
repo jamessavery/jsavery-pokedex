@@ -1,5 +1,6 @@
 package com.example.jsavery_pokedex.mock
 
+import com.example.jsavery_pokedex.data.model.EvolutionDetail
 import com.example.jsavery_pokedex.data.model.Pokemon
 import com.example.jsavery_pokedex.data.model.PokemonImages
 
@@ -13,17 +14,17 @@ class MockData {
                 weightInKg = 6.9,
                 heightInM = 0.7,
                 types = listOf("Grass", "Poison"),
-                evolutions = listOf(2, 3),
+                evolutions = listOf(1, 2, 3),
                 description =
                 "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.",
                 images =
                 PokemonImages(
-                    full = "https://example.com/bulbasaur_full.png",
+                    full = "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png",
                     spriteFront = "https://example.com/bulbasaur_front.png",
                     spriteBack = "https://example.com/bulbasaur_back.png",
                 ),
             )
-        private val MOCK_POKEMON_CHARMANDER =
+        val MOCK_POKEMON_CHARMANDER =
             Pokemon(
                 id = 4,
                 name = "Charmander",
@@ -31,12 +32,12 @@ class MockData {
                 weightInKg = 8.5,
                 heightInM = 0.6,
                 types = listOf("Fire"),
-                evolutions = listOf(5, 6),
+                evolutions = emptyList(),
                 description =
                 "Obviously prefers hot places. When it rains, steam is said to spout from the tip of its tail.",
                 images =
                 PokemonImages(
-                    full = "https://example.com/charmander_full.png",
+                    full = "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png",
                     spriteFront = "https://example.com/charmander_front.png",
                     spriteBack = "https://example.com/charmander_back.png",
                 ),
@@ -54,11 +55,17 @@ class MockData {
                 "After birth, its back swells and hardens into a shell. It powerfully sprays foam from its mouth.",
                 images =
                 PokemonImages(
-                    full = "https://example.com/squirtle_full.png",
+                    full = "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png",
                     spriteFront = "https://example.com/squirtle_front.png",
                     spriteBack = "https://example.com/squirtle_back.png",
                 ),
             )
+
+        val MOCK_EVOLUTION_DETAIL = EvolutionDetail(
+            id = MOCK_POKEMON_BULBASAUR.id,
+            name = MOCK_POKEMON_BULBASAUR.name,
+            fullImage = MOCK_POKEMON_BULBASAUR.images.full,
+        )
 
         val MOCK_POKEMON_RESPONSE =
             listOf(
