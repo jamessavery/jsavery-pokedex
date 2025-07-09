@@ -213,7 +213,7 @@ private fun DrawScope.drawTimelineElements(
     // Connecting lines
     if (!isFirst) {
         drawLine(
-            color = Color.LightGray,
+            color = Color.LightGray, // TODO use secondary colour in ting..?
             start = Offset(circleX, 0f),
             end = Offset(circleX, circleY - circleRadius),
             strokeWidth = lineStrokeWidth,

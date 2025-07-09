@@ -35,6 +35,7 @@ fun PokedexSearchBar(
     searchQuery: String,
     onSearchQueryChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    onFilterTap: () -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -88,7 +89,9 @@ fun PokedexSearchBar(
             )
 
             OutlinedIconButton(
-                onClick = {},
+                onClick = {
+                    onFilterTap()
+                },
                 modifier = Modifier
                     .weight(0.15f)
                     .fillMaxHeight(),
@@ -117,6 +120,6 @@ fun PokedexSearchBar(
 @Composable
 fun SearchBarPreview() {
     PokedexTheme(darkTheme = false) {
-        PokedexSearchBar("", {})
+        PokedexSearchBar(searchQuery = "", onSearchQueryChange = {}, onFilterTap = {})
     }
 }

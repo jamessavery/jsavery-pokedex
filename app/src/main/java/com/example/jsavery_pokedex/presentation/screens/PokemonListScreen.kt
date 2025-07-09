@@ -54,11 +54,6 @@ fun PokemonListScreen(
     val viewModel: MainViewModel = hiltViewModel()
     val uiState by viewModel.pokemonListUiState.collectAsState()
 
-    LaunchedEffect(Unit) {
-        delay(1000L)
-        onFilterTap.invoke()
-    }
-
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         contentWindowInsets = WindowInsets(0.dp),
@@ -68,6 +63,7 @@ fun PokemonListScreen(
             modifier = Modifier.padding(innerPadding),
             onLoadMore = { viewModel.onLoadMore(it) },
             onPokemonClick = { pokemonId -> backStack.add(PokemonDetails(pokemonId)) },
+            onFilterTap = { onFilterTap() },
         )
     }
 }
@@ -78,6 +74,7 @@ fun PokemonListScreenContent(
     modifier: Modifier = Modifier,
     onLoadMore: (Int) -> Unit,
     onPokemonClick: (Int) -> Unit,
+    onFilterTap: () -> Unit,
 ) {
     when (uiState) {
         is PokemonListUiState.Loading -> {
@@ -102,7 +99,7 @@ fun PokemonListScreenContent(
         }
 
         is PokemonListUiState.Success -> {
-            PokemonListSuccess(uiState, modifier, onLoadMore, onPokemonClick)
+            PokemonListSuccess(uiState, modifier, onLoadMore, onPokemonClick) { onFilterTap() }
         }
     }
 }
@@ -113,6 +110,7 @@ fun PokemonListSuccess(
     modifier: Modifier,
     onLoadMore: (Int) -> Unit,
     onPokemonClick: (Int) -> Unit,
+    onFilterTap: () -> Unit,
 ) {
     var searchQuery by remember { mutableStateOf("") }
     val listState = rememberLazyListState()
@@ -126,6 +124,7 @@ fun PokemonListSuccess(
             searchQuery = searchQuery,
             onSearchQueryChange = { searchQuery = it },
             modifier = modifier,
+            onFilterTap = { onFilterTap() },
         )
 
         Box(
@@ -181,6 +180,7 @@ fun PokemonPreview() {
             uiState = PokemonListUiState.Success(MOCK_POKEMON_RESPONSE, isLoadingMore = false),
             onLoadMore = {},
             onPokemonClick = {},
+            onFilterTap = {},
         )
     }
 }

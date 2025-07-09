@@ -19,8 +19,8 @@ import androidx.navigation3.ui.NavDisplay
 import com.example.jsavery_pokedex.presentation.screens.PokemonDetailPlaceholder
 import com.example.jsavery_pokedex.presentation.screens.PokemonDetailsScreen
 import com.example.jsavery_pokedex.presentation.screens.PokemonListScreen
-import com.example.jsavery_pokedex.presentation.ui.components.FilterBottomSheet
-import com.example.jsavery_pokedex.presentation.ui.components.FilterState
+import com.example.jsavery_pokedex.presentation.screens.FilterScreen
+import com.example.jsavery_pokedex.presentation.screens.FilterState
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -84,16 +84,15 @@ fun PokemonNavGraph() {
         },
     )
 
-    // Bottom sheet overlay
     if (showBottomSheet) {
         ModalBottomSheet(
             sheetState = sheetState,
             onDismissRequest = { showBottomSheet = false },
         ) {
-            FilterBottomSheet(
+            FilterScreen(
                 onDismiss = {},
                 onApply = { },
-                currentFilter = { FilterState() },
+                currentFilter = FilterState(), // CB func JIMMY
             )
         }
     }

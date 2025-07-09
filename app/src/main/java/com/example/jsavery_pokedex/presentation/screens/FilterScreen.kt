@@ -1,4 +1,4 @@
-package com.example.jsavery_pokedex.presentation.ui.components
+package com.example.jsavery_pokedex.presentation.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -14,11 +14,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -26,20 +30,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.jsavery_pokedex.R
+import com.example.jsavery_pokedex.presentation.ui.components.Type
+import com.example.jsavery_pokedex.presentation.ui.components.TypeIcon
+import com.example.jsavery_pokedex.presentation.ui.theme.PokePurple
+import com.example.jsavery_pokedex.presentation.ui.theme.SelectedGreen
 
 @Composable
-fun FilterBottomSheet(
+fun FilterScreen(
     onDismiss: () -> Unit,
     onApply: (FilterState) -> Unit,
-    currentFilter: FilterState = FilterState()
+    currentFilter: FilterState = FilterState(),
 ) {
     var sortOption by remember { mutableStateOf(currentFilter.sortOption) }
     var selectedTypes by remember { mutableStateOf(currentFilter.selectedTypes) }
@@ -47,29 +57,30 @@ fun FilterBottomSheet(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .verticalScroll(rememberScrollState())
+            .padding(dimensionResource(R.dimen.details_horizontal_padding)),
     ) {
         // Sort By Section
         Text(
             text = "Sort By",
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 16.dp)
+            modifier = Modifier.padding(bottom = 16.dp),
         )
 
         SortOptions(
             selectedOption = sortOption,
-            onOptionSelected = { sortOption = it }
+            onOptionSelected = { sortOption = it },
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        HorizontalDivider(color = Color.LightGray)
 
         // Filter by Type Section
         Text(
             text = "Filter by Type",
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 16.dp)
+//            modifier = Modifier.padding(bottom = 16.dp)
         )
 
         TypeFilterGrid(
@@ -80,7 +91,7 @@ fun FilterBottomSheet(
                 } else {
                     selectedTypes + type
                 }
-            }
+            },
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -91,17 +102,18 @@ fun FilterBottomSheet(
                 onApply(FilterState(sortOption, selectedTypes))
                 onDismiss()
             },
+            shape = RectangleShape,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF6B46C1) // Purple color matching design
-            )
+                containerColor = PokePurple,
+            ),
         ) {
             Text(
                 text = "Apply",
                 color = Color.White,
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
         }
     }
@@ -110,16 +122,16 @@ fun FilterBottomSheet(
 @Composable
 fun SortOptions(
     selectedOption: SortOption,
-    onOptionSelected: (SortOption) -> Unit
+    onOptionSelected: (SortOption) -> Unit,
 ) {
     Column {
-        SortOption.values().forEach { option ->
+        SortOption.entries.forEach { option ->
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable { onOptionSelected(option) }
                     .padding(vertical = 8.dp),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
                     text = option.displayName,
@@ -127,16 +139,16 @@ fun SortOptions(
                     color = if (selectedOption == option) {
                         MaterialTheme.colorScheme.primary
                     } else {
-                        MaterialTheme.colorScheme.onSurface
+                        MaterialTheme.colorScheme.secondary
                     },
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
                 )
 
                 if (selectedOption == option) {
                     Icon(
                         imageVector = Icons.Default.Check,
                         contentDescription = "Selected",
-                        tint = Color(0xFF22C55E) // Green checkmark
+                        tint = SelectedGreen,
                     )
                 }
             }
@@ -147,27 +159,22 @@ fun SortOptions(
 @Composable
 fun TypeFilterGrid(
     selectedTypes: Set<String>,
-    onTypeToggle: (String) -> Unit
+    onTypeToggle: (String) -> Unit,
 ) {
-    val pokemonTypes = listOf(
-        "bug", "dark", "dragon", "electric",
-        "fairy", "fighting", "fire", "flying",
-        "ghost", "grass", "ground", "ice",
-        "normal", "poison", "psychic", "rock",
-        "steel", "water"
-    )
-
     LazyVerticalGrid(
         columns = GridCells.Fixed(4),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = Modifier.fillMaxWidth()
+        horizontalArrangement = Arrangement.spacedBy(1.dp),
+        verticalArrangement = Arrangement.spacedBy(1.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(550.dp),
     ) {
-        items(pokemonTypes) { type ->
+        items(Type.entries.toTypedArray()) {
+            val type = it.toString()
             TypeFilterItem(
-                type = type,
+                type = type.lowercase().replaceFirstChar { it.uppercase() },
                 isSelected = selectedTypes.contains(type),
-                onToggle = { onTypeToggle(type) }
+                onToggle = { onTypeToggle(type) },
             )
         }
     }
@@ -177,84 +184,65 @@ fun TypeFilterGrid(
 fun TypeFilterItem(
     type: String,
     isSelected: Boolean,
-    onToggle: () -> Unit
+    onToggle: () -> Unit,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .clickable { onToggle() }
-            .padding(8.dp)
+            .padding(8.dp),
     ) {
         Box(
             modifier = Modifier
-                .size(48.dp)
+                .size(80.dp)
                 .background(
-                    color = if (isSelected) MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)
-                    else Color.Transparent,
-                    shape = CircleShape
+                    color = if (isSelected)
+                        MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)
+                    else
+                        Color.Transparent,
+                    shape = CircleShape,
                 )
                 .border(
                     width = if (isSelected) 2.dp else 0.dp,
                     color = if (isSelected) MaterialTheme.colorScheme.primary else Color.Transparent,
-                    shape = CircleShape
+                    shape = CircleShape,
                 ),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             TypeIcon(
                 type = type,
-                modifier = Modifier.size(32.dp)
+                modifier = Modifier.size(80.dp),
             )
-
-            if (isSelected) {
-                Box(
-                    modifier = Modifier
-                        .size(16.dp)
-                        .background(
-                            color = Color(0xFF22C55E),
-                            shape = CircleShape
-                        )
-                        .align(Alignment.TopEnd),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Check,
-                        contentDescription = "Selected",
-                        tint = Color.White,
-                        modifier = Modifier.size(12.dp)
-                    )
-                }
-            }
         }
 
         Text(
             text = type.replaceFirstChar { it.uppercase() },
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.padding(top = 4.dp)
+            modifier = Modifier.padding(top = 4.dp),
         )
     }
 }
 
 // TODO JIMMY move these
 data class FilterState(
-    val sortOption: SortOption = SortOption.MOST_RECENTLY_ADDED,
-    val selectedTypes: Set<String> = emptySet()
+    val sortOption: SortOption = SortOption.POKEDEX_NUMBER,
+    val selectedTypes: Set<String> = emptySet(),
 )
 
 enum class SortOption(val displayName: String) {
-    MOST_RECENTLY_ADDED("Most Recently Added (default)"),
-    POKEDEX_NUMBER("Pokédex Number"),
+    POKEDEX_NUMBER("Pokédex Number (default)"),
     ALPHABETICAL_A_Z("Alphabetical (A-Z)"),
     ALPHABETICAL_Z_A("Alphabetical (Z-A)")
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
-fun Botasfasf() {
-    FilterBottomSheet(
+fun FilterContentPreview() {
+    FilterScreen(
         onDismiss = {},
         onApply = { },
-        currentFilter = { FilterState() },
+        currentFilter = FilterState(),
     )
 }
 

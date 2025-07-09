@@ -10,35 +10,45 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jsavery_pokedex.R
 
+enum class Type {
+    BUG, DARK, DRAGON, ELECTRIC,
+    FAIRY, FIGHTING, FIRE, FLYING,
+    GHOST, GRASS, GROUND, ICE,
+    NORMAL, POISON, PSYCHIC, ROCK,
+    STEEL, WATER
+}
+
 @Composable
 fun TypeIcon(type: String, modifier: Modifier = Modifier) {
     val iconRes =
         when (type.lowercase()) {
-            "normal" -> R.drawable.type_normal
-            "grass" -> R.drawable.type_grass
-            "fire" -> R.drawable.type_fire
-            "water" -> R.drawable.type_water
-            "electric" -> R.drawable.type_electric
-            "ice" -> R.drawable.type_ice
-            "fighting" -> R.drawable.type_fighting
-            "poison" -> R.drawable.type_poison
-            "ground" -> R.drawable.type_ground
-            "flying" -> R.drawable.type_flying
-            "psychic" -> R.drawable.type_psychic
-            "bug" -> R.drawable.type_bug
-            "rock" -> R.drawable.type_rock
-            "ghost" -> R.drawable.type_ghost
-            "dragon" -> R.drawable.type_dragon
-            "dark" -> R.drawable.type_dark
-            "steel" -> R.drawable.type_steel
-            "fairy" -> R.drawable.type_fairy
+            Type.NORMAL.name.lowercase() -> R.drawable.type_normal
+            Type.GRASS.name.lowercase() -> R.drawable.type_grass
+            Type.FIRE.name.lowercase() -> R.drawable.type_fire
+            Type.WATER.name.lowercase() -> R.drawable.type_water
+            Type.ELECTRIC.name.lowercase() -> R.drawable.type_electric
+            Type.ICE.name.lowercase() -> R.drawable.type_ice
+            Type.FIGHTING.name.lowercase() -> R.drawable.type_fighting
+            Type.POISON.name.lowercase() -> R.drawable.type_poison
+            Type.GROUND.name.lowercase() -> R.drawable.type_ground
+            Type.FLYING.name.lowercase() -> R.drawable.type_flying
+            Type.PSYCHIC.name.lowercase() -> R.drawable.type_psychic
+            Type.BUG.name.lowercase() -> R.drawable.type_bug
+            Type.ROCK.name.lowercase() -> R.drawable.type_rock
+            Type.GHOST.name.lowercase() -> R.drawable.type_ghost
+            Type.DRAGON.name.lowercase() -> R.drawable.type_dragon
+            Type.DARK.name.lowercase() -> R.drawable.type_dark
+            Type.STEEL.name.lowercase() -> R.drawable.type_steel
+            Type.FAIRY.name.lowercase() -> R.drawable.type_fairy
             else -> R.drawable.type_normal
         }
 
     Image(
         painter = painterResource(id = iconRes),
         contentDescription = "$type type",
-        modifier = modifier.size(24.dp).padding(4.dp),
+        modifier = modifier
+            .size(24.dp)
+            .padding(4.dp),
     )
 }
 
