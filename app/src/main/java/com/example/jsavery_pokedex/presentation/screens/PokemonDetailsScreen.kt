@@ -23,6 +23,7 @@ import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,6 +52,7 @@ import com.example.jsavery_pokedex.presentation.ui.components.details.PokemonIdT
 import com.example.jsavery_pokedex.presentation.ui.components.progress.SpinningPokeballProgress
 import com.example.jsavery_pokedex.presentation.viewmodel.DetailsViewModel
 import com.example.jsavery_pokedex.presentation.viewmodel.PokemonDetailsUiState
+import kotlinx.coroutines.launch
 
 @Composable
 fun PokemonDetailsScreen(pokemonId: PokemonDetails, backStack: NavBackStack) {

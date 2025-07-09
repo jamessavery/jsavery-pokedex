@@ -39,14 +39,25 @@ import com.example.jsavery_pokedex.presentation.ui.dismissKeyboardOnTouch
 import com.example.jsavery_pokedex.presentation.ui.theme.PokedexTheme
 import com.example.jsavery_pokedex.presentation.viewmodel.MainViewModel
 import com.example.jsavery_pokedex.presentation.viewmodel.PokemonListUiState
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.launch
 
 const val PAGINATE_SCROLL_RATIO = 0.6 // User scrolls 60% of page before triggering next load
 
 @Composable
-fun PokemonListScreen(backStack: NavBackStack) {
+fun PokemonListScreen(
+    backStack: NavBackStack,
+    onFilterTap: () -> Unit,
+) {
     val viewModel: MainViewModel = hiltViewModel()
     val uiState by viewModel.pokemonListUiState.collectAsState()
+
+    LaunchedEffect(Unit) {
+        delay(1000L)
+        onFilterTap.invoke()
+    }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
