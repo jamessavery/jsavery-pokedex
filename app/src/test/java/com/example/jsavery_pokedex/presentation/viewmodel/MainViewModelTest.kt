@@ -4,7 +4,7 @@ import app.cash.turbine.test
 import com.example.jsavery_pokedex.BaseTest
 import com.example.jsavery_pokedex.data.model.PokemonResponse
 import com.example.jsavery_pokedex.data.repository.PokemonRepository
-import com.example.jsavery_pokedex.domain.PokemonListManager
+import com.example.jsavery_pokedex.domain.manager.PokemonListManager
 import com.example.jsavery_pokedex.mock.MockData
 import io.mockk.coEvery
 import io.mockk.coVerify

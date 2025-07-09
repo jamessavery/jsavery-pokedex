@@ -1,7 +1,7 @@
 package com.example.jsavery_pokedex.domain.usecase
 
 import com.example.jsavery_pokedex.data.model.EvolutionDetail
-import com.example.jsavery_pokedex.domain.PokemonListManager
+import com.example.jsavery_pokedex.domain.manager.PokemonListManager
 import com.example.jsavery_pokedex.domain.exception.PokemonException
 import javax.inject.Inject
 

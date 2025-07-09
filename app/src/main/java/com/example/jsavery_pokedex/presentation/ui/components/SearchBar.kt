@@ -27,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.jsavery_pokedex.R
+import com.example.jsavery_pokedex.domain.manager.PokemonFilterManager
 import com.example.jsavery_pokedex.presentation.ui.theme.PokePurple
 import com.example.jsavery_pokedex.presentation.ui.theme.PokedexTheme
 
@@ -36,7 +37,11 @@ fun PokedexSearchBar(
     onSearchQueryChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     onFilterTap: () -> Unit,
+    filterManager: PokemonFilterManager
 ) {
+    filterManager.filterState.
+
+
     Column(
         modifier = modifier
             .padding(horizontal = 15.dp, vertical = 10.dp)

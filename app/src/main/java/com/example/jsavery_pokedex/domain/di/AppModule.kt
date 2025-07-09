@@ -4,8 +4,8 @@ import com.example.jsavery_pokedex.data.datasource.PokemonDataSource
 import com.example.jsavery_pokedex.data.datasource.PokemonDataSourceImpl
 import com.example.jsavery_pokedex.data.repository.PokemonRepository
 import com.example.jsavery_pokedex.data.repository.PokemonRepositoryImpl
-import com.example.jsavery_pokedex.domain.PokemonListManager
-import com.example.jsavery_pokedex.domain.PokemonListManagerImpl
+import com.example.jsavery_pokedex.domain.manager.PokemonListManager
+import com.example.jsavery_pokedex.domain.manager.PokemonListManagerImpl
 import com.example.jsavery_pokedex.services.PokemonService
 import dagger.Module
 import dagger.Provides

@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation3.runtime.NavBackStack
 import com.example.jsavery_pokedex.R
+import com.example.jsavery_pokedex.domain.manager.PokemonFilterManager
 import com.example.jsavery_pokedex.mock.MockData.Companion.MOCK_POKEMON_RESPONSE
 import com.example.jsavery_pokedex.presentation.navigation.PokemonDetails
 import com.example.jsavery_pokedex.presentation.ui.components.PokedexSearchBar
@@ -111,9 +112,12 @@ fun PokemonListSuccess(
     onLoadMore: (Int) -> Unit,
     onPokemonClick: (Int) -> Unit,
     onFilterTap: () -> Unit,
+    filterManager: PokemonFilterManager
 ) {
     var searchQuery by remember { mutableStateOf("") }
     val listState = rememberLazyListState()
+
+    val currentFilter by filterManager.filterState.collectAsState()
 
     Column(
         modifier = modifier
@@ -125,6 +129,7 @@ fun PokemonListSuccess(
             onSearchQueryChange = { searchQuery = it },
             modifier = modifier,
             onFilterTap = { onFilterTap() },
+            filterManager = filterManager,
         )
 
         Box(
@@ -132,10 +137,25 @@ fun PokemonListSuccess(
                 .fillMaxSize()
                 .padding(horizontal = 16.dp),
         ) {
-            val filteredList =
-                uiState.pokemonList.filter { pokemon ->
-                    (pokemon.name.contains(searchQuery, ignoreCase = true)) ||
-                        (pokemon.id.toString() == searchQuery)
+            val filteredAndSortedList = uiState.pokemonList
+                .filter { pokemon ->
+                    val matchesSearch = searchQuery.isEmpty() ||
+                        pokemon.name.contains(searchQuery, ignoreCase = true) ||
+                        pokemon.id.toString() == searchQuery
+
+                    val matchesType = currentFilter.selectedTypes.isEmpty() ||
+                        pokemon.types.any { type ->
+                            currentFilter.selectedTypes.contains(type.lowercase())
+                        }
+
+                    matchesSearch && matchesType
+                }
+                .let { filteredList ->
+                    when (currentFilter.sortOption) {
+                        SortOption.POKEDEX_NUMBER -> filteredList.sortedBy { it.id }
+                        SortOption.ALPHABETICAL_A_Z -> filteredList.sortedBy { it.name }
+                        SortOption.ALPHABETICAL_Z_A -> filteredList.sortedByDescending { it.name }
+                    }
                 }
 
             LazyColumn(
@@ -145,7 +165,7 @@ fun PokemonListSuccess(
                     .fillMaxSize()
                     .dismissKeyboardOnTouch(),
             ) {
-                items(filteredList) { pokemon ->
+                items(filteredAndSortedList) { pokemon ->
                     PokemonItem(pokemon = pokemon, onPokemonClick = onPokemonClick)
                 }
             }
