@@ -2,9 +2,9 @@ package com.example.jsavery_pokedex.presentation.viewmodel
 
 import app.cash.turbine.test
 import com.example.jsavery_pokedex.BaseTest
-import com.example.jsavery_pokedex.data.model.EvolutionDetail
 import com.example.jsavery_pokedex.data.repository.PokemonRepository
 import com.example.jsavery_pokedex.domain.PokemonListManager
+import com.example.jsavery_pokedex.domain.usecase.EvolutionDetails
 import com.example.jsavery_pokedex.mock.MockData
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -22,6 +22,9 @@ class DetailsViewModelTest : BaseTest() {
 
     private var mockRepository = mockk<PokemonRepository>(relaxed = true)
     private var mockPokemonListManager = mockk<PokemonListManager>(relaxed = true)
+    private var evolutionDetails = mockk<EvolutionDetails>(relaxed = true)
+
+    private val mockEvolutionDetails = Result.success(listOf(MockData.MOCK_EVOLUTION_DETAIL))
 
     @InjectMockKs
     private lateinit var sut: DetailsViewModel
@@ -29,6 +32,7 @@ class DetailsViewModelTest : BaseTest() {
     @BeforeEach
     fun setup() {
         coEvery { mockPokemonListManager.updatePokemonList(any()) } returns Unit
+        coEvery { evolutionDetails.invoke(any()) } returns mockEvolutionDetails
     }
 
     @Test
@@ -118,17 +122,13 @@ class DetailsViewModelTest : BaseTest() {
         coEvery { mockPokemonListManager.getPokemonById(1) } returns MockData.MOCK_POKEMON_BULBASAUR
 
         // when
-        val result = sut.getPokemonEvolutionDetail(1)
+        val result = sut.getPokemonEvolutionDetails(1)
 
         // then
         assertEquals(
-            EvolutionDetail(
-                id = 1,
-                name = "Bulbasaur",
-                fullImage = "https://example.com/bulbasaur_full.png",
-            ),
+            mockEvolutionDetails,
             result,
         )
-        verify { mockPokemonListManager.getPokemonById(1) }
+        verify { evolutionDetails.invoke(1) }
     }
 }
