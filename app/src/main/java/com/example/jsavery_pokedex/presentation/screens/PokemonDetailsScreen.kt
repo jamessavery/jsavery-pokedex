@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -44,7 +46,7 @@ import com.example.jsavery_pokedex.mock.MockData
 import com.example.jsavery_pokedex.presentation.navigation.PokemonDetails
 import com.example.jsavery_pokedex.presentation.ui.components.TypesItem
 import com.example.jsavery_pokedex.presentation.ui.components.details.AnthropometryItem
-import com.example.jsavery_pokedex.presentation.ui.components.details.EvolutionChainItem
+import com.example.jsavery_pokedex.presentation.ui.components.details.EvolutionTimeline
 import com.example.jsavery_pokedex.presentation.ui.components.details.PokemonIdTabs
 import com.example.jsavery_pokedex.presentation.ui.components.progress.SpinningPokeballProgress
 import com.example.jsavery_pokedex.presentation.viewmodel.DetailsViewModel
@@ -62,32 +64,34 @@ fun PokemonDetailsScreen(pokemonId: PokemonDetails, backStack: NavBackStack) {
         detailsViewModel.getPokemonDetail(pokemonId.id)
     }
 
-    PokemonDetailsScreenContent(
+    PokemonDetailsScreenState(
         uiState = uiState,
         onBackClick = {
             if (backStack.size > 1) {
                 backStack.removeLastOrNull()
             }
         },
-        getEvolutionDetail = { detailsViewModel.getPokemonEvolutionDetail(it) },
+        getEvolutionDetails = {
+            detailsViewModel.getPokemonEvolutionDetails(it).getOrNull()
+        },
     )
 }
 
 @Composable
-fun PokemonDetailsScreenContent(
+fun PokemonDetailsScreenState(
     uiState: PokemonDetailsUiState,
     onBackClick: () -> Unit,
-    getEvolutionDetail: (Int) -> EvolutionDetail?,
+    getEvolutionDetails: (Int) -> List<EvolutionDetail>?,
 ) {
     if (uiState.isLoading) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             SpinningPokeballProgress()
         }
     } else if (uiState.pokemon != null) {
-        PokemonDetailsSuccess(
+        PokemonDetailsContent(
             uiState.pokemon,
             onBackClick = onBackClick,
-            getEvolutionDetail = getEvolutionDetail,
+            getEvolutionDetails = getEvolutionDetails,
         )
     } else {
         // TODO errors Issue-14
@@ -96,104 +100,155 @@ fun PokemonDetailsScreenContent(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PokemonDetailsSuccess(
+fun PokemonDetailsContent(
     pokemon: Pokemon,
     onBackClick: () -> Unit,
-    getEvolutionDetail: (Int) -> EvolutionDetail?,
+    getEvolutionDetails: (Int) -> List<EvolutionDetail>?,
 ) {
     val horizontalPadding = dimensionResource(R.dimen.details_horizontal_padding)
     val statStartPadding = dimensionResource(R.dimen.details_stat_start_padding)
+    val scrollState = rememberScrollState()
 
-    Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background),
+    ) {
         TopAppBar(
             title = { Text(text = stringResource(R.string.pokemon_details)) },
             navigationIcon = {
-                IconButton(onClick = {
-                    onBackClick()
-                }) { Icon(Icons.AutoMirrored.Filled.ArrowBack, null) }
+                IconButton(onClick = { onBackClick() }) {
+                    Icon(
+                        Icons.AutoMirrored.Filled.ArrowBack,
+                        null,
+                    )
+                }
             },
         )
 
-        // PokemonId tabs
-        PokemonIdTabs(pokemon.id)
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState),
+        ) {
+            // PokemonId tabs
+            PokemonIdTabs(pokemon.id)
 
-        // Pokemon image
-        AsyncImage(
-            model = pokemon.images.full,
-            contentDescription = pokemon.name,
-            modifier =
-            Modifier
-                .fillMaxWidth()
-                .height(200.dp)
-                .padding(horizontalPadding)
-                .background(Color.LightGray),
-            contentScale = ContentScale.Fit,
-        )
+            // Pokemon image
+            AsyncImage(
+                model = pokemon.images.full,
+                contentDescription = pokemon.name,
+                modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+                    .padding(horizontalPadding)
+                    .background(Color.LightGray),
+                contentScale = ContentScale.Fit,
+            )
 
-        // Pokemon name & id
-        Column(modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding)) {
-            Text(
-                text = pokemon.name,
-                style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold,
-            )
-            Text(
-                text = pokemon.id.processPokedexId(),
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.Gray,
-            )
-        }
-
-        // Overview Section
-        Text(
-            text = stringResource(R.string.pokemon_details_overview_title),
-            style = MaterialTheme.typography.labelLarge,
-            color = Color.Gray,
-            modifier = Modifier.padding(16.dp),
-        )
-        Text(
-            text = pokemon.description,
-            modifier = Modifier.padding(horizontal = horizontalPadding),
-        )
-
-        // Weight, height, typing
-        Row(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
-            AnthropometryItem(
-                title = stringResource(R.string.pokemon_details_height_title),
-                value = "${pokemon.heightInM}${stringResource(R.string.pokemon_details_m_label)}",
-                modifier = Modifier.weight(1f).padding(start = 12.dp),
-            )
-            VerticalDivider(modifier = Modifier.height(80.dp).width(2.dp), color = Color.LightGray)
-            AnthropometryItem(
-                title = stringResource(R.string.pokemon_details_weight_title),
-                value = "${pokemon.weightInKg}${stringResource(R.string.pokemon_details_kg_label)}",
-                modifier = Modifier.weight(1f).padding(start = statStartPadding),
-            )
-            VerticalDivider(modifier = Modifier.height(80.dp).width(2.dp), color = Color.LightGray)
-            Column(modifier = Modifier.weight(1f).padding(start = statStartPadding)) {
+            // Pokemon name & id
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = horizontalPadding),
+            ) {
                 Text(
-                    text = stringResource(R.string.pokemon_details_type_title),
-                    style = MaterialTheme.typography.labelMedium,
+                    text = pokemon.name,
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.Bold,
+                )
+                Text(
+                    text = pokemon.id.processPokedexId(),
+                    style = MaterialTheme.typography.bodyMedium,
                     color = Color.Gray,
                 )
-                pokemon.types.forEach { type -> TypesItem(type) }
+            }
+
+            // Overview Section
+            Text(
+                text = stringResource(R.string.pokemon_details_overview_title),
+                style = MaterialTheme.typography.labelLarge,
+                color = Color.Gray,
+                modifier = Modifier.padding(16.dp),
+            )
+            Text(
+                text = pokemon.description,
+                modifier = Modifier.padding(horizontal = horizontalPadding),
+            )
+
+            // Weight, height, typing
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+            ) {
+                AnthropometryItem(
+                    title = stringResource(R.string.pokemon_details_height_title),
+                    value = "${pokemon.heightInM}${stringResource(
+                        R.string.pokemon_details_m_label,
+                    )}",
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(start = 12.dp),
+                )
+                VerticalDivider(
+                    modifier = Modifier
+                        .height(80.dp)
+                        .width(2.dp),
+                    color = Color.LightGray,
+                )
+                AnthropometryItem(
+                    title = stringResource(R.string.pokemon_details_weight_title),
+                    value = "${pokemon.weightInKg}${stringResource(
+                        R.string.pokemon_details_kg_label,
+                    )}",
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(start = statStartPadding),
+                )
+                VerticalDivider(
+                    modifier = Modifier
+                        .height(80.dp)
+                        .width(2.dp),
+                    color = Color.LightGray,
+                )
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(start = statStartPadding),
+                ) {
+                    Text(
+                        text = stringResource(R.string.pokemon_details_type_title),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = Color.Gray,
+                    )
+                    pokemon.types.forEach { type -> TypesItem(type) }
+                }
+            }
+
+            // Only show evolutions for evolvable Pokemon
+            getEvolutionDetails(pokemon.id)?.takeIf {
+                it.isNotEmpty()
+            }?.let {
+                EvolutionTimeline(
+                    evolutions = it,
+                    currentPokemonId = pokemon.id,
+                )
             }
         }
-
-        // Evolutions section
-        EvolutionChainItem(pokemon = pokemon, getEvolutionDetail = getEvolutionDetail)
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PokemonDetailsScreenPreview() {
-    PokemonDetailsScreenContent(
+    PokemonDetailsScreenState(
         uiState = PokemonDetailsUiState(
             isLoading = false,
             pokemon = MockData.MOCK_POKEMON_BULBASAUR,
         ),
         {},
-        { EvolutionDetail(1, "", "") },
+        { listOf(EvolutionDetail(1, "", "")) },
     )
 }
