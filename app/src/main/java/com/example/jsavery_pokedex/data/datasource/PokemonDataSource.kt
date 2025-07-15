@@ -9,8 +9,8 @@ import retrofit2.HttpException
 class PokemonDataSourceImpl @Inject constructor(
     private val pokeService: PokemonService,
 ) : PokemonDataSource {
-    override suspend fun getPokemonList(nextPage: Int): PokemonResponse? {
-        val response = pokeService.getPokemonList(nextPage)
+    override suspend fun getPokemonList(nextPage: Int, type: List<String>): PokemonResponse? {
+        val response = pokeService.getPokemonList(nextPage, type)
         if (response.isSuccessful) {
             return response.body()
         } else {
@@ -29,7 +29,7 @@ class PokemonDataSourceImpl @Inject constructor(
 }
 
 interface PokemonDataSource {
-    suspend fun getPokemonList(nextPage: Int): PokemonResponse?
+    suspend fun getPokemonList(nextPage: Int, type: List<String>): PokemonResponse?
 
     suspend fun getPokemonDetail(id: Int): Pokemon?
 }

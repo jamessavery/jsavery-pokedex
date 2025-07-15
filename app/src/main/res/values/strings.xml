@@ -13,5 +13,15 @@
     <string name="pokemon_details_kg_label">kg</string>
     <string name="pokemon_details_m_label">m</string>
 
+    <string name="filter_sort_by_title">Sort By</string>
+    <string name="filter_by_type_title">Filter by Type</string>
+    <string name="sort_option_pokedex_number">Pokédex Number (default)</string>
+    <string name="sort_option_alphabetical_a_z">Alphabetical (A-Z)</string>
+    <string name="sort_option_alphabetical_z_a">Alphabetical (Z-A)</string>
+    <string name="apply">Apply</string>
+
+    <string name="a11y_selected">Selected</string>
+
+
     <string name="generic_error_message">Something went wrong, please try again later</string>
 </resources>

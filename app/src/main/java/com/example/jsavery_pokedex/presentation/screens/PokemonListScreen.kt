@@ -27,9 +27,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation3.runtime.NavBackStack
 import com.example.jsavery_pokedex.R
+import com.example.jsavery_pokedex.domain.manager.PokemonFilterManager
+import com.example.jsavery_pokedex.domain.util.PokemonFilterUtils.applyPokemonFilter
 import com.example.jsavery_pokedex.mock.MockData.Companion.MOCK_POKEMON_RESPONSE
 import com.example.jsavery_pokedex.presentation.navigation.PokemonDetails
 import com.example.jsavery_pokedex.presentation.ui.components.PokedexSearchBar
@@ -44,9 +45,13 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 const val PAGINATE_SCROLL_RATIO = 0.6 // User scrolls 60% of page before triggering next load
 
 @Composable
-fun PokemonListScreen(backStack: NavBackStack) {
-    val viewModel: MainViewModel = hiltViewModel()
+fun PokemonListScreen(
+    backStack: NavBackStack,
+    filterManager: PokemonFilterManager,
+    viewModel: MainViewModel,
+) {
     val uiState by viewModel.pokemonListUiState.collectAsState()
+    val selectedTypes = filterManager.filterState.collectAsState().value.selectedTypes
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -55,8 +60,9 @@ fun PokemonListScreen(backStack: NavBackStack) {
         PokemonListScreenContent(
             uiState = uiState,
             modifier = Modifier.padding(innerPadding),
-            onLoadMore = { viewModel.onLoadMore(it) },
+            onLoadMore = { viewModel.onLoadMore(it, selectedTypes) },
             onPokemonClick = { pokemonId -> backStack.add(PokemonDetails(pokemonId)) },
+            filterManager = filterManager,
         )
     }
 }
@@ -65,8 +71,9 @@ fun PokemonListScreen(backStack: NavBackStack) {
 fun PokemonListScreenContent(
     uiState: PokemonListUiState,
     modifier: Modifier = Modifier,
-    onLoadMore: (Int) -> Unit,
+    onLoadMore: (Int?) -> Unit,
     onPokemonClick: (Int) -> Unit,
+    filterManager: PokemonFilterManager,
 ) {
     when (uiState) {
         is PokemonListUiState.Loading -> {
@@ -91,7 +98,13 @@ fun PokemonListScreenContent(
         }
 
         is PokemonListUiState.Success -> {
-            PokemonListSuccess(uiState, modifier, onLoadMore, onPokemonClick)
+            PokemonListSuccess(
+                uiState = uiState,
+                modifier = modifier,
+                onLoadMore = onLoadMore,
+                onPokemonClick = onPokemonClick,
+                filterManager = filterManager,
+            )
         }
     }
 }
@@ -100,11 +113,14 @@ fun PokemonListScreenContent(
 fun PokemonListSuccess(
     uiState: PokemonListUiState.Success,
     modifier: Modifier,
-    onLoadMore: (Int) -> Unit,
+    onLoadMore: (Int?) -> Unit,
     onPokemonClick: (Int) -> Unit,
+    filterManager: PokemonFilterManager,
 ) {
     var searchQuery by remember { mutableStateOf("") }
     val listState = rememberLazyListState()
+
+    val currentFilter by filterManager.filterState.collectAsState()
 
     Column(
         modifier = modifier
@@ -115,6 +131,7 @@ fun PokemonListSuccess(
             searchQuery = searchQuery,
             onSearchQueryChange = { searchQuery = it },
             modifier = modifier,
+            filterManager = filterManager,
         )
 
         Box(
@@ -122,10 +139,9 @@ fun PokemonListSuccess(
                 .fillMaxSize()
                 .padding(horizontal = 16.dp),
         ) {
-            val filteredList =
-                uiState.pokemonList.filter { pokemon ->
-                    (pokemon.name.contains(searchQuery, ignoreCase = true)) ||
-                        (pokemon.id.toString() == searchQuery)
+            val filteredPokemonList =
+                remember(uiState.pokemonList, searchQuery, currentFilter) {
+                    applyPokemonFilter(uiState.pokemonList, searchQuery, currentFilter)
                 }
 
             LazyColumn(
@@ -135,7 +151,7 @@ fun PokemonListSuccess(
                     .fillMaxSize()
                     .dismissKeyboardOnTouch(),
             ) {
-                items(filteredList) { pokemon ->
+                items(filteredPokemonList) { pokemon ->
                     PokemonItem(pokemon = pokemon, onPokemonClick = onPokemonClick)
                 }
             }
@@ -167,9 +183,14 @@ fun PokemonListSuccess(
 fun PokemonPreview() {
     PokedexTheme {
         PokemonListScreenContent(
-            uiState = PokemonListUiState.Success(MOCK_POKEMON_RESPONSE, isLoadingMore = false),
+            uiState = PokemonListUiState.Success(
+                MOCK_POKEMON_RESPONSE,
+                null,
+                isLoadingMore = false,
+            ),
             onLoadMore = {},
             onPokemonClick = {},
+            filterManager = PokemonFilterManager(),
         )
     }
 }

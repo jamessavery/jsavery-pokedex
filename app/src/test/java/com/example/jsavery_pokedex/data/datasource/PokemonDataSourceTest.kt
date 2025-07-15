@@ -28,6 +28,7 @@ import retrofit2.Response
 class PokemonDataSourceTest : BaseTest() {
 
     private val mockPokeService = mockk<PokemonService>()
+    private val noTypesSpecified: List<String> = emptyList()
 
     @InjectMockKs
     private lateinit var sut: PokemonDataSourceImpl
@@ -49,22 +50,23 @@ class PokemonDataSourceTest : BaseTest() {
                     data = MockData.MOCK_POKEMON_RESPONSE,
                 ),
             )
-            coEvery { mockPokeService.getPokemonList(any()) } returns response
+            coEvery { mockPokeService.getPokemonList(any(), noTypesSpecified) } returns response
 
             // when
-            var result = sut.getPokemonList(1)
+            var result = sut.getPokemonList(1, emptyList())
 
             // then
             assertEquals(response.body(), result)
-            coVerify { mockPokeService.getPokemonList(1) }
+            coVerify { mockPokeService.getPokemonList(1, noTypesSpecified) }
 
             // and given
-            coEvery { mockPokeService.getPokemonList(any()) } returns Response.success(null)
+            coEvery { mockPokeService.getPokemonList(any(), noTypesSpecified) } returns
+                Response.success(null)
 
             // and when & then
-            result = sut.getPokemonList(2)
+            result = sut.getPokemonList(2, noTypesSpecified)
             assertEquals(null, result)
-            coVerify { mockPokeService.getPokemonList(2) }
+            coVerify { mockPokeService.getPokemonList(2, noTypesSpecified) }
         }
 
     @ParameterizedTest
@@ -80,11 +82,11 @@ class PokemonDataSourceTest : BaseTest() {
                 every { code() } returns errorCode
                 every { message() } returns errorMessage
             }
-            coEvery { mockPokeService.getPokemonList(any()) } returns mockResponse
+            coEvery { mockPokeService.getPokemonList(any(), emptyList()) } returns mockResponse
 
             // when & then
             val exception = assertThrows<HttpException> {
-                sut.getPokemonList(1)
+                sut.getPokemonList(1, noTypesSpecified)
             }
             assertEquals(mockResponse, exception.response())
             assertEquals(errorCode, exception.code())

@@ -28,6 +28,7 @@ class PokemonRepositoryTest : BaseTest() {
     private lateinit var remoteDataSource: PokemonDataSource
 
     private val mockResponse = mockk<PokemonResponse>(relaxed = true)
+    private val noTypesSpecified: List<String> = emptyList()
 
     @InjectMockKs
     private lateinit var sut: PokemonRepositoryImpl
@@ -43,26 +44,26 @@ class PokemonRepositoryTest : BaseTest() {
             // given
             var data = listOf(MockData.MOCK_POKEMON_SQUIRTLE)
             every { mockResponse.data } returns data
-            coEvery { remoteDataSource.getPokemonList(1) } returns mockResponse
+            coEvery { remoteDataSource.getPokemonList(1, noTypesSpecified) } returns mockResponse
 
             // when
             var result = sut.getPokemonList(FIRST_PAGE)
 
             // then
-            coVerify { remoteDataSource.getPokemonList(FIRST_PAGE) }
+            coVerify { remoteDataSource.getPokemonList(FIRST_PAGE, noTypesSpecified) }
             assertEquals(mockResponse, (result.getOrNull()))
 
             // and given
             data = listOf(MockData.MOCK_POKEMON_BULBASAUR)
             every { mockResponse.data } returns data
-            coEvery { remoteDataSource.getPokemonList(2) } returns mockResponse
+            coEvery { remoteDataSource.getPokemonList(2, noTypesSpecified) } returns mockResponse
 
             // and when
             result = sut.getPokemonList(2)
 
             // and then
-            coVerify(exactly = 1) { remoteDataSource.getPokemonList(FIRST_PAGE) }
-            coVerify(exactly = 1) { remoteDataSource.getPokemonList(2) }
+            coVerify(exactly = 1) { remoteDataSource.getPokemonList(FIRST_PAGE, noTypesSpecified) }
+            coVerify(exactly = 1) { remoteDataSource.getPokemonList(2, noTypesSpecified) }
             assertEquals(mockResponse, result.getOrNull())
         }
 
@@ -70,13 +71,13 @@ class PokemonRepositoryTest : BaseTest() {
     fun `WHEN getPokemonList() returns null THEN return error`() =
         runTest {
             // given
-            coEvery { remoteDataSource.getPokemonList(FIRST_PAGE) } returns null
+            coEvery { remoteDataSource.getPokemonList(FIRST_PAGE, noTypesSpecified) } returns null
 
             // when
             val result = sut.getPokemonList(FIRST_PAGE)
 
             // then
-            coVerify { remoteDataSource.getPokemonList(FIRST_PAGE) }
+            coVerify { remoteDataSource.getPokemonList(FIRST_PAGE, noTypesSpecified) }
             assertThrows<NullPointerException> {
                 result.getOrThrow()
             }
@@ -87,13 +88,14 @@ class PokemonRepositoryTest : BaseTest() {
         runTest {
             // given
             val expectedException = IOException("Network error")
-            coEvery { remoteDataSource.getPokemonList(FIRST_PAGE) } throws expectedException
+            coEvery { remoteDataSource.getPokemonList(FIRST_PAGE, noTypesSpecified) } throws
+                expectedException
 
             // when
             val result = sut.getPokemonList(FIRST_PAGE)
 
             // then
-            coVerify { remoteDataSource.getPokemonList(FIRST_PAGE) }
+            coVerify { remoteDataSource.getPokemonList(FIRST_PAGE, noTypesSpecified) }
             assertThrows<IOException> {
                 result.getOrThrow()
             }
