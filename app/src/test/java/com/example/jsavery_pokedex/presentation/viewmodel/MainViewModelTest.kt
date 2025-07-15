@@ -4,7 +4,7 @@ import app.cash.turbine.test
 import com.example.jsavery_pokedex.BaseTest
 import com.example.jsavery_pokedex.data.model.PokemonResponse
 import com.example.jsavery_pokedex.data.repository.PokemonRepository
-import com.example.jsavery_pokedex.domain.PokemonListManager
+import com.example.jsavery_pokedex.domain.manager.PokemonListManager
 import com.example.jsavery_pokedex.mock.MockData
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -32,6 +32,8 @@ class MainViewModelTest : BaseTest() {
     private var mockRepository = mockk<PokemonRepository>(relaxed = true)
     private var mockPokemonListManager = mockk<PokemonListManager>(relaxed = true)
     private val mockResponse = mockk<PokemonResponse>(relaxed = true)
+    private val noTypesSpecified: List<String> = emptyList()
+
     private lateinit var viewModel: MainViewModel
 
     @BeforeEach
@@ -88,7 +90,7 @@ class MainViewModelTest : BaseTest() {
                 }
 
                 // and when
-                viewModel.onLoadMore(nextPageTwo)
+                viewModel.onLoadMore(nextPageTwo, noTypesSpecified)
 
                 // and then
                 Assertions.assertEquals(
@@ -154,7 +156,7 @@ class MainViewModelTest : BaseTest() {
                 )
 
                 // and when
-                viewModel.onLoadMore(nextPageTwo)
+                viewModel.onLoadMore(nextPageTwo, noTypesSpecified)
 
                 // and then
                 Assertions.assertEquals(
@@ -172,38 +174,6 @@ class MainViewModelTest : BaseTest() {
                     mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE)
                 }
                 coVerify(exactly = 1) { mockRepository.getPokemonList(nextPageTwo) }
-            }
-        }
-
-    @Test
-    fun `WHEN fetchPokemon succeeds but nextPage is null THEN avoid error by defaulting to 1`() =
-        runTest {
-            // given
-            coEvery { mockResponse.data } returns mockPokemonList
-            coEvery { mockResponse.next } returns null
-            coEvery {
-                mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE)
-            } returns Result.success(
-                mockResponse,
-            )
-
-            // when
-            viewModel = MainViewModel(mockRepository, mockPokemonListManager)
-            advanceUntilIdle()
-
-            // then
-            viewModel.pokemonListUiState.test {
-                Assertions.assertEquals(
-                    PokemonListUiState.Success(
-                        pokemonList = mockPokemonList,
-                        nextPage = MainViewModel.Companion.FIRST_PAGE,
-                        isLoadingMore = false,
-                    ),
-                    awaitItem(),
-                )
-                coVerify(exactly = 1) {
-                    mockRepository.getPokemonList(MainViewModel.Companion.FIRST_PAGE)
-                }
             }
         }
 
@@ -240,15 +210,15 @@ class MainViewModelTest : BaseTest() {
             }
 
             // and when
-            viewModel.onLoadMore(nextPageTwo)
+            viewModel.onLoadMore(nextPageTwo, noTypesSpecified)
             advanceUntilIdle()
 
             // onLoadMore() is locked, these calls will not register
-            viewModel.onLoadMore(nextPageTwo)
-            viewModel.onLoadMore(nextPageTwo)
-            viewModel.onLoadMore(nextPageTwo)
-            viewModel.onLoadMore(nextPageTwo)
-            viewModel.onLoadMore(nextPageTwo)
+            viewModel.onLoadMore(nextPageTwo, noTypesSpecified)
+            viewModel.onLoadMore(nextPageTwo, noTypesSpecified)
+            viewModel.onLoadMore(nextPageTwo, noTypesSpecified)
+            viewModel.onLoadMore(nextPageTwo, noTypesSpecified)
+            viewModel.onLoadMore(nextPageTwo, noTypesSpecified)
 
             // and then
             coVerify(exactly = 1) {

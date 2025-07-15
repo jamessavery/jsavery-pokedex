@@ -3,6 +3,7 @@ package com.example.jsavery_pokedex.presentation.ui.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.jsavery_pokedex.R
+import com.example.jsavery_pokedex.domain.manager.PokemonFilterManager
 import com.example.jsavery_pokedex.presentation.ui.theme.PokePurple
 import com.example.jsavery_pokedex.presentation.ui.theme.PokedexTheme
 
@@ -35,6 +37,7 @@ fun PokedexSearchBar(
     searchQuery: String,
     onSearchQueryChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    filterManager: PokemonFilterManager,
 ) {
     Column(
         modifier = modifier
@@ -52,7 +55,7 @@ fun PokedexSearchBar(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp),
+                .height(IntrinsicSize.Min),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             OutlinedTextField(
@@ -88,7 +91,9 @@ fun PokedexSearchBar(
             )
 
             OutlinedIconButton(
-                onClick = {},
+                onClick = {
+                    filterManager.showFilterSheet()
+                },
                 modifier = Modifier
                     .weight(0.15f)
                     .fillMaxHeight(),
@@ -117,6 +122,10 @@ fun PokedexSearchBar(
 @Composable
 fun SearchBarPreview() {
     PokedexTheme(darkTheme = false) {
-        PokedexSearchBar("", {})
+        PokedexSearchBar(
+            searchQuery = "",
+            onSearchQueryChange = {},
+            filterManager = PokemonFilterManager(),
+        )
     }
 }

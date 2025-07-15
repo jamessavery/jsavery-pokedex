@@ -3,7 +3,7 @@ package com.example.jsavery_pokedex.presentation.ui.theme
 import androidx.compose.ui.graphics.Color
 
 val PokePurple = Color(0xFF6B558E)
-val LightGray = Color(0xCCCCCCCC)
+val SelectedGreen = Color(0xFF437906)
 
 // Light Theme Colors
 val theme_light_primary = Color(0xFF6750A4)

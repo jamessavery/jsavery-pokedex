@@ -1,4 +1,4 @@
-package com.example.jsavery_pokedex.domain
+package com.example.jsavery_pokedex.domain.manager
 
 import com.example.jsavery_pokedex.data.model.Pokemon
 import javax.inject.Inject

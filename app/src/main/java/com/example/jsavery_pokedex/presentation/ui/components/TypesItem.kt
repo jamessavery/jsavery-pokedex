@@ -16,12 +16,12 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun TypesItem(type: String, modifier: Modifier = Modifier) {
-    Column(modifier = modifier) {
+    Column(modifier = modifier.padding(top = 10.dp)) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start,
         ) {
-            TypeIcon(type = type)
+            TypeIcon(type = type, size = 18.dp)
             Spacer(modifier = Modifier.width(5.dp))
             Text(
                 text = type.replaceFirstChar { it.uppercase() },

@@ -20,8 +20,10 @@ class MockData {
                 images =
                 PokemonImages(
                     full = "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png",
-                    spriteFront = "https://example.com/bulbasaur_front.png",
-                    spriteBack = "https://example.com/bulbasaur_back.png",
+                    spriteFront =
+                    "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png",
+                    spriteBack =
+                    "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png",
                 ),
             )
         val MOCK_POKEMON_CHARMANDER =
@@ -37,9 +39,11 @@ class MockData {
                 "Obviously prefers hot places. When it rains, steam is said to spout from the tip of its tail.",
                 images =
                 PokemonImages(
-                    full = "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png",
-                    spriteFront = "https://example.com/charmander_front.png",
-                    spriteBack = "https://example.com/charmander_back.png",
+                    full = "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/004.png",
+                    spriteFront =
+                    "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/004.png",
+                    spriteBack =
+                    "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/004.png",
                 ),
             )
         val MOCK_POKEMON_SQUIRTLE =

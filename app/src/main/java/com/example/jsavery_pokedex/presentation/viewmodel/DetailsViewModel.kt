@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.jsavery_pokedex.data.model.Pokemon
 import com.example.jsavery_pokedex.data.repository.PokemonRepository
-import com.example.jsavery_pokedex.domain.PokemonListManager
+import com.example.jsavery_pokedex.domain.manager.PokemonListManager
 import com.example.jsavery_pokedex.domain.usecase.EvolutionDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
