@@ -5,7 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.jsavery_pokedex.data.model.Pokemon
 import com.example.jsavery_pokedex.data.model.PokemonResponse
 import com.example.jsavery_pokedex.data.repository.PokemonRepository
-import com.example.jsavery_pokedex.domain.PokemonListManager
+import com.example.jsavery_pokedex.domain.manager.PokemonFilterManager
+import com.example.jsavery_pokedex.domain.manager.PokemonListManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,6 +20,8 @@ class MainViewModel @Inject constructor(
     private val repository: PokemonRepository,
     private val pokemonListManager: PokemonListManager,
 ) : ViewModel() {
+
+    val filterManager = PokemonFilterManager()
 
     private val _pokemonListUiState =
         MutableStateFlow<PokemonListUiState>(PokemonListUiState.Loading)
@@ -45,7 +48,7 @@ class MainViewModel @Inject constructor(
         _pokemonListUiState.value =
             PokemonListUiState.Success(
                 pokemonList = processPokemonList(pokemonResponse.data),
-                nextPage = pokemonResponse.next ?: FIRST_PAGE,
+                nextPage = pokemonResponse.next,
                 isLoadingMore = false,
             )
     }
@@ -65,7 +68,11 @@ class MainViewModel @Inject constructor(
         _pokemonListUiState.value = PokemonListUiState.Error(throwable = error)
     }
 
-    fun onLoadMore(nextPage: Int) {
+    fun onLoadMore(nextPage: Int?, selectedTypes: List<String>) {
+        if (nextPage == null) {
+            return
+        }
+
         val currentState = _pokemonListUiState.value
         if (currentState !is PokemonListUiState.Success || currentState.isLoadingMore) {
             return // Don't load more if currently already loading
@@ -76,7 +83,7 @@ class MainViewModel @Inject constructor(
                 (it as PokemonListUiState.Success).copy(isLoadingMore = true)
             }
 
-            repository.getPokemonList(nextPage)
+            repository.getPokemonList(nextPage, selectedTypes)
                 .onSuccess {
                     onPokemonListSuccess(it)
                 }
@@ -96,7 +103,7 @@ sealed interface PokemonListUiState {
 
     data class Success(
         val pokemonList: List<Pokemon> = emptyList(),
-        val nextPage: Int = 1,
+        val nextPage: Int?,
         val isLoadingMore: Boolean = false,
     ) : PokemonListUiState
 

@@ -8,9 +8,12 @@ import javax.inject.Inject
 class PokemonRepositoryImpl @Inject constructor(
     private val remoteDataSource: PokemonDataSource,
 ) : PokemonRepository {
-    override suspend fun getPokemonList(nextPage: Int): Result<PokemonResponse> =
+    override suspend fun getPokemonList(
+        nextPage: Int,
+        selectedTypes: List<String>,
+    ): Result<PokemonResponse> =
         runCatching {
-            val response = remoteDataSource.getPokemonList(nextPage)
+            val response = remoteDataSource.getPokemonList(nextPage, selectedTypes)
             response ?: throw NullPointerException("Response is null")
         }
 
@@ -22,7 +25,10 @@ class PokemonRepositoryImpl @Inject constructor(
 }
 
 interface PokemonRepository {
-    suspend fun getPokemonList(nextPage: Int): Result<PokemonResponse>
+    suspend fun getPokemonList(
+        nextPage: Int,
+        selectedTypes: List<String> = emptyList<String>(),
+    ): Result<PokemonResponse>
 
     suspend fun getPokemonDetail(id: Int): Result<Pokemon>
 }
