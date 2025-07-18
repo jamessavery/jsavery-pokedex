@@ -1,0 +1,36 @@
+stages:
+  - quality-check
+
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.configuration-cache=false"
+
+before_script:
+  - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+  - export GRADLE_USER_HOME=$(pwd)/.gradle
+  - chmod +x ./gradlew
+
+spotless-check:
+  image: inovex/gitlab-ci-android
+  stage: quality-check
+  script:
+    - ./gradlew clean spotlessCheck
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+test:
+  image: inovex/gitlab-ci-android
+  stage: quality-check
+  script:
+    - ./gradlew clean testOnlineDebugUnitTest --no-daemon
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - "**/build/test-results/testOnlineDebugUnitTest/TEST-*.xml"
+    paths:
+      - "**/build/reports/tests/testOnlineDebugUnitTest/"
+    expire_in: 7 days
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

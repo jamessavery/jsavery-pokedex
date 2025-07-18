@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Pokédex</string>
+
+    <string name="search_bar_title">Pokédex</string>
+    <string name="search_bar_text">Search by name or #</string>
+
+    <string name="pokemon_details">Pokémon Details</string>
+    <string name="pokemon_details_overview_title">OVERVIEW</string>
+    <string name="pokemon_details_height_title">Height</string>
+    <string name="pokemon_details_weight_title">Weight</string>
+    <string name="pokemon_details_type_title">Type</string>
+    <string name="pokemon_details_evolutions_title">EVOLUTIONS</string>
+    <string name="pokemon_details_kg_label">kg</string>
+    <string name="pokemon_details_m_label">m</string>
+
+    <string name="filter_sort_by_title">Sort By</string>
+    <string name="filter_by_type_title">Filter by Type</string>
+    <string name="sort_option_pokedex_number">Pokédex Number (default)</string>
+    <string name="sort_option_alphabetical_a_z">Alphabetical (A-Z)</string>
+    <string name="sort_option_alphabetical_z_a">Alphabetical (Z-A)</string>
+    <string name="apply">Apply</string>
+
+    <string name="a11y_selected">Selected</string>
+    <string name="a11y_search_field">Search Field</string>
+    <string name="a11y_active_filters">Filters, %s active</string>
+
+
+    <string name="generic_error_message">Something went wrong, please try again later</string>
+</resources>
