@@ -36,13 +36,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation3.runtime.NavBackStack
 import coil3.compose.AsyncImage
 import com.example.jsavery_pokedex.R
 import com.example.jsavery_pokedex.data.model.EvolutionDetail
 import com.example.jsavery_pokedex.data.model.Pokemon
 import com.example.jsavery_pokedex.domain.util.processPokedexId
 import com.example.jsavery_pokedex.mock.MockData
+import com.example.jsavery_pokedex.presentation.navigation.GlobalNavigation
 import com.example.jsavery_pokedex.presentation.navigation.PokemonDetails
 import com.example.jsavery_pokedex.presentation.ui.components.TypesItem
 import com.example.jsavery_pokedex.presentation.ui.components.details.AnthropometryItem
@@ -53,8 +53,10 @@ import com.example.jsavery_pokedex.presentation.viewmodel.DetailsViewModel
 import com.example.jsavery_pokedex.presentation.viewmodel.PokemonDetailsUiState
 
 @Composable
-fun PokemonDetailsScreen(pokemonId: PokemonDetails, backStack: NavBackStack) {
-    val detailsViewModel: DetailsViewModel = hiltViewModel()
+fun PokemonDetailsScreen(pokemonId: PokemonDetails) {
+    val detailsViewModel: DetailsViewModel = hiltViewModel(
+        key = pokemonId.id.toString(),
+    )
     val uiState by detailsViewModel.detailsUiState.collectAsStateWithLifecycle()
 
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -66,11 +68,6 @@ fun PokemonDetailsScreen(pokemonId: PokemonDetails, backStack: NavBackStack) {
 
     PokemonDetailsScreenState(
         uiState = uiState,
-        onBackClick = {
-            if (backStack.size > 1) {
-                backStack.removeLastOrNull()
-            }
-        },
         getEvolutionDetails = {
             detailsViewModel.getPokemonEvolutionDetails(it).getOrNull()
         },
@@ -80,7 +77,6 @@ fun PokemonDetailsScreen(pokemonId: PokemonDetails, backStack: NavBackStack) {
 @Composable
 fun PokemonDetailsScreenState(
     uiState: PokemonDetailsUiState,
-    onBackClick: () -> Unit,
     getEvolutionDetails: (Int) -> List<EvolutionDetail>?,
 ) {
     if (uiState.isLoading) {
@@ -90,7 +86,6 @@ fun PokemonDetailsScreenState(
     } else if (uiState.pokemon != null) {
         PokemonDetailsContent(
             uiState.pokemon,
-            onBackClick = onBackClick,
             getEvolutionDetails = getEvolutionDetails,
         )
     } else {
@@ -100,11 +95,7 @@ fun PokemonDetailsScreenState(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PokemonDetailsContent(
-    pokemon: Pokemon,
-    onBackClick: () -> Unit,
-    getEvolutionDetails: (Int) -> List<EvolutionDetail>?,
-) {
+fun PokemonDetailsContent(pokemon: Pokemon, getEvolutionDetails: (Int) -> List<EvolutionDetail>?) {
     val horizontalPadding = dimensionResource(R.dimen.details_horizontal_padding)
     val statStartPadding = dimensionResource(R.dimen.details_stat_start_padding)
     val scrollState = rememberScrollState()
@@ -117,7 +108,11 @@ fun PokemonDetailsContent(
         TopAppBar(
             title = { Text(text = stringResource(R.string.pokemon_details)) },
             navigationIcon = {
-                IconButton(onClick = { onBackClick() }) {
+                IconButton(
+                    onClick = {
+                        if (GlobalNavigation.canGoBack()) GlobalNavigation.goBack()
+                    },
+                ) {
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBack,
                         null,
@@ -252,7 +247,6 @@ fun PokemonDetailsScreenPreview() {
             isLoading = false,
             pokemon = MockData.MOCK_POKEMON_BULBASAUR,
         ),
-        {},
         {
             listOf(
                 EvolutionDetail(1, "", ""),
