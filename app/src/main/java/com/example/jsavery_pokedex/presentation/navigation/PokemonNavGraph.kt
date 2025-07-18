@@ -51,6 +51,10 @@ fun PokemonNavGraph(viewModel: MainViewModel = hiltViewModel()) {
     val showFilterSheet by filterManager.showFilterSheet.collectAsState()
     var isSheetVisible by remember { mutableStateOf(false) }
 
+    LaunchedEffect(Unit) {
+        GlobalNavigation.initialize(backStack)
+    }
+
     LaunchedEffect(showFilterSheet) {
         isSheetVisible = showFilterSheet
     }
@@ -59,7 +63,9 @@ fun PokemonNavGraph(viewModel: MainViewModel = hiltViewModel()) {
         backStack = backStack,
         onBack = { keysToRemove ->
             repeat(keysToRemove) {
-                backStack.removeLastOrNull()
+                if (GlobalNavigation.canGoBack()) {
+                    GlobalNavigation.goBack()
+                }
             }
         },
         transitionSpec = {
@@ -89,7 +95,7 @@ fun PokemonNavGraph(viewModel: MainViewModel = hiltViewModel()) {
             entry<PokemonDetails>(
                 metadata = ListDetailSceneStrategy.detailPane(),
             ) { pokemonId ->
-                PokemonDetailsScreen(pokemonId, backStack)
+                PokemonDetailsScreen(pokemonId)
             }
         },
     )

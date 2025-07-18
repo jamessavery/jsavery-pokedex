@@ -23,6 +23,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -58,10 +60,15 @@ fun PokedexSearchBar(
                 .height(IntrinsicSize.Min),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
+            val talkback = stringResource(R.string.a11y_search_field)
             OutlinedTextField(
                 value = searchQuery,
                 onValueChange = onSearchQueryChange,
-                modifier = Modifier.weight(0.85f),
+                modifier = Modifier
+                    .weight(0.85f)
+                    .semantics {
+                        contentDescription = talkback
+                    },
                 placeholder = {
                     Text(
                         text = stringResource(R.string.search_bar_text),
@@ -109,7 +116,10 @@ fun PokedexSearchBar(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.filter),
-                    contentDescription = null,
+                    contentDescription = stringResource(
+                        R.string.a11y_active_filters,
+                        filterManager.getActiveFilters(),
+                    ),
                     tint = PokePurple,
                     modifier = Modifier.size(45.dp),
                 )
