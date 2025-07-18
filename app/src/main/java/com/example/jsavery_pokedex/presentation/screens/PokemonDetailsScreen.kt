@@ -185,9 +185,11 @@ fun PokemonDetailsContent(
             ) {
                 AnthropometryItem(
                     title = stringResource(R.string.pokemon_details_height_title),
-                    value = "${pokemon.heightInM}${stringResource(
-                        R.string.pokemon_details_m_label,
-                    )}",
+                    value = "${pokemon.heightInM}${
+                        stringResource(
+                            R.string.pokemon_details_m_label,
+                        )
+                    }",
                     modifier = Modifier
                         .weight(1f)
                         .padding(start = 12.dp),
@@ -200,9 +202,11 @@ fun PokemonDetailsContent(
                 )
                 AnthropometryItem(
                     title = stringResource(R.string.pokemon_details_weight_title),
-                    value = "${pokemon.weightInKg}${stringResource(
-                        R.string.pokemon_details_kg_label,
-                    )}",
+                    value = "${pokemon.weightInKg}${
+                        stringResource(
+                            R.string.pokemon_details_kg_label,
+                        )
+                    }",
                     modifier = Modifier
                         .weight(1f)
                         .padding(start = statStartPadding),
@@ -249,6 +253,12 @@ fun PokemonDetailsScreenPreview() {
             pokemon = MockData.MOCK_POKEMON_BULBASAUR,
         ),
         {},
-        { listOf(EvolutionDetail(1, "", "")) },
+        {
+            listOf(
+                EvolutionDetail(1, "", ""),
+                EvolutionDetail(2, "", ""),
+                EvolutionDetail(3, "", ""),
+            )
+        },
     )
 }

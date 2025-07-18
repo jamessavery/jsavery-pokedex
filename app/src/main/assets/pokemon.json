@@ -1,0 +1,1235 @@
+[
+    {
+        "id": 1,
+        "name": "Bulbasaur",
+        "abilities": [
+            "Overgrow",
+            "Chlorophyll"
+        ],
+        "weight": 6.9,
+        "height": 0.7,
+        "types": [
+            "Grass",
+            "Poison"
+        ],
+        "description": "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png"
+        },
+        "evolutions": [
+            1,
+            2,
+            3
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Ivysaur",
+        "abilities": [
+            "Overgrow",
+            "Chlorophyll"
+        ],
+        "weight": 13.0,
+        "height": 1.0,
+        "types": [
+            "Grass",
+            "Poison"
+        ],
+        "description": "When the bulb on its back grows large, it appears to lose the ability to stand on its hind legs.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/002.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/2.png"
+        },
+        "evolutions": [
+            1,
+            2,
+            3
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Venusaur",
+        "abilities": [
+            "Overgrow",
+            "Chlorophyll"
+        ],
+        "weight": 100.0,
+        "height": 2.0,
+        "types": [
+            "Grass",
+            "Poison"
+        ],
+        "description": "The plant blooms when it is absorbing solar energy. It stays on the move to seek sunlight.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/003.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/3.png"
+        },
+        "evolutions": [
+            1,
+            2,
+            3
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Charmander",
+        "abilities": [
+            "Blaze",
+            "Solar Power"
+        ],
+        "weight": 8.5,
+        "height": 0.6,
+        "types": [
+            "Fire"
+        ],
+        "description": "Obviously prefers hot places. When it rains, steam is said to spout from the tip of its tail.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/004.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/4.png"
+        },
+        "evolutions": [
+            4,
+            5,
+            6
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Charmeleon",
+        "abilities": [
+            "Blaze",
+            "Solar Power"
+        ],
+        "weight": 19.0,
+        "height": 1.1,
+        "types": [
+            "Fire"
+        ],
+        "description": "When it swings its burning tail, it elevates the temperature to unbearably high levels.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/005.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/5.png"
+        },
+        "evolutions": [
+            4,
+            5,
+            6
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Charizard",
+        "abilities": [
+            "Blaze",
+            "Solar Power"
+        ],
+        "weight": 90.5,
+        "height": 1.7,
+        "types": [
+            "Fire",
+            "Flying"
+        ],
+        "description": "Its wings can carry this Pokémon close to an altitude of 4,600 feet. It blows out fire at very high temperatures.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/006.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/6.png"
+        },
+        "evolutions": [
+            4,
+            5,
+            6
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Squirtle",
+        "abilities": [
+            "Torrent",
+            "Rain Dish"
+        ],
+        "weight": 9.0,
+        "height": 0.5,
+        "types": [
+            "Water"
+        ],
+        "description": "When it retracts its long neck into its shell, it squirts out water with vigorous force.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/007.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/7.png"
+        },
+        "evolutions": [
+            7,
+            8,
+            9
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Wartortle",
+        "abilities": [
+            "Torrent",
+            "Rain Dish"
+        ],
+        "weight": 22.5,
+        "height": 1.0,
+        "types": [
+            "Water"
+        ],
+        "description": "It is recognized as a symbol of longevity. If its shell has algae on it, that Wartortle is very old.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/008.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/8.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/8.png"
+        },
+        "evolutions": [
+            7,
+            8,
+            9
+        ]
+    },
+    {
+        "id": 9,
+        "name": "Blastoise",
+        "abilities": [
+            "Torrent",
+            "Rain Dish"
+        ],
+        "weight": 85.5,
+        "height": 1.6,
+        "types": [
+            "Water"
+        ],
+        "description": "The rocket cannons on its shell fire jets of water capable of punching holes through thick steel.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/009.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/9.png"
+        },
+        "evolutions": [
+            7,
+            8,
+            9
+        ]
+    },
+    {
+        "id": 10,
+        "name": "Caterpie",
+        "abilities": [
+            "Shield Dust",
+            "Run Away"
+        ],
+        "weight": 2.9,
+        "height": 0.3,
+        "types": [
+            "Bug"
+        ],
+        "description": "For protection, it releases a horrible stench from the antennae on its head to drive away enemies.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/010.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/10.png"
+        },
+        "evolutions": [
+            10,
+            11,
+            12
+        ]
+    },
+    {
+        "id": 11,
+        "name": "Metapod",
+        "abilities": [
+            "Shed Skin"
+        ],
+        "weight": 9.9,
+        "height": 0.7,
+        "types": [
+            "Bug"
+        ],
+        "description": "This Pokémon is vulnerable to attack while its shell is soft, exposing its weak and tender body.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/011.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/11.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/11.png"
+        },
+        "evolutions": [
+            10,
+            11,
+            12
+        ]
+    },
+    {
+        "id": 12,
+        "name": "Butterfree",
+        "abilities": [
+            "Compound Eyes",
+            "Tinted Lens"
+        ],
+        "weight": 32.0,
+        "height": 1.1,
+        "types": [
+            "Bug",
+            "Flying"
+        ],
+        "description": "In battle, it flaps its wings at great speed to release highly toxic dust into the air.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/012.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/12.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/12.png"
+        },
+        "evolutions": [
+            10,
+            11,
+            12
+        ]
+    },
+    {
+        "id": 13,
+        "name": "Weedle",
+        "abilities": [
+            "Shield Dust",
+            "Run Away"
+        ],
+        "weight": 3.2,
+        "height": 0.3,
+        "types": [
+            "Bug",
+            "Poison"
+        ],
+        "description": "Often found in forests, eating leaves. It has a sharp venomous stinger on its head.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/013.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/13.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/13.png"
+        },
+        "evolutions": [
+            13,
+            14,
+            15
+        ]
+    },
+    {
+        "id": 14,
+        "name": "Kakuna",
+        "abilities": [
+            "Shed Skin"
+        ],
+        "weight": 10.0,
+        "height": 0.6,
+        "types": [
+            "Bug",
+            "Poison"
+        ],
+        "description": "Almost incapable of moving, this Pokémon can only harden its shell to protect itself from predators.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/014.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/14.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/14.png"
+        },
+        "evolutions": [
+            13,
+            14,
+            15
+        ]
+    },
+    {
+        "id": 15,
+        "name": "Beedrill",
+        "abilities": [
+            "Swarm",
+            "Sniper"
+        ],
+        "weight": 29.5,
+        "height": 1.0,
+        "types": [
+            "Bug",
+            "Poison"
+        ],
+        "description": "It has three poisonous stingers on its forelegs and its tail. They are used to jab its enemy repeatedly.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/015.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/15.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/15.png"
+        },
+        "evolutions": [
+            13,
+            14,
+            15
+        ]
+    },
+    {
+        "id": 16,
+        "name": "Pidgey",
+        "abilities": [
+            "Keen Eye",
+            "Tangled Feet",
+            "Big Pecks"
+        ],
+        "weight": 1.8,
+        "height": 0.3,
+        "types": [
+            "Normal",
+            "Flying"
+        ],
+        "description": "Very docile. If attacked, it will often kick up sand to protect itself rather than fight back.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/016.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/16.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/16.png"
+        },
+        "evolutions": [
+            16,
+            17,
+            18
+        ]
+    },
+    {
+        "id": 17,
+        "name": "Pidgeotto",
+        "abilities": [
+            "Keen Eye",
+            "Tangled Feet",
+            "Big Pecks"
+        ],
+        "weight": 30.0,
+        "height": 1.1,
+        "types": [
+            "Normal",
+            "Flying"
+        ],
+        "description": "This Pokémon is full of vitality. It constantly flies around its large territory in search of prey.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/017.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/17.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/17.png"
+        },
+        "evolutions": [
+            16,
+            17,
+            18
+        ]
+    },
+    {
+        "id": 18,
+        "name": "Pidgeot",
+        "abilities": [
+            "Keen Eye",
+            "Tangled Feet",
+            "Big Pecks"
+        ],
+        "weight": 39.5,
+        "height": 1.5,
+        "types": [
+            "Normal",
+            "Flying"
+        ],
+        "description": "This Pokémon has a dazzling plumage of beautifully glossy feathers. Many Trainers are captivated by the striking beauty of the feathers on its head.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/018.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/18.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/18.png"
+        },
+        "evolutions": [
+            16,
+            17,
+            18
+        ]
+    },
+    {
+        "id": 19,
+        "name": "Rattata",
+        "abilities": [
+            "Run Away",
+            "Guts",
+            "Hustle"
+        ],
+        "weight": 3.5,
+        "height": 0.3,
+        "types": [
+            "Normal"
+        ],
+        "description": "Will chew on anything with its fangs. If you see one, it is certain that 40 more live in the area.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/019.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/19.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/19.png"
+        },
+        "evolutions": [
+            19,
+            20
+        ]
+    },
+    {
+        "id": 20,
+        "name": "Raticate",
+        "abilities": [
+            "Run Away",
+            "Guts",
+            "Hustle"
+        ],
+        "weight": 18.5,
+        "height": 0.7,
+        "types": [
+            "Normal"
+        ],
+        "description": "Its hind feet are webbed. They act as flippers, so it can swim in rivers and hunt for prey.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/020.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/20.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/20.png"
+        },
+        "evolutions": [
+            19,
+            20
+        ]
+    },
+    {
+        "id": 21,
+        "name": "Spearow",
+        "abilities": [
+            "Keen eye",
+            "Sniper"
+        ],
+        "weight": 2.0,
+        "height": 0.3,
+        "types": [
+            "Normal",
+            "Flying"
+        ],
+        "description": "It flaps its small wings busily to fly. Using its beak, it searches in grass for prey.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/021.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/21.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/21.png"
+        },
+        "evolutions": [
+            21,
+            22
+        ]
+    },
+    {
+        "id": 22,
+        "name": "Fearow",
+        "abilities": [
+            "Keen eye",
+            "Sniper"
+        ],
+        "weight": 38.0,
+        "height": 1.2,
+        "types": [
+            "Normal",
+            "Flying"
+        ],
+        "description": "With its huge and magnificent wings, it can keep aloft without ever having to land for rest.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/022.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/22.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/22.png"
+        },
+        "evolutions": [
+            21,
+            22
+        ]
+    },
+    {
+        "id": 23,
+        "name": "Ekans",
+        "abilities": [
+            "Intimidate",
+            "Shed skin",
+            "Unnerve"
+        ],
+        "weight": 6.9,
+        "height": 2.0,
+        "types": [
+            "Poison"
+        ],
+        "description": "Moves silently and stealthily. Eats the eggs of birds, such as Pidgey and Spearow, whole.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/023.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/23.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/23.png"
+        },
+        "evolutions": [
+            23,
+            24
+        ]
+    },
+    {
+        "id": 24,
+        "name": "Arbok",
+        "abilities": [
+            "Intimidate",
+            "Shed skin",
+            "Unnerve"
+        ],
+        "weight": 65.0,
+        "height": 3.5,
+        "types": [
+            "Poison"
+        ],
+        "description": "It is rumored that the ferocious warning markings on its belly differ from area to area.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/024.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/24.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/24.png"
+        },
+        "evolutions": [
+            23,
+            24
+        ]
+    },
+    {
+        "id": 25,
+        "name": "Pikachu",
+        "abilities": [
+            "Static",
+            "Lightning rod"
+        ],
+        "weight": 6.0,
+        "height": 0.4,
+        "types": [
+            "Electric"
+        ],
+        "description": "When several of these Pokémon gather, their electricity could build and cause lightning storms.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/025.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/25.png"
+        },
+        "evolutions": [
+            172,
+            25,
+            26
+        ]
+    },
+    {
+        "id": 26,
+        "name": "Raichu",
+        "abilities": [
+            "Static",
+            "Lightning rod"
+        ],
+        "weight": 30.0,
+        "height": 0.8,
+        "types": [
+            "Electric"
+        ],
+        "description": "Its long tail serves as a ground to protect itself from its own high-voltage power.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/026.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/26.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/26.png"
+        },
+        "evolutions": [
+            172,
+            25,
+            26
+        ]
+    },
+    {
+        "id": 27,
+        "name": "Sandshrew",
+        "abilities": [
+            "Sand veil",
+            "Sand rush"
+        ],
+        "weight": 12.0,
+        "height": 0.6,
+        "types": [
+            "Ground"
+        ],
+        "description": "Burrows deep underground in arid locations far from water. It only emerges to hunt for food.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/027.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/27.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/27.png"
+        },
+        "evolutions": [
+            27,
+            28
+        ]
+    },
+    {
+        "id": 28,
+        "name": "Sandslash",
+        "abilities": [
+            "Sand veil",
+            "Sand rush"
+        ],
+        "weight": 29.5,
+        "height": 1.0,
+        "types": [
+            "Ground"
+        ],
+        "description": "Curls up into a spiny ball when threatened. It can roll while curled up to attack or escape.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/028.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/28.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/28.png"
+        },
+        "evolutions": [
+            27,
+            28
+        ]
+    },
+    {
+        "id": 29,
+        "name": "Nidoran♀",
+        "abilities": [
+            "Poison point",
+            "Rivalry",
+            "Hustle"
+        ],
+        "weight": 7.0,
+        "height": 0.4,
+        "types": [
+            "Poison"
+        ],
+        "description": "Although small, its venomous barbs render this Pokémon dangerous. The female has smaller horns.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/029.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/29.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/29.png"
+        },
+        "evolutions": [
+            29,
+            30,
+            31
+        ]
+    },
+    {
+        "id": 30,
+        "name": "Nidorina",
+        "abilities": [
+            "Poison point",
+            "Rivalry",
+            "Hustle"
+        ],
+        "weight": 20.0,
+        "height": 0.8,
+        "types": [
+            "Poison"
+        ],
+        "description": "The female's horn develops slowly. Prefers physical attacks such as clawing and biting.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/030.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/30.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/30.png"
+        },
+        "evolutions": [
+            29,
+            30,
+            31
+        ]
+    },
+    {
+        "id": 31,
+        "name": "Nidoqueen",
+        "abilities": [
+            "Poison Point",
+            "Rivalry",
+            "Sheer Force"
+        ],
+        "weight": 60.0,
+        "height": 1.3,
+        "types": [
+            "Poison",
+            "Ground"
+        ],
+        "description": "Its hard scales provide strong protection. It uses its hefty bulk to execute powerful moves.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/031.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/31.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/31.png"
+        },
+        "evolutions": [
+            29,
+            30,
+            31
+        ]
+    },
+    {
+        "id": 32,
+        "name": "Nidoran♂",
+        "abilities": [
+            "Poison Point",
+            "Rivalry",
+            "Hustle"
+        ],
+        "weight": 9.0,
+        "height": 0.5,
+        "types": [
+            "Poison"
+        ],
+        "description": "Stiffens its ears to sense danger. The larger its horns, the more powerful its secreted venom.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/032.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/32.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/32.png"
+        },
+        "evolutions": [
+            32,
+            33,
+            34
+        ]
+    },
+    {
+        "id": 33,
+        "name": "Nidorino",
+        "abilities": [
+            "Poison Point",
+            "Rivalry",
+            "Hustle"
+        ],
+        "weight": 19.5,
+        "height": 0.9,
+        "types": [
+            "Poison"
+        ],
+        "description": "An aggressive Pokémon that is quick to attack. The horn on its head secretes a powerful venom.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/033.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/33.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/33.png"
+        },
+        "evolutions": [
+            32,
+            33,
+            34
+        ]
+    },
+    {
+        "id": 34,
+        "name": "Nidoking",
+        "abilities": [
+            "Poison Point",
+            "Rivalry",
+            "Sheer Force"
+        ],
+        "weight": 62.0,
+        "height": 1.4,
+        "types": [
+            "Poison",
+            "Ground"
+        ],
+        "description": "It uses its powerful tail in battle to smash, constrict, then break the prey's bones.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/034.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/34.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/34.png"
+        },
+        "evolutions": [
+            32,
+            33,
+            34
+        ]
+    },
+    {
+        "id": 35,
+        "name": "Clefairy",
+        "abilities": [
+            "Cute Charm",
+            "Magic Guard",
+            "Friend Guard"
+        ],
+        "weight": 7.5,
+        "height": 0.6,
+        "types": [
+            "Fairy"
+        ],
+        "description": "Its magical and cute appeal has many admirers. It is rare and found only in certain areas.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/035.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/35.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/35.png"
+        },
+        "evolutions": [
+            173,
+            35,
+            36
+        ]
+    },
+    {
+        "id": 36,
+        "name": "Clefable",
+        "abilities": [
+            "Cute Charm",
+            "Magic Guard",
+            "Unaware"
+        ],
+        "weight": 40.0,
+        "height": 1.3,
+        "types": [
+            "Fairy"
+        ],
+        "description": "A timid fairy Pokémon that is rarely seen. It will run and hide the moment it senses people.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/036.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/36.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/36.png"
+        },
+        "evolutions": [
+            173,
+            35,
+            36
+        ]
+    },
+    {
+        "id": 37,
+        "name": "Vulpix",
+        "abilities": [
+            "Flash Fire",
+            "Drought"
+        ],
+        "weight": 9.9,
+        "height": 0.6,
+        "types": [
+            "Fire"
+        ],
+        "description": "While young, it has six gorgeous tails. When it grows, several new tails are sprouted.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/037.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/37.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/37.png"
+        },
+        "evolutions": [
+            37,
+            38
+        ]
+    },
+    {
+        "id": 38,
+        "name": "Ninetales",
+        "abilities": [
+            "Flash Fire",
+            "Drought"
+        ],
+        "weight": 19.9,
+        "height": 1.1,
+        "types": [
+            "Fire"
+        ],
+        "description": "Very smart and very vengeful. Grabbing one of its many tails could result in a 1,000-year curse.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/038.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/38.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/38.png"
+        },
+        "evolutions": [
+            37,
+            38
+        ]
+    },
+    {
+        "id": 39,
+        "name": "Jigglypuff",
+        "abilities": [
+            "Cute Charm",
+            "Competitive",
+            "Friend Guard"
+        ],
+        "weight": 5.5,
+        "height": 0.5,
+        "types": [
+            "Normal",
+            "Fairy"
+        ],
+        "description": "When its huge eyes waver, it sings a mysteriously soothing melody that lulls its enemies to sleep.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/039.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/39.png"
+        },
+        "evolutions": [
+            174,
+            39,
+            40
+        ]
+    },
+    {
+        "id": 40,
+        "name": "Wigglytuff",
+        "abilities": [
+            "Cute Charm",
+            "Competitive",
+            "Frisk"
+        ],
+        "weight": 12.0,
+        "height": 1.0,
+        "types": [
+            "Normal",
+            "Fairy"
+        ],
+        "description": "The body is soft and rubbery. When angered, it will suck in air and inflate itself to an enormous size.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/040.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/40.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/40.png"
+        },
+        "evolutions": [
+            174,
+            39,
+            40
+        ]
+    },
+    {
+        "id": 41,
+        "name": "Zubat",
+        "abilities": [
+            "Inner Focus",
+            "Infiltrator"
+        ],
+        "weight": 7.5,
+        "height": 0.8,
+        "types": [
+            "Poison",
+            "Flying"
+        ],
+        "description": "Forms colonies in perpetually dark places. Uses ultrasonic waves to identify and approach targets.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/041.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/41.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/41.png"
+        },
+        "evolutions": [
+            41,
+            42,
+            169
+        ]
+    },
+    {
+        "id": 42,
+        "name": "Golbat",
+        "abilities": [
+            "Inner Focus",
+            "Infiltrator"
+        ],
+        "weight": 55.0,
+        "height": 1.6,
+        "types": [
+            "Poison",
+            "Flying"
+        ],
+        "description": "Once it strikes, it will not stop draining energy from the victim even if it gets too heavy to fly.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/042.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/42.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/42.png"
+        },
+        "evolutions": [
+            41,
+            42,
+            169
+        ]
+    },
+    {
+        "id": 43,
+        "name": "Oddish",
+        "abilities": [
+            "Chlorophyll",
+            "Run Away"
+        ],
+        "weight": 5.4,
+        "height": 0.5,
+        "types": [
+            "Grass",
+            "Poison"
+        ],
+        "description": "During the day, it keeps its face buried in the ground. At night, it wanders around sowing its seeds.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/043.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/43.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/43.png"
+        },
+        "evolutions": [
+            43,
+            44,
+            45,
+            182
+        ]
+    },
+    {
+        "id": 44,
+        "name": "Gloom",
+        "abilities": [
+            "Chlorophyll",
+            "Stench"
+        ],
+        "weight": 8.6,
+        "height": 0.8,
+        "types": [
+            "Grass",
+            "Poison"
+        ],
+        "description": "The fluid that oozes from its mouth isn't drool. It is a nectar that is used to attract prey.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/044.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/44.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/44.png"
+        },
+        "evolutions": [
+            43,
+            44,
+            45,
+            182
+        ]
+    },
+    {
+        "id": 45,
+        "name": "Vileplume",
+        "abilities": [
+            "Chlorophyll",
+            "Effect Spore"
+        ],
+        "weight": 18.6,
+        "height": 1.2,
+        "types": [
+            "Grass",
+            "Poison"
+        ],
+        "description": "The larger its petals, the more toxic pollen it contains. Its big head is heavy and hard to hold up.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/045.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/45.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/45.png"
+        },
+        "evolutions": [
+            43,
+            44,
+            45,
+            182
+        ]
+    },
+    {
+        "id": 46,
+        "name": "Paras",
+        "abilities": [
+            "Effect Spore",
+            "Dry Skin",
+            "Damp"
+        ],
+        "weight": 5.4,
+        "height": 0.3,
+        "types": [
+            "Bug",
+            "Grass"
+        ],
+        "description": "Burrows to suck tree roots. The mushrooms on its back grow by drawing nutrients from the bug host.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/046.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/46.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/46.png"
+        },
+        "evolutions": [
+            46,
+            47
+        ]
+    },
+    {
+        "id": 47,
+        "name": "Parasect",
+        "abilities": [
+            "Effect Spore",
+            "Dry Skin",
+            "Damp"
+        ],
+        "weight": 29.5,
+        "height": 1.0,
+        "types": [
+            "Bug",
+            "Grass"
+        ],
+        "description": "A host-parasite pair in which the parasite mushroom has taken over the host bug. Prefers damp places.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/047.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/47.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/47.png"
+        },
+        "evolutions": [
+            46,
+            47
+        ]
+    },
+    {
+        "id": 48,
+        "name": "Venonat",
+        "abilities": [
+            "Compound Eyes",
+            "Tinted Lens",
+            "Run Away"
+        ],
+        "weight": 30.0,
+        "height": 1.0,
+        "types": [
+            "Bug",
+            "Poison"
+        ],
+        "description": "Lives in the shadows of tall trees where it eats insects. It is attracted by light at night.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/048.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/48.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/48.png"
+        },
+        "evolutions": [
+            48,
+            49
+        ]
+    },
+    {
+        "id": 49,
+        "name": "Venomoth",
+        "abilities": [
+            "Shield Dust",
+            "Tinted Lens",
+            "Wonder Skin"
+        ],
+        "weight": 12.5,
+        "height": 1.5,
+        "types": [
+            "Bug",
+            "Poison"
+        ],
+        "description": "The dust-like scales covering its wings are color-coded to indicate the kinds of poison it has.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/049.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/49.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/49.png"
+        },
+        "evolutions": [
+            48,
+            49
+        ]
+    },
+    {
+        "id": 50,
+        "name": "Diglett",
+        "abilities": [
+            "Sand Veil",
+            "Arena Trap",
+            "Sand Force"
+        ],
+        "weight": 0.8,
+        "height": 0.2,
+        "types": [
+            "Ground"
+        ],
+        "description": "Lives about one yard underground where it feeds on plant roots. It sometimes appears above ground.",
+        "images": {
+            "full": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/050.png",
+            "sprite_front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/50.png",
+            "sprite_back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/50.png"
+        },
+        "evolutions": [
+            50
+        ]
+    }
+]

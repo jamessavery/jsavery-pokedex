@@ -56,6 +56,31 @@ android {
     tasks.withType<Test> {
         useJUnitPlatform()
     }
+
+    flavorDimensions += "connectivity"
+
+    productFlavors {
+        create("online") {
+            dimension = "connectivity"
+        }
+        create("offline") {
+            dimension = "connectivity"
+            applicationIdSuffix = ".offline"
+            versionNameSuffix = "-offline"
+        }
+    }
+
+    sourceSets {
+        getByName("main") {
+            java.srcDirs("src/main/java")
+        }
+        getByName("online") {
+            java.srcDirs("src/online/java")
+        }
+        getByName("offline") {
+            java.srcDirs("src/offline/java")
+        }
+    }
 }
 
 dependencies {

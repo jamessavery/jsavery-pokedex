@@ -22,14 +22,14 @@ test:
   image: inovex/gitlab-ci-android
   stage: quality-check
   script:
-    - ./gradlew clean testDebugUnitTest --no-daemon
+    - ./gradlew clean testOnlineDebugUnitTest --no-daemon
   artifacts:
     when: always
     reports:
       junit:
-        - "**/build/test-results/testDebugUnitTest/TEST-*.xml"
+        - "**/build/test-results/testOnlineDebugUnitTest/TEST-*.xml"
     paths:
-      - "**/build/reports/tests/testDebugUnitTest/"
+      - "**/build/reports/tests/testOnlineDebugUnitTest/"
     expire_in: 7 days
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
