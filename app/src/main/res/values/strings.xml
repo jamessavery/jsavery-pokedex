@@ -21,6 +21,8 @@
     <string name="apply">Apply</string>
 
     <string name="a11y_selected">Selected</string>
+    <string name="a11y_search_field">Search Field</string>
+    <string name="a11y_active_filters">Filters, %s active</string>
 
 
     <string name="generic_error_message">Something went wrong, please try again later</string>

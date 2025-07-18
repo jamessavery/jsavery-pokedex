@@ -35,6 +35,9 @@ class PokemonFilterManager {
         _filterState.value = _filterState.value.copy(selectedTypes = newTypes)
     }
 
+    fun getActiveFilters(): String =
+        filterState.value.selectedTypes.size.toString()
+
     companion object {
         const val MAX_CONCURRENT_TYPES = 2
     }

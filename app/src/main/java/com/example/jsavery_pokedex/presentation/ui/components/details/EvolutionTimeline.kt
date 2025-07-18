@@ -1,5 +1,6 @@
 package com.example.jsavery_pokedex.presentation.ui.components.details
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -41,6 +42,7 @@ import com.example.jsavery_pokedex.R
 import com.example.jsavery_pokedex.data.model.EvolutionDetail
 import com.example.jsavery_pokedex.domain.util.processPokedexId
 import com.example.jsavery_pokedex.mock.MockData
+import com.example.jsavery_pokedex.presentation.navigation.GlobalNavigation
 import com.example.jsavery_pokedex.presentation.ui.theme.PokePurple
 
 @Composable
@@ -64,13 +66,19 @@ fun EvolutionTimeline(
         )
 
         evolutions.forEachIndexed { index, evolutionDetail ->
+            val isCurrent = currentPokemonId == evolutionDetail.id
             EvolutionItem(
-                isCurrent = currentPokemonId == evolutionDetail.id,
+                isCurrent = isCurrent,
                 currentIndex = index,
                 totalEvolutions = evolutions.size,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = dimensionResource(R.dimen.details_horizontal_padding)),
+                    .padding(start = dimensionResource(R.dimen.details_horizontal_padding))
+                    .clickable {
+                        if (!isCurrent) {
+                            GlobalNavigation.launchPokemonDetailsScreen(evolutionDetail.id)
+                        }
+                    },
                 evolutionDetail = evolutionDetail,
             )
         }
