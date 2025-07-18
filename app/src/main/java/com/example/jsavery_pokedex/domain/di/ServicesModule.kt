@@ -17,11 +17,15 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 @Module
 @InstallIn(SingletonComponent::class)
 class ServicesModule {
+
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit {
-        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    fun provideMoshi(): Moshi =
+        Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
+    @Provides
+    @Singleton
+    fun provideRetrofit(moshi: Moshi): Retrofit {
         val loggingInterceptor =
             HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
 
