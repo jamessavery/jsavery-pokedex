@@ -1,7 +1,7 @@
 [versions]
 activityCompose = "1.9.3"
 agp = "8.9.1"
-coilCompose = "3.0.0-rc01"
+coilCompose = "3.3.0"
 composeBom = "2025.06.01"
 coreKtx = "1.13.1"
 coreTesting = "2.2.0"
