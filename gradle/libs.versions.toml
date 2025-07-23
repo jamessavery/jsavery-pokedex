@@ -24,7 +24,7 @@ navigationRuntimeKtx = "2.8.3"
 retrofit = "3.0.0"
 retrofit2KotlinCoroutinesAdapter = "0.9.2"
 spotless = "7.0.4"
-turbine = "1.1.0"
+turbine = "1.2.1"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
